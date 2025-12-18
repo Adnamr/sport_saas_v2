@@ -1,0 +1,121 @@
+# ═══════════════════════════════════════════════════════════════════
+# FEATURE E3: Backend - Authentification & Users
+# ═══════════════════════════════════════════════════════════════════
+# Synchronisé depuis OpenProject le 2025-12-18 23:38
+# Tickets: 12 | Estimation: 39h (~4 jours)
+
+feature:
+  id: "E3"
+  openproject_id: 905
+  name: "Backend - Authentification & Users"
+  description: |
+    **Feature E3** - Sprint 3
+    
+    **Tickets:** 12
+    **Estimation:** 39h
+    
+    **Dépendances:** E2-001, E1-003, E3-001, E3-009, E3-006, E3-003, E3-005, E3-002, E1-004, E3-004
+    
+
+  module: "backend"
+  priority: "high"
+  estimated_days: 4
+  status: "todo"
+
+# ═══════════════════════════════════════════════════════════════════
+# TICKETS INCLUS
+# ═══════════════════════════════════════════════════════════════════
+
+tickets:
+
+  - id: "E3-001"
+    openproject_id: 906
+    title: "Modèle User"
+    priority: "medium"
+    estimated_hours: 3
+    status: "new"
+
+  - id: "E3-002"
+    openproject_id: 907
+    title: "Configuration Spring Security"
+    priority: "medium"
+    estimated_hours: 5
+    status: "new"
+
+  - id: "E3-003"
+    openproject_id: 908
+    title: "JwtService - Génération & Validation"
+    priority: "medium"
+    estimated_hours: 5
+    status: "new"
+
+  - id: "E3-004"
+    openproject_id: 909
+    title: "JwtAuthenticationFilter"
+    priority: "medium"
+    estimated_hours: 3
+    status: "new"
+
+  - id: "E3-005"
+    openproject_id: 910
+    title: "Endpoint POST /api/auth/login"
+    priority: "medium"
+    estimated_hours: 3
+    status: "new"
+
+  - id: "E3-006"
+    openproject_id: 911
+    title: "Endpoint POST /api/auth/register"
+    priority: "medium"
+    estimated_hours: 5
+    status: "new"
+
+  - id: "E3-007"
+    openproject_id: 912
+    title: "Endpoint POST /api/auth/refresh"
+    priority: "medium"
+    estimated_hours: 2
+    status: "new"
+
+  - id: "E3-008"
+    openproject_id: 913
+    title: "Endpoint GET /api/auth/me"
+    priority: "medium"
+    estimated_hours: 1
+    status: "new"
+
+  - id: "E3-009"
+    openproject_id: 914
+    title: "Forgot Password"
+    priority: "medium"
+    estimated_hours: 3
+    status: "new"
+
+  - id: "E3-010"
+    openproject_id: 915
+    title: "Reset Password"
+    priority: "medium"
+    estimated_hours: 3
+    status: "new"
+
+  - id: "E3-011"
+    openproject_id: 916
+    title: "Email Verification"
+    priority: "medium"
+    estimated_hours: 3
+    status: "new"
+
+  - id: "E3-012"
+    openproject_id: 917
+    title: "RBAC Annotations"
+    priority: "medium"
+    estimated_hours: 3
+    status: "new"
+
+# ═══════════════════════════════════════════════════════════════════
+# NOTES
+# ═══════════════════════════════════════════════════════════════════
+
+notes: |
+  Importé depuis OpenProject le 2025-12-18 23:38
+  URL: https://aam.openproject.com/work_packages/905

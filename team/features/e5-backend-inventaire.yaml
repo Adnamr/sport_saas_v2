@@ -1,0 +1,93 @@
+# ═══════════════════════════════════════════════════════════════════
+# FEATURE E5: Backend - Inventaire
+# ═══════════════════════════════════════════════════════════════════
+# Synchronisé depuis OpenProject le 2025-12-18 23:38
+# Tickets: 8 | Estimation: 28h (~3 jours)
+
+feature:
+  id: "E5"
+  openproject_id: 927
+  name: "Backend - Inventaire"
+  description: |
+    **Feature E5** - Sprint 5
+    
+    **Tickets:** 8
+    **Estimation:** 28h
+    
+    **Dépendances:** E5-003, E5-002, E4-002, E1-004, E5-005, E5-001, E5-004
+    
+
+  module: "backend"
+  priority: "high"
+  estimated_days: 3
+  status: "todo"
+
+# ═══════════════════════════════════════════════════════════════════
+# TICKETS INCLUS
+# ═══════════════════════════════════════════════════════════════════
+
+tickets:
+
+  - id: "E5-001"
+    openproject_id: 928
+    title: "Modèle Warehouse"
+    priority: "medium"
+    estimated_hours: 2
+    status: "new"
+
+  - id: "E5-002"
+    openproject_id: 929
+    title: "Modèle Stock"
+    priority: "medium"
+    estimated_hours: 3
+    status: "new"
+
+  - id: "E5-003"
+    openproject_id: 930
+    title: "Modèle StockMovement"
+    priority: "medium"
+    estimated_hours: 3
+    status: "new"
+
+  - id: "E5-004"
+    openproject_id: 931
+    title: "Modèle Reservation"
+    priority: "medium"
+    estimated_hours: 3
+    status: "new"
+
+  - id: "E5-005"
+    openproject_id: 932
+    title: "StockService"
+    priority: "medium"
+    estimated_hours: 5
+    status: "new"
+
+  - id: "E5-006"
+    openproject_id: 933
+    title: "ReservationService"
+    priority: "medium"
+    estimated_hours: 5
+    status: "new"
+
+  - id: "E5-007"
+    openproject_id: 934
+    title: "API REST /api/warehouses"
+    priority: "medium"
+    estimated_hours: 2
+    status: "new"
+
+  - id: "E5-008"
+    openproject_id: 935
+    title: "API REST /api/stock"
+    priority: "medium"
+    estimated_hours: 5
+    status: "new"
+
+# ═══════════════════════════════════════════════════════════════════
+# NOTES
+# ═══════════════════════════════════════════════════════════════════
+
+notes: |
+  Importé depuis OpenProject le 2025-12-18 23:38
+  URL: https://aam.openproject.com/work_packages/927

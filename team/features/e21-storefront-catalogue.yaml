@@ -1,0 +1,128 @@
+# ═══════════════════════════════════════════════════════════════════
+# FEATURE E21: Storefront - Catalogue
+# ═══════════════════════════════════════════════════════════════════
+# Synchronisé depuis OpenProject le 2025-12-18 23:38
+# Tickets: 13 | Estimation: 48h (~6 jours)
+
+feature:
+  id: "E21"
+  openproject_id: 1067
+  name: "Storefront - Catalogue"
+  description: |
+    **Feature E21** - Sprint 15-16
+    
+    **Tickets:** 13
+    **Estimation:** 48h
+    
+    **Dépendances:** E21-003, E21-008, E21-001, E21-002, E20-001
+    
+
+  module: "storefront"
+  priority: "high"
+  estimated_days: 6
+  status: "todo"
+
+# ═══════════════════════════════════════════════════════════════════
+# TICKETS INCLUS
+# ═══════════════════════════════════════════════════════════════════
+
+tickets:
+
+  - id: "E21-001"
+    openproject_id: 1068
+    title: "CatalogService Public"
+    priority: "medium"
+    estimated_hours: 3
+    status: "new"
+
+  - id: "E21-002"
+    openproject_id: 1069
+    title: "Page Catalogue"
+    priority: "medium"
+    estimated_hours: 4
+    status: "new"
+
+  - id: "E21-003"
+    openproject_id: 1070
+    title: "Filtres Sidebar"
+    priority: "medium"
+    estimated_hours: 6
+    status: "new"
+
+  - id: "E21-004"
+    openproject_id: 1071
+    title: "Product Card"
+    priority: "medium"
+    estimated_hours: 4
+    status: "new"
+
+  - id: "E21-005"
+    openproject_id: 1072
+    title: "Tri & Vue Toggle"
+    priority: "medium"
+    estimated_hours: 2
+    status: "new"
+
+  - id: "E21-006"
+    openproject_id: 1073
+    title: "Pagination"
+    priority: "medium"
+    estimated_hours: 2
+    status: "new"
+
+  - id: "E21-007"
+    openproject_id: 1074
+    title: "Filtres Mobile Drawer"
+    priority: "medium"
+    estimated_hours: 3
+    status: "new"
+
+  - id: "E21-008"
+    openproject_id: 1075
+    title: "Page Détail Produit"
+    priority: "medium"
+    estimated_hours: 5
+    status: "new"
+
+  - id: "E21-009"
+    openproject_id: 1076
+    title: "Galerie Images"
+    priority: "medium"
+    estimated_hours: 4
+    status: "new"
+
+  - id: "E21-010"
+    openproject_id: 1077
+    title: "Sélecteur Variantes"
+    priority: "medium"
+    estimated_hours: 4
+    status: "new"
+
+  - id: "E21-011"
+    openproject_id: 1078
+    title: "Add to Cart"
+    priority: "medium"
+    estimated_hours: 4
+    status: "new"
+
+  - id: "E21-012"
+    openproject_id: 1079
+    title: "Section Avis"
+    priority: "medium"
+    estimated_hours: 4
+    status: "new"
+
+  - id: "E21-013"
+    openproject_id: 1080
+    title: "Produits Similaires"
+    priority: "medium"
+    estimated_hours: 3
+    status: "new"
+
+# ═══════════════════════════════════════════════════════════════════
+# NOTES
+# ═══════════════════════════════════════════════════════════════════
+
+notes: |
+  Importé depuis OpenProject le 2025-12-18 23:38
+  URL: https://aam.openproject.com/work_packages/1067

@@ -1,0 +1,15 @@
+spring:
+  jpa:
+    show-sql: false
+    hibernate:
+      ddl-auto: none
+
+  flyway:
+    clean-disabled: true
+
+logging:
+  level:
+    root: WARN
+    com.sportsaas: INFO
+    org.springframework.security: WARN
+    org.hibernate.SQL: WARN

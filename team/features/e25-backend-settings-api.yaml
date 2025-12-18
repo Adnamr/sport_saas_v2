@@ -1,0 +1,100 @@
+# ═══════════════════════════════════════════════════════════════════
+# FEATURE E25: Backend - Settings API
+# ═══════════════════════════════════════════════════════════════════
+# Synchronisé depuis OpenProject le 2025-12-18 23:38
+# Tickets: 9 | Estimation: 28h (~3 jours)
+
+feature:
+  id: "E25"
+  openproject_id: 1119
+  name: "Backend - Settings API"
+  description: |
+    **Feature E25** - Sprint 14
+    
+    **Tickets:** 9
+    **Estimation:** 28h
+    
+    **Dépendances:** E25-001, E25-003, E2-001, E9-001, E25-008, E1-004, E25-002
+    
+
+  module: "backend"
+  priority: "medium"
+  estimated_days: 3
+  status: "todo"
+
+# ═══════════════════════════════════════════════════════════════════
+# TICKETS INCLUS
+# ═══════════════════════════════════════════════════════════════════
+
+tickets:
+
+  - id: "E25-001"
+    openproject_id: 1120
+    title: "Modèle TenantSettings"
+    priority: "medium"
+    estimated_hours: 3
+    status: "new"
+
+  - id: "E25-002"
+    openproject_id: 1121
+    title: "Modèle TaxRate"
+    priority: "medium"
+    estimated_hours: 2
+    status: "new"
+
+  - id: "E25-003"
+    openproject_id: 1122
+    title: "Modèle ShippingMethod"
+    priority: "medium"
+    estimated_hours: 3
+    status: "new"
+
+  - id: "E25-004"
+    openproject_id: 1123
+    title: "SettingsController"
+    priority: "medium"
+    estimated_hours: 3
+    status: "new"
+
+  - id: "E25-005"
+    openproject_id: 1124
+    title: "SettingsService"
+    priority: "medium"
+    estimated_hours: 5
+    status: "new"
+
+  - id: "E25-006"
+    openproject_id: 1125
+    title: "TaxRateService CRUD"
+    priority: "medium"
+    estimated_hours: 3
+    status: "new"
+
+  - id: "E25-007"
+    openproject_id: 1126
+    title: "ShippingMethodService CRUD"
+    priority: "medium"
+    estimated_hours: 4
+    status: "new"
+
+  - id: "E25-008"
+    openproject_id: 1127
+    title: "Modèle EmailTemplate"
+    priority: "medium"
+    estimated_hours: 3
+    status: "new"
+
+  - id: "E25-009"
+    openproject_id: 1128
+    title: "EmailTemplateService"
+    priority: "medium"
+    estimated_hours: 2
+    status: "new"
+
+# ═══════════════════════════════════════════════════════════════════
+# NOTES
+# ═══════════════════════════════════════════════════════════════════
+
+notes: |
+  Importé depuis OpenProject le 2025-12-18 23:38
+  URL: https://aam.openproject.com/work_packages/1119

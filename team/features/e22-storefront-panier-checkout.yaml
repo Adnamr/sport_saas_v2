@@ -1,0 +1,121 @@
+# ═══════════════════════════════════════════════════════════════════
+# FEATURE E22: Storefront - Panier & Checkout
+# ═══════════════════════════════════════════════════════════════════
+# Synchronisé depuis OpenProject le 2025-12-18 23:38
+# Tickets: 12 | Estimation: 48h (~6 jours)
+
+feature:
+  id: "E22"
+  openproject_id: 1081
+  name: "Storefront - Panier & Checkout"
+  description: |
+    **Feature E22** - Sprint 16-17
+    
+    **Tickets:** 12
+    **Estimation:** 48h
+    
+    **Dépendances:** E22-001, E22-005, E22-003, E20-001
+    
+
+  module: "storefront"
+  priority: "high"
+  estimated_days: 6
+  status: "todo"
+
+# ═══════════════════════════════════════════════════════════════════
+# TICKETS INCLUS
+# ═══════════════════════════════════════════════════════════════════
+
+tickets:
+
+  - id: "E22-001"
+    openproject_id: 1082
+    title: "CartService"
+    priority: "medium"
+    estimated_hours: 5
+    status: "new"
+
+  - id: "E22-002"
+    openproject_id: 1083
+    title: "Mini Cart Dropdown"
+    priority: "medium"
+    estimated_hours: 4
+    status: "new"
+
+  - id: "E22-003"
+    openproject_id: 1084
+    title: "Page Panier"
+    priority: "medium"
+    estimated_hours: 5
+    status: "new"
+
+  - id: "E22-004"
+    openproject_id: 1085
+    title: "Code Promo"
+    priority: "medium"
+    estimated_hours: 2
+    status: "new"
+
+  - id: "E22-005"
+    openproject_id: 1086
+    title: "Checkout Wizard (4 steps)"
+    priority: "medium"
+    estimated_hours: 4
+    status: "new"
+
+  - id: "E22-006"
+    openproject_id: 1087
+    title: "Step 1 - Identification"
+    priority: "medium"
+    estimated_hours: 3
+    status: "new"
+
+  - id: "E22-007"
+    openproject_id: 1088
+    title: "Step 2 - Adresse"
+    priority: "medium"
+    estimated_hours: 5
+    status: "new"
+
+  - id: "E22-008"
+    openproject_id: 1089
+    title: "Step 3 - Livraison"
+    priority: "medium"
+    estimated_hours: 4
+    status: "new"
+
+  - id: "E22-009"
+    openproject_id: 1090
+    title: "Step 4 - Paiement Stripe"
+    priority: "medium"
+    estimated_hours: 6
+    status: "new"
+
+  - id: "E22-010"
+    openproject_id: 1091
+    title: "Sidebar Récap"
+    priority: "medium"
+    estimated_hours: 3
+    status: "new"
+
+  - id: "E22-011"
+    openproject_id: 1092
+    title: "Page Confirmation"
+    priority: "medium"
+    estimated_hours: 3
+    status: "new"
+
+  - id: "E22-012"
+    openproject_id: 1093
+    title: "CheckoutService"
+    priority: "medium"
+    estimated_hours: 4
+    status: "new"
+
+# ═══════════════════════════════════════════════════════════════════
+# NOTES
+# ═══════════════════════════════════════════════════════════════════
+
+notes: |
+  Importé depuis OpenProject le 2025-12-18 23:38
+  URL: https://aam.openproject.com/work_packages/1081

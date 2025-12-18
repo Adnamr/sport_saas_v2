@@ -20,17 +20,19 @@
     <description>Plateforme SaaS e-commerce pour la gestion de matériels sportifs</description>
 
     <modules>
+        <!-- E1: Configuration Spring Boot -->
         <module>common</module>
         <module>config</module>
-        <module>tenant</module>
-        <module>auth</module>
-        <module>catalog</module>
-        <module>inventory</module>
-        <module>order</module>
-        <module>billing</module>
-        <module>notification</module>
-        <module>admin</module>
         <module>app</module>
+        <!-- Modules à activer progressivement -->
+        <!-- <module>tenant</module> -->
+        <!-- <module>auth</module> -->
+        <!-- <module>catalog</module> -->
+        <!-- <module>inventory</module> -->
+        <!-- <module>order</module> -->
+        <!-- <module>billing</module> -->
+        <!-- <module>notification</module> -->
+        <!-- <module>admin</module> -->
     </modules>
 
     <properties>
@@ -44,6 +46,7 @@
         <springdoc.version>2.3.0</springdoc.version>
         <mapstruct.version>1.5.5.Final</mapstruct.version>
         <lombok.version>1.18.30</lombok.version>
+        <flyway.version>10.4.1</flyway.version>
     </properties>
 
     <dependencyManagement>
@@ -131,6 +134,13 @@
                 <groupId>org.mapstruct</groupId>
                 <artifactId>mapstruct</artifactId>
                 <version>${mapstruct.version}</version>
+            </dependency>
+
+            <!-- Flyway PostgreSQL -->
+            <dependency>
+                <groupId>org.flywaydb</groupId>
+                <artifactId>flyway-database-postgresql</artifactId>
+                <version>${flyway.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

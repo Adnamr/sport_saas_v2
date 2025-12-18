@@ -1,0 +1,93 @@
+# ═══════════════════════════════════════════════════════════════════
+# FEATURE E4: Backend - Catalogue
+# ═══════════════════════════════════════════════════════════════════
+# Synchronisé depuis OpenProject le 2025-12-18 23:38
+# Tickets: 8 | Estimation: 29h (~3 jours)
+
+feature:
+  id: "E4"
+  openproject_id: 918
+  name: "Backend - Catalogue"
+  description: |
+    **Feature E4** - Sprint 4
+    
+    **Tickets:** 8
+    **Estimation:** 29h
+    
+    **Dépendances:** E4-001, E4-002, E4-006, E1-004, E4-005
+    
+
+  module: "backend"
+  priority: "high"
+  estimated_days: 3
+  status: "todo"
+
+# ═══════════════════════════════════════════════════════════════════
+# TICKETS INCLUS
+# ═══════════════════════════════════════════════════════════════════
+
+tickets:
+
+  - id: "E4-001"
+    openproject_id: 919
+    title: "Modèle Category (hiérarchique)"
+    priority: "medium"
+    estimated_hours: 3
+    status: "new"
+
+  - id: "E4-002"
+    openproject_id: 920
+    title: "Modèle Product"
+    priority: "medium"
+    estimated_hours: 5
+    status: "new"
+
+  - id: "E4-003"
+    openproject_id: 921
+    title: "Modèle ProductImage"
+    priority: "medium"
+    estimated_hours: 2
+    status: "new"
+
+  - id: "E4-004"
+    openproject_id: 922
+    title: "Modèle ProductAttribute"
+    priority: "medium"
+    estimated_hours: 3
+    status: "new"
+
+  - id: "E4-005"
+    openproject_id: 923
+    title: "CategoryService CRUD"
+    priority: "medium"
+    estimated_hours: 3
+    status: "new"
+
+  - id: "E4-006"
+    openproject_id: 924
+    title: "ProductService CRUD + filtres"
+    priority: "medium"
+    estimated_hours: 5
+    status: "new"
+
+  - id: "E4-007"
+    openproject_id: 925
+    title: "API REST /api/categories"
+    priority: "medium"
+    estimated_hours: 3
+    status: "new"
+
+  - id: "E4-008"
+    openproject_id: 926
+    title: "API REST /api/products"
+    priority: "medium"
+    estimated_hours: 5
+    status: "new"
+
+# ═══════════════════════════════════════════════════════════════════
+# NOTES
+# ═══════════════════════════════════════════════════════════════════
+
+notes: |
+  Importé depuis OpenProject le 2025-12-18 23:38
+  URL: https://aam.openproject.com/work_packages/918

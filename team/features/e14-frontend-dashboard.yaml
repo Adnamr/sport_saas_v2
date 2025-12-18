@@ -1,0 +1,100 @@
+# ═══════════════════════════════════════════════════════════════════
+# FEATURE E14: Frontend - Dashboard
+# ═══════════════════════════════════════════════════════════════════
+# Synchronisé depuis OpenProject le 2025-12-18 23:38
+# Tickets: 9 | Estimation: 27h (~3 jours)
+
+feature:
+  id: "E14"
+  openproject_id: 993
+  name: "Frontend - Dashboard"
+  description: |
+    **Feature E14** - Sprint 11
+    
+    **Tickets:** 9
+    **Estimation:** 27h
+    
+    **Dépendances:** E14-002, E11-007, E14-001, E11-005
+    
+
+  module: "frontend"
+  priority: "high"
+  estimated_days: 3
+  status: "todo"
+
+# ═══════════════════════════════════════════════════════════════════
+# TICKETS INCLUS
+# ═══════════════════════════════════════════════════════════════════
+
+tickets:
+
+  - id: "E14-001"
+    openproject_id: 994
+    title: "DashboardService"
+    priority: "medium"
+    estimated_hours: 3
+    status: "new"
+
+  - id: "E14-002"
+    openproject_id: 995
+    title: "Page Dashboard Layout"
+    priority: "medium"
+    estimated_hours: 2
+    status: "new"
+
+  - id: "E14-003"
+    openproject_id: 996
+    title: "KPI Cards"
+    priority: "medium"
+    estimated_hours: 4
+    status: "new"
+
+  - id: "E14-004"
+    openproject_id: 997
+    title: "Graphique Revenue (Chart.js)"
+    priority: "medium"
+    estimated_hours: 4
+    status: "new"
+
+  - id: "E14-005"
+    openproject_id: 998
+    title: "Graphique Orders Doughnut"
+    priority: "medium"
+    estimated_hours: 3
+    status: "new"
+
+  - id: "E14-006"
+    openproject_id: 999
+    title: "Table Recent Orders"
+    priority: "medium"
+    estimated_hours: 3
+    status: "new"
+
+  - id: "E14-007"
+    openproject_id: 1000
+    title: "Table Low Stock"
+    priority: "medium"
+    estimated_hours: 3
+    status: "new"
+
+  - id: "E14-008"
+    openproject_id: 1001
+    title: "Activity Feed"
+    priority: "medium"
+    estimated_hours: 4
+    status: "new"
+
+  - id: "E14-009"
+    openproject_id: 1002
+    title: "Quick Actions"
+    priority: "medium"
+    estimated_hours: 1
+    status: "new"
+
+# ═══════════════════════════════════════════════════════════════════
+# NOTES
+# ═══════════════════════════════════════════════════════════════════
+
+notes: |
+  Importé depuis OpenProject le 2025-12-18 23:38
+  URL: https://aam.openproject.com/work_packages/993

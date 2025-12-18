@@ -30,6 +30,10 @@
             <groupId>com.sportsaas</groupId>
             <artifactId>tenant</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.sportsaas</groupId>
+            <artifactId>auth</artifactId>
+        </dependency>
 
         <!-- Spring Boot -->
         <dependency>

@@ -1,0 +1,72 @@
+# ═══════════════════════════════════════════════════════════════════
+# FEATURE E12: Backend - Docker & CI/CD
+# ═══════════════════════════════════════════════════════════════════
+# Synchronisé depuis OpenProject le 2025-12-18 23:38
+# Tickets: 5 | Estimation: 16h (~2 jours)
+
+feature:
+  id: "E12"
+  openproject_id: 980
+  name: "Backend - Docker & CI/CD"
+  description: |
+    **Feature E12** - Sprint 10
+    
+    **Tickets:** 5
+    **Estimation:** 16h
+    
+    **Dépendances:** E12-004, E1-003, E12-001, E12-002, E12-003, E11-001
+    
+
+  module: "backend"
+  priority: "medium"
+  estimated_days: 2
+  status: "todo"
+
+# ═══════════════════════════════════════════════════════════════════
+# TICKETS INCLUS
+# ═══════════════════════════════════════════════════════════════════
+
+tickets:
+
+  - id: "E12-001"
+    openproject_id: 981
+    title: "Dockerfile backend multi-stage"
+    priority: "medium"
+    estimated_hours: 3
+    status: "new"
+
+  - id: "E12-002"
+    openproject_id: 982
+    title: "Dockerfile frontend"
+    priority: "medium"
+    estimated_hours: 2
+    status: "new"
+
+  - id: "E12-003"
+    openproject_id: 983
+    title: "docker-compose.yml"
+    priority: "medium"
+    estimated_hours: 3
+    status: "new"
+
+  - id: "E12-004"
+    openproject_id: 984
+    title: "GitHub Actions CI"
+    priority: "medium"
+    estimated_hours: 4
+    status: "new"
+
+  - id: "E12-005"
+    openproject_id: 985
+    title: "Scripts déploiement"
+    priority: "medium"
+    estimated_hours: 4
+    status: "new"
+
+# ═══════════════════════════════════════════════════════════════════
+# NOTES
+# ═══════════════════════════════════════════════════════════════════
+
+notes: |
+  Importé depuis OpenProject le 2025-12-18 23:38
+  URL: https://aam.openproject.com/work_packages/980

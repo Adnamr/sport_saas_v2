@@ -1,0 +1,114 @@
+# ═══════════════════════════════════════════════════════════════════
+# FEATURE E24: Backend - API Publique Storefront
+# ═══════════════════════════════════════════════════════════════════
+# Synchronisé depuis OpenProject le 2025-12-18 23:38
+# Tickets: 11 | Estimation: 49h (~6 jours)
+
+feature:
+  id: "E24"
+  openproject_id: 1107
+  name: "Backend - API Publique Storefront"
+  description: |
+    **Feature E24** - Sprint 15-16
+    
+    **Tickets:** 11
+    **Estimation:** 49h
+    
+    **Dépendances:** E3-008, E7-004, E6-005, E3-005, E4-006, E6-004, E4-005
+    
+
+  module: "storefront"
+  priority: "high"
+  estimated_days: 6
+  status: "todo"
+
+# ═══════════════════════════════════════════════════════════════════
+# TICKETS INCLUS
+# ═══════════════════════════════════════════════════════════════════
+
+tickets:
+
+  - id: "E24-001"
+    openproject_id: 1108
+    title: "GET /api/public/categories"
+    priority: "medium"
+    estimated_hours: 3
+    status: "new"
+
+  - id: "E24-002"
+    openproject_id: 1109
+    title: "GET /api/public/products (filtres)"
+    priority: "medium"
+    estimated_hours: 6
+    status: "new"
+
+  - id: "E24-003"
+    openproject_id: 1110
+    title: "GET /api/public/products/{slug}"
+    priority: "medium"
+    estimated_hours: 4
+    status: "new"
+
+  - id: "E24-004"
+    openproject_id: 1111
+    title: "GET /api/public/search/suggest"
+    priority: "medium"
+    estimated_hours: 3
+    status: "new"
+
+  - id: "E24-005"
+    openproject_id: 1112
+    title: "CRUD /api/public/cart"
+    priority: "medium"
+    estimated_hours: 6
+    status: "new"
+
+  - id: "E24-006"
+    openproject_id: 1113
+    title: "POST /api/public/checkout"
+    priority: "medium"
+    estimated_hours: 6
+    status: "new"
+
+  - id: "E24-007"
+    openproject_id: 1114
+    title: "Intégration Stripe PaymentIntent"
+    priority: "medium"
+    estimated_hours: 6
+    status: "new"
+
+  - id: "E24-008"
+    openproject_id: 1115
+    title: "/api/public/auth (client)"
+    priority: "medium"
+    estimated_hours: 4
+    status: "new"
+
+  - id: "E24-009"
+    openproject_id: 1116
+    title: "/api/public/customers/me"
+    priority: "medium"
+    estimated_hours: 5
+    status: "new"
+
+  - id: "E24-010"
+    openproject_id: 1117
+    title: "/api/public/wishlist"
+    priority: "medium"
+    estimated_hours: 2
+    status: "new"
+
+  - id: "E24-011"
+    openproject_id: 1118
+    title: "/api/public/reviews"
+    priority: "medium"
+    estimated_hours: 4
+    status: "new"
+
+# ═══════════════════════════════════════════════════════════════════
+# NOTES
+# ═══════════════════════════════════════════════════════════════════
+
+notes: |
+  Importé depuis OpenProject le 2025-12-18 23:38
+  URL: https://aam.openproject.com/work_packages/1107

@@ -1,0 +1,93 @@
+# ═══════════════════════════════════════════════════════════════════
+# FEATURE E19: Frontend - Paramètres
+# ═══════════════════════════════════════════════════════════════════
+# Synchronisé depuis OpenProject le 2025-12-18 23:38
+# Tickets: 8 | Estimation: 28h (~3 jours)
+
+feature:
+  id: "E19"
+  openproject_id: 1048
+  name: "Frontend - Paramètres"
+  description: |
+    **Feature E19** - Sprint 14
+    
+    **Tickets:** 8
+    **Estimation:** 28h
+    
+    **Dépendances:** E19-001, E11-007, E13-001, E11-005
+    
+
+  module: "frontend"
+  priority: "medium"
+  estimated_days: 3
+  status: "todo"
+
+# ═══════════════════════════════════════════════════════════════════
+# TICKETS INCLUS
+# ═══════════════════════════════════════════════════════════════════
+
+tickets:
+
+  - id: "E19-001"
+    openproject_id: 1049
+    title: "SettingsService"
+    priority: "medium"
+    estimated_hours: 3
+    status: "new"
+
+  - id: "E19-002"
+    openproject_id: 1050
+    title: "Settings Layout (sidebar)"
+    priority: "medium"
+    estimated_hours: 3
+    status: "new"
+
+  - id: "E19-003"
+    openproject_id: 1051
+    title: "Page Entreprise"
+    priority: "medium"
+    estimated_hours: 4
+    status: "new"
+
+  - id: "E19-004"
+    openproject_id: 1052
+    title: "Page Utilisateurs"
+    priority: "medium"
+    estimated_hours: 4
+    status: "new"
+
+  - id: "E19-005"
+    openproject_id: 1053
+    title: "Page Taxes TVA"
+    priority: "medium"
+    estimated_hours: 3
+    status: "new"
+
+  - id: "E19-006"
+    openproject_id: 1054
+    title: "Page Livraison"
+    priority: "medium"
+    estimated_hours: 4
+    status: "new"
+
+  - id: "E19-007"
+    openproject_id: 1055
+    title: "Page Templates Email"
+    priority: "medium"
+    estimated_hours: 4
+    status: "new"
+
+  - id: "E19-008"
+    openproject_id: 1056
+    title: "Page Mon Profil"
+    priority: "medium"
+    estimated_hours: 3
+    status: "new"
+
+# ═══════════════════════════════════════════════════════════════════
+# NOTES
+# ═══════════════════════════════════════════════════════════════════
+
+notes: |
+  Importé depuis OpenProject le 2025-12-18 23:38
+  URL: https://aam.openproject.com/work_packages/1048

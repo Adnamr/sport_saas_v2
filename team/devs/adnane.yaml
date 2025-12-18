@@ -1,0 +1,14 @@
+dev:
+  id: "adnane"
+  name: "adnane"
+  email: "adnane@example.com"
+
+current_feature:
+  feature_id: "E1"
+  feature_name: "e1-backend-configuration-spring-boot"
+  title: "Backend - Configuration Spring Boot"
+  branch: "feature/e1-backend-configuration-spring-boot"
+  started_at: "2025-12-18T22:40:43Z"
+  status: "in_progress"
+
+history: []

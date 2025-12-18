@@ -1,0 +1,100 @@
+# ═══════════════════════════════════════════════════════════════════
+# FEATURE E6: Backend - Commandes
+# ═══════════════════════════════════════════════════════════════════
+# Synchronisé depuis OpenProject le 2025-12-18 23:38
+# Tickets: 9 | Estimation: 40h (~5 jours)
+
+feature:
+  id: "E6"
+  openproject_id: 936
+  name: "Backend - Commandes"
+  description: |
+    **Feature E6** - Sprint 6
+    
+    **Tickets:** 9
+    **Estimation:** 40h
+    
+    **Dépendances:** E5-006, E3-001, E6-005, E4-002, E6-006, E1-004, E6-003, E6-004, E6-001
+    
+
+  module: "backend"
+  priority: "high"
+  estimated_days: 5
+  status: "todo"
+
+# ═══════════════════════════════════════════════════════════════════
+# TICKETS INCLUS
+# ═══════════════════════════════════════════════════════════════════
+
+tickets:
+
+  - id: "E6-001"
+    openproject_id: 937
+    title: "Modèle Order"
+    priority: "medium"
+    estimated_hours: 5
+    status: "new"
+
+  - id: "E6-002"
+    openproject_id: 938
+    title: "Modèle OrderItem"
+    priority: "medium"
+    estimated_hours: 3
+    status: "new"
+
+  - id: "E6-003"
+    openproject_id: 939
+    title: "Modèle Cart & CartItem"
+    priority: "medium"
+    estimated_hours: 3
+    status: "new"
+
+  - id: "E6-004"
+    openproject_id: 940
+    title: "CartService"
+    priority: "medium"
+    estimated_hours: 5
+    status: "new"
+
+  - id: "E6-005"
+    openproject_id: 941
+    title: "OrderService"
+    priority: "medium"
+    estimated_hours: 8
+    status: "new"
+
+  - id: "E6-006"
+    openproject_id: 942
+    title: "RentalService"
+    priority: "medium"
+    estimated_hours: 5
+    status: "new"
+
+  - id: "E6-007"
+    openproject_id: 943
+    title: "API REST /api/cart"
+    priority: "medium"
+    estimated_hours: 3
+    status: "new"
+
+  - id: "E6-008"
+    openproject_id: 944
+    title: "API REST /api/orders"
+    priority: "medium"
+    estimated_hours: 5
+    status: "new"
+
+  - id: "E6-009"
+    openproject_id: 945
+    title: "API REST /api/rentals"
+    priority: "medium"
+    estimated_hours: 3
+    status: "new"
+
+# ═══════════════════════════════════════════════════════════════════
+# NOTES
+# ═══════════════════════════════════════════════════════════════════
+
+notes: |
+  Importé depuis OpenProject le 2025-12-18 23:38
+  URL: https://aam.openproject.com/work_packages/936

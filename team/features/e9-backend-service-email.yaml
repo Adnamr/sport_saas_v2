@@ -1,0 +1,58 @@
+# ═══════════════════════════════════════════════════════════════════
+# FEATURE E9: Backend - Service Email
+# ═══════════════════════════════════════════════════════════════════
+# Synchronisé depuis OpenProject le 2025-12-18 23:38
+# Tickets: 3 | Estimation: 12h (~1 jours)
+
+feature:
+  id: "E9"
+  openproject_id: 958
+  name: "Backend - Service Email"
+  description: |
+    **Feature E9** - Sprint 8
+    
+    **Tickets:** 3
+    **Estimation:** 12h
+    
+    **Dépendances:** E9-001, E1-003
+    
+
+  module: "backend"
+  priority: "medium"
+  estimated_days: 1
+  status: "todo"
+
+# ═══════════════════════════════════════════════════════════════════
+# TICKETS INCLUS
+# ═══════════════════════════════════════════════════════════════════
+
+tickets:
+
+  - id: "E9-001"
+    openproject_id: 959
+    title: "EmailService avec templates"
+    priority: "medium"
+    estimated_hours: 4
+    status: "new"
+
+  - id: "E9-002"
+    openproject_id: 960
+    title: "Templates: Welcome, Reset, Invoice"
+    priority: "medium"
+    estimated_hours: 4
+    status: "new"
+
+  - id: "E9-003"
+    openproject_id: 961
+    title: "Event Listeners pour emails"
+    priority: "medium"
+    estimated_hours: 4
+    status: "new"
+
+# ═══════════════════════════════════════════════════════════════════
+# NOTES
+# ═══════════════════════════════════════════════════════════════════
+
+notes: |
+  Importé depuis OpenProject le 2025-12-18 23:38
+  URL: https://aam.openproject.com/work_packages/958

@@ -1,0 +1,100 @@
+# ═══════════════════════════════════════════════════════════════════
+# FEATURE E20: Storefront - Setup & Layout
+# ═══════════════════════════════════════════════════════════════════
+# Synchronisé depuis OpenProject le 2025-12-18 23:38
+# Tickets: 9 | Estimation: 28h (~3 jours)
+
+feature:
+  id: "E20"
+  openproject_id: 1057
+  name: "Storefront - Setup & Layout"
+  description: |
+    **Feature E20** - Sprint 15
+    
+    **Tickets:** 9
+    **Estimation:** 28h
+    
+    **Dépendances:** E20-002, E11-001, E20-006, E20-001
+    
+
+  module: "storefront"
+  priority: "high"
+  estimated_days: 3
+  status: "todo"
+
+# ═══════════════════════════════════════════════════════════════════
+# TICKETS INCLUS
+# ═══════════════════════════════════════════════════════════════════
+
+tickets:
+
+  - id: "E20-001"
+    openproject_id: 1058
+    title: "Module Storefront Setup"
+    priority: "medium"
+    estimated_hours: 3
+    status: "new"
+
+  - id: "E20-002"
+    openproject_id: 1059
+    title: "Layout Shell"
+    priority: "medium"
+    estimated_hours: 2
+    status: "new"
+
+  - id: "E20-003"
+    openproject_id: 1060
+    title: "Header avec Mega Menu"
+    priority: "medium"
+    estimated_hours: 5
+    status: "new"
+
+  - id: "E20-004"
+    openproject_id: 1061
+    title: "Footer"
+    priority: "medium"
+    estimated_hours: 3
+    status: "new"
+
+  - id: "E20-005"
+    openproject_id: 1062
+    title: "Search Bar Modal"
+    priority: "medium"
+    estimated_hours: 4
+    status: "new"
+
+  - id: "E20-006"
+    openproject_id: 1063
+    title: "Page Accueil"
+    priority: "medium"
+    estimated_hours: 3
+    status: "new"
+
+  - id: "E20-007"
+    openproject_id: 1064
+    title: "Hero Slider"
+    priority: "medium"
+    estimated_hours: 3
+    status: "new"
+
+  - id: "E20-008"
+    openproject_id: 1065
+    title: "Product Carousel"
+    priority: "medium"
+    estimated_hours: 3
+    status: "new"
+
+  - id: "E20-009"
+    openproject_id: 1066
+    title: "Trust Badges"
+    priority: "medium"
+    estimated_hours: 2
+    status: "new"
+
+# ═══════════════════════════════════════════════════════════════════
+# NOTES
+# ═══════════════════════════════════════════════════════════════════
+
+notes: |
+  Importé depuis OpenProject le 2025-12-18 23:38
+  URL: https://aam.openproject.com/work_packages/1057

@@ -1,0 +1,93 @@
+# ═══════════════════════════════════════════════════════════════════
+# FEATURE E16: Frontend - Inventaire
+# ═══════════════════════════════════════════════════════════════════
+# Synchronisé depuis OpenProject le 2025-12-18 23:38
+# Tickets: 8 | Estimation: 30h (~3 jours)
+
+feature:
+  id: "E16"
+  openproject_id: 1015
+  name: "Frontend - Inventaire"
+  description: |
+    **Feature E16** - Sprint 12
+    
+    **Tickets:** 8
+    **Estimation:** 30h
+    
+    **Dépendances:** E11-007, E11-006, E16-001
+    
+
+  module: "frontend"
+  priority: "high"
+  estimated_days: 3
+  status: "todo"
+
+# ═══════════════════════════════════════════════════════════════════
+# TICKETS INCLUS
+# ═══════════════════════════════════════════════════════════════════
+
+tickets:
+
+  - id: "E16-001"
+    openproject_id: 1016
+    title: "InventoryService"
+    priority: "medium"
+    estimated_hours: 3
+    status: "new"
+
+  - id: "E16-002"
+    openproject_id: 1017
+    title: "Page Vue Stock"
+    priority: "medium"
+    estimated_hours: 5
+    status: "new"
+
+  - id: "E16-003"
+    openproject_id: 1018
+    title: "Stock Badge Component"
+    priority: "medium"
+    estimated_hours: 2
+    status: "new"
+
+  - id: "E16-004"
+    openproject_id: 1019
+    title: "Modal Mouvement Stock"
+    priority: "medium"
+    estimated_hours: 4
+    status: "new"
+
+  - id: "E16-005"
+    openproject_id: 1020
+    title: "Page Historique Mouvements"
+    priority: "medium"
+    estimated_hours: 4
+    status: "new"
+
+  - id: "E16-006"
+    openproject_id: 1021
+    title: "Page Liste Entrepôts"
+    priority: "medium"
+    estimated_hours: 3
+    status: "new"
+
+  - id: "E16-007"
+    openproject_id: 1022
+    title: "Modal Entrepôt CRUD"
+    priority: "medium"
+    estimated_hours: 3
+    status: "new"
+
+  - id: "E16-008"
+    openproject_id: 1023
+    title: "Page Inventaire Physique"
+    priority: "medium"
+    estimated_hours: 6
+    status: "new"
+
+# ═══════════════════════════════════════════════════════════════════
+# NOTES
+# ═══════════════════════════════════════════════════════════════════
+
+notes: |
+  Importé depuis OpenProject le 2025-12-18 23:38
+  URL: https://aam.openproject.com/work_packages/1015

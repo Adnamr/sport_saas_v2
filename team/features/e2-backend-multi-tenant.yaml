@@ -1,0 +1,79 @@
+# ═══════════════════════════════════════════════════════════════════
+# FEATURE E2: Backend - Multi-tenant
+# ═══════════════════════════════════════════════════════════════════
+# Synchronisé depuis OpenProject le 2025-12-18 23:38
+# Tickets: 6 | Estimation: 18h (~2 jours)
+
+feature:
+  id: "E2"
+  openproject_id: 898
+  name: "Backend - Multi-tenant"
+  description: |
+    **Feature E2** - Sprint 2
+    
+    **Tickets:** 6
+    **Estimation:** 18h
+    
+    **Dépendances:** E2-004, E2-002, E2-001, E1-004
+    
+
+  module: "backend"
+  priority: "high"
+  estimated_days: 2
+  status: "todo"
+
+# ═══════════════════════════════════════════════════════════════════
+# TICKETS INCLUS
+# ═══════════════════════════════════════════════════════════════════
+
+tickets:
+
+  - id: "E2-001"
+    openproject_id: 899
+    title: "Modèle Tenant"
+    priority: "medium"
+    estimated_hours: 3
+    status: "new"
+
+  - id: "E2-002"
+    openproject_id: 900
+    title: "TenantContext ThreadLocal"
+    priority: "medium"
+    estimated_hours: 3
+    status: "new"
+
+  - id: "E2-003"
+    openproject_id: 901
+    title: "TenantFilter - Extraction Header"
+    priority: "medium"
+    estimated_hours: 4
+    status: "new"
+
+  - id: "E2-004"
+    openproject_id: 902
+    title: "TenantRepository & Service"
+    priority: "medium"
+    estimated_hours: 3
+    status: "new"
+
+  - id: "E2-005"
+    openproject_id: 903
+    title: "Hibernate TenantFilter automatique"
+    priority: "medium"
+    estimated_hours: 3
+    status: "new"
+
+  - id: "E2-006"
+    openproject_id: 904
+    title: "API REST Tenants (Super Admin)"
+    priority: "medium"
+    estimated_hours: 2
+    status: "new"
+
+# ═══════════════════════════════════════════════════════════════════
+# NOTES
+# ═══════════════════════════════════════════════════════════════════
+
+notes: |
+  Importé depuis OpenProject le 2025-12-18 23:38
+  URL: https://aam.openproject.com/work_packages/898

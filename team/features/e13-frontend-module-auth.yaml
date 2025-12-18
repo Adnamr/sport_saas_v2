@@ -1,0 +1,79 @@
+# ═══════════════════════════════════════════════════════════════════
+# FEATURE E13: Frontend - Module Auth
+# ═══════════════════════════════════════════════════════════════════
+# Synchronisé depuis OpenProject le 2025-12-18 23:38
+# Tickets: 6 | Estimation: 20h (~2 jours)
+
+feature:
+  id: "E13"
+  openproject_id: 986
+  name: "Frontend - Module Auth"
+  description: |
+    **Feature E13** - Sprint 10
+    
+    **Tickets:** 6
+    **Estimation:** 20h
+    
+    **Dépendances:** E13-001, E11-007, E11-008
+    
+
+  module: "frontend"
+  priority: "high"
+  estimated_days: 2
+  status: "todo"
+
+# ═══════════════════════════════════════════════════════════════════
+# TICKETS INCLUS
+# ═══════════════════════════════════════════════════════════════════
+
+tickets:
+
+  - id: "E13-001"
+    openproject_id: 987
+    title: "AuthService"
+    priority: "medium"
+    estimated_hours: 4
+    status: "new"
+
+  - id: "E13-002"
+    openproject_id: 988
+    title: "Page Login"
+    priority: "medium"
+    estimated_hours: 4
+    status: "new"
+
+  - id: "E13-003"
+    openproject_id: 989
+    title: "Page Register"
+    priority: "medium"
+    estimated_hours: 5
+    status: "new"
+
+  - id: "E13-004"
+    openproject_id: 990
+    title: "Page Forgot Password"
+    priority: "medium"
+    estimated_hours: 2
+    status: "new"
+
+  - id: "E13-005"
+    openproject_id: 991
+    title: "Page Reset Password"
+    priority: "medium"
+    estimated_hours: 3
+    status: "new"
+
+  - id: "E13-006"
+    openproject_id: 992
+    title: "Auth Routing & Guards"
+    priority: "medium"
+    estimated_hours: 2
+    status: "new"
+
+# ═══════════════════════════════════════════════════════════════════
+# NOTES
+# ═══════════════════════════════════════════════════════════════════
+
+notes: |
+  Importé depuis OpenProject le 2025-12-18 23:38
+  URL: https://aam.openproject.com/work_packages/986

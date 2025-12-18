@@ -24,7 +24,7 @@ public class TenantHibernateFilter {
 
     private final EntityManager entityManager;
 
-    @Before("execution(* com.sportsaas..*.repository..*(..))")
+    @Before("execution(* org.springframework.data.jpa.repository.JpaRepository+.*(..))")
     public void enableTenantFilter() {
         if (TenantContext.hasTenant()) {
             Session session = entityManager.unwrap(Session.class);

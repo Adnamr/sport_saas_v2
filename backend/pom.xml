@@ -27,9 +27,10 @@
         <module>tenant</module>
         <!-- E3: Authentication -->
         <module>auth</module>
+        <!-- E4: Catalog -->
+        <module>catalog</module>
         <module>app</module>
         <!-- Modules à activer progressivement -->
-        <!-- <module>catalog</module> -->
         <!-- <module>inventory</module> -->
         <!-- <module>order</module> -->
         <!-- <module>billing</module> -->

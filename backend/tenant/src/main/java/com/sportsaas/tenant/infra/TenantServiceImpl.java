@@ -74,6 +74,14 @@ public class TenantServiceImpl implements TenantService {
     public Tenant update(UUID id, Tenant tenant) {
         Tenant existing = findByIdOrThrow(id);
 
+        // Vérifier l'unicité du domaine si modifié
+        if (tenant.getDomain() != null && !tenant.getDomain().isBlank()) {
+            if (!tenant.getDomain().equals(existing.getDomain())
+                    && tenantRepository.existsByDomain(tenant.getDomain())) {
+                throw new ConflictException("Un tenant avec le domaine '" + tenant.getDomain() + "' existe déjà");
+            }
+        }
+
         existing.setName(tenant.getName());
         existing.setDomain(tenant.getDomain());
         existing.setSettings(tenant.getSettings());

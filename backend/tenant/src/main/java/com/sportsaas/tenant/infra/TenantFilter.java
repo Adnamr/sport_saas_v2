@@ -49,10 +49,11 @@ public class TenantFilter extends OncePerRequestFilter {
     @Override
     protected boolean shouldNotFilter(HttpServletRequest request) {
         String path = request.getRequestURI();
-        // Ne pas filtrer les endpoints publics
+        // Ne pas filtrer les endpoints publics et admin
         return path.startsWith("/health") ||
                path.startsWith("/api-docs") ||
                path.startsWith("/swagger-ui") ||
-               path.startsWith("/api/auth/login");
+               path.startsWith("/api/auth/login") ||
+               path.startsWith("/tenants");
     }
 }

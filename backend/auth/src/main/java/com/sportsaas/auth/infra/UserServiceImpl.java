@@ -173,6 +173,24 @@ public class UserServiceImpl implements UserService {
         return saved;
     }
 
+    @Override
+    @Transactional
+    public User authenticate(String email, String password, UUID tenantId) {
+        User user = userRepository.findByEmailAndTenantId(email, tenantId)
+                .orElseThrow(() -> new UnauthorizedException("Email ou mot de passe incorrect"));
+
+        if (!passwordEncoder.matches(password, user.getPassword())) {
+            throw new UnauthorizedException("Email ou mot de passe incorrect");
+        }
+
+        if (!user.isEnabled()) {
+            throw new UnauthorizedException("Compte desactive");
+        }
+
+        user.setLastLoginAt(LocalDateTime.now());
+        return userRepository.save(user);
+    }
+
     private User findByIdOrThrow(UUID id) {
         return userRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("User", id));

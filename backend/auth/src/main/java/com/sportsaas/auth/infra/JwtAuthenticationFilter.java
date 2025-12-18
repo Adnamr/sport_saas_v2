@@ -51,8 +51,10 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 UUID tenantId = jwtService.extractTenantId(jwt);
                 String role = jwtService.extractRole(jwt);
 
-                // Set tenant context
-                TenantContext.setCurrentTenant(tenantId);
+                // Set tenant context (will be cleared by TenantFilter's finally block)
+                if (!TenantContext.hasTenant()) {
+                    TenantContext.setCurrentTenant(tenantId);
+                }
 
                 // Create authentication
                 var authorities = Collections.singletonList(
@@ -81,11 +83,14 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         String path = request.getRequestURI();
         return path.startsWith("/api/auth/login") ||
                path.startsWith("/api/auth/register") ||
+               path.startsWith("/api/auth/refresh") ||
                path.startsWith("/api/auth/forgot-password") ||
                path.startsWith("/api/auth/reset-password") ||
                path.startsWith("/api/auth/verify-email") ||
                path.startsWith("/health") ||
+               path.startsWith("/actuator") ||
                path.startsWith("/api-docs") ||
-               path.startsWith("/swagger-ui");
+               path.startsWith("/swagger-ui") ||
+               path.startsWith("/tenants");
     }
 }

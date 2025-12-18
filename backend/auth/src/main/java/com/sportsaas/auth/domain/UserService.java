@@ -70,4 +70,9 @@ public interface UserService {
      * Change le password.
      */
     User changePassword(UUID id, String oldPassword, String newPassword);
+
+    /**
+     * Authentifie un utilisateur et met a jour lastLoginAt.
+     */
+    User authenticate(String email, String password, UUID tenantId);
 }

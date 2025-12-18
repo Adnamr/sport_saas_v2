@@ -53,7 +53,10 @@ public class JwtService {
      * Genere un refresh token.
      */
     public String generateRefreshToken(User user) {
-        return buildToken(new HashMap<>(), user.getId().toString(), refreshExpiration);
+        Map<String, Object> claims = new HashMap<>();
+        claims.put("tenantId", user.getTenantId().toString());
+        claims.put("role", user.getRole().name());
+        return buildToken(claims, user.getId().toString(), refreshExpiration);
     }
 
     /**

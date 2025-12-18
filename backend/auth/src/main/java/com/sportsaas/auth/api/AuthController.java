@@ -2,7 +2,6 @@ package com.sportsaas.auth.api;
 
 import com.sportsaas.auth.api.dto.*;
 import com.sportsaas.auth.domain.User;
-import com.sportsaas.auth.domain.UserRepository;
 import com.sportsaas.auth.domain.UserRole;
 import com.sportsaas.auth.domain.UserService;
 import com.sportsaas.auth.infra.JwtService;
@@ -17,10 +16,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDateTime;
 import java.util.Map;
 import java.util.UUID;
 
@@ -34,9 +31,7 @@ import java.util.UUID;
 public class AuthController {
 
     private final UserService userService;
-    private final UserRepository userRepository;
     private final JwtService jwtService;
-    private final PasswordEncoder passwordEncoder;
     private final AuthMapper authMapper;
 
     @Value("${app.jwt.expiration:86400000}")
@@ -47,20 +42,7 @@ public class AuthController {
     public ResponseEntity<AuthResponse> login(@Valid @RequestBody LoginRequest request) {
         UUID tenantId = TenantContext.requireCurrentTenant();
 
-        User user = userRepository.findByEmailAndTenantId(request.getEmail(), tenantId)
-                .orElseThrow(() -> new UnauthorizedException("Email ou mot de passe incorrect"));
-
-        if (!passwordEncoder.matches(request.getPassword(), user.getPassword())) {
-            throw new UnauthorizedException("Email ou mot de passe incorrect");
-        }
-
-        if (!user.isEnabled()) {
-            throw new UnauthorizedException("Compte desactive");
-        }
-
-        // Update last login
-        user.setLastLoginAt(LocalDateTime.now());
-        userRepository.save(user);
+        User user = userService.authenticate(request.getEmail(), request.getPassword(), tenantId);
 
         String accessToken = jwtService.generateToken(user);
         String refreshToken = jwtService.generateRefreshToken(user);
@@ -104,7 +86,7 @@ public class AuthController {
         }
 
         UUID userId = jwtService.extractUserId(request.getRefreshToken());
-        User user = userRepository.findById(userId)
+        User user = userService.findById(userId)
                 .orElseThrow(() -> new NotFoundException("User", userId));
 
         if (!user.isEnabled()) {
@@ -125,7 +107,7 @@ public class AuthController {
     @GetMapping("/me")
     @Operation(summary = "Recuperer l'utilisateur courant")
     public ResponseEntity<UserResponse> me(@AuthenticationPrincipal UUID userId) {
-        User user = userRepository.findById(userId)
+        User user = userService.findById(userId)
                 .orElseThrow(() -> new NotFoundException("User", userId));
 
         return ResponseEntity.ok(authMapper.toUserResponse(user));

@@ -23,9 +23,10 @@
         <!-- E1: Configuration Spring Boot -->
         <module>common</module>
         <module>config</module>
+        <!-- E2: Multi-tenant -->
+        <module>tenant</module>
         <module>app</module>
         <!-- Modules à activer progressivement -->
-        <!-- <module>tenant</module> -->
         <!-- <module>auth</module> -->
         <!-- <module>catalog</module> -->
         <!-- <module>inventory</module> -->

@@ -102,13 +102,13 @@ public class ProductController {
 
         catalogMapper.updateProduct(request, existing);
 
+        // Only update category if categoryId is explicitly provided in the request
         if (request.getCategoryId() != null) {
             Category category = categoryService.findById(request.getCategoryId())
                     .orElseThrow(() -> new NotFoundException("Category", request.getCategoryId()));
             existing.setCategory(category);
-        } else {
-            existing.setCategory(null);
         }
+        // If categoryId is null, keep the existing category (don't overwrite)
 
         Product updated = productService.update(id, existing);
         return ResponseEntity.ok(catalogMapper.toProductResponse(updated));

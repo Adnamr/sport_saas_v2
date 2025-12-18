@@ -3,6 +3,7 @@ package com.sportsaas.catalog.infra;
 import com.sportsaas.catalog.domain.Category;
 import com.sportsaas.catalog.domain.CategoryRepository;
 import com.sportsaas.catalog.domain.CategoryService;
+import com.sportsaas.common.exception.BadRequestException;
 import com.sportsaas.common.exception.ConflictException;
 import com.sportsaas.common.exception.NotFoundException;
 import com.sportsaas.common.util.StringUtils;
@@ -57,6 +58,9 @@ public class CategoryServiceImpl implements CategoryService {
     public Category create(Category category) {
         UUID tenantId = TenantContext.requireCurrentTenant();
         category.setTenantId(tenantId);
+
+        // Validate no cycle in parent hierarchy
+        validateNoCycle(category, category.getParent());
 
         // Generate slug if not provided
         if (category.getSlug() == null || category.getSlug().isBlank()) {
@@ -119,5 +123,23 @@ public class CategoryServiceImpl implements CategoryService {
     private Category findByIdOrThrow(UUID id) {
         return categoryRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("Category", id));
+    }
+
+    /**
+     * Validates that setting a parent won't create a cycle in the category hierarchy.
+     * A cycle would occur if the parent (or any of its ancestors) is the category itself.
+     */
+    private void validateNoCycle(Category category, Category parent) {
+        if (parent == null) {
+            return;
+        }
+
+        Category current = parent;
+        while (current != null) {
+            if (current.getId() != null && current.getId().equals(category.getId())) {
+                throw new BadRequestException("Une categorie ne peut pas etre son propre parent (cycle detecte)");
+            }
+            current = current.getParent();
+        }
     }
 }

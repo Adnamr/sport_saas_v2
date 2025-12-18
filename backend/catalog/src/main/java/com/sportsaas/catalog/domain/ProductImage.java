@@ -1,6 +1,6 @@
 package com.sportsaas.catalog.domain;
 
-import com.sportsaas.common.domain.BaseEntity;
+import com.sportsaas.common.domain.TenantAwareEntity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -16,7 +16,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class ProductImage extends BaseEntity {
+public class ProductImage extends TenantAwareEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "product_id", nullable = false)

@@ -43,8 +43,13 @@ spring:
 
 server:
   port: ${APP_PORT:8080}
-  servlet:
-    context-path: /api
+
+# JWT Configuration
+app:
+  jwt:
+    secret: ${JWT_SECRET:dGhpc2lzYXZlcnlsb25nc2VjcmV0a2V5Zm9yand0dG9rZW5zYW5kaXRzaG91bGRiZWF0bGVhc3QyNTZiaXRz}
+    expiration: ${JWT_EXPIRATION:86400000}
+    refresh-expiration: ${JWT_REFRESH_EXPIRATION:604800000}
 
 springdoc:
   api-docs:

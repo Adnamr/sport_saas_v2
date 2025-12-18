@@ -25,9 +25,10 @@
         <module>config</module>
         <!-- E2: Multi-tenant -->
         <module>tenant</module>
+        <!-- E3: Authentication -->
+        <module>auth</module>
         <module>app</module>
         <!-- Modules à activer progressivement -->
-        <!-- <module>auth</module> -->
         <!-- <module>catalog</module> -->
         <!-- <module>inventory</module> -->
         <!-- <module>order</module> -->

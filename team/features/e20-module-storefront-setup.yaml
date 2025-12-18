@@ -1,0 +1,80 @@
+# ═══════════════════════════════════════════════════════════════════
+# FEATURE E20: Storefront - Setup & Layout
+# ═══════════════════════════════════════════════════════════════════
+
+feature:
+  id: "E20"
+  name: "Storefront - Setup & Layout"
+  description: |
+    Structure de base du storefront public.
+  priority: "high"
+  estimated_days: 4
+  status: "todo"
+  backend_dependency: "E24"
+
+tickets:
+
+  - id: "E20-001"
+    title: "Module Storefront Setup"
+    module: "frontend/storefront"
+    priority: "high"
+    estimated_hours: 3
+    status: "new"
+
+  - id: "E20-002"
+    title: "Layout Shell"
+    module: "frontend/storefront"
+    priority: "high"
+    estimated_hours: 2
+    status: "new"
+
+  - id: "E20-003"
+    title: "Header avec Mega Menu"
+    module: "frontend/storefront"
+    priority: "high"
+    estimated_hours: 5
+    backend: "E24-001"
+    status: "new"
+
+  - id: "E20-004"
+    title: "Footer"
+    module: "frontend/storefront"
+    priority: "normal"
+    estimated_hours: 3
+    status: "new"
+
+  - id: "E20-005"
+    title: "Search Bar Modal"
+    module: "frontend/storefront"
+    priority: "high"
+    estimated_hours: 4
+    backend: "E24-004"
+    status: "new"
+
+  - id: "E20-006"
+    title: "Page Accueil"
+    module: "frontend/storefront"
+    priority: "high"
+    estimated_hours: 3
+    status: "new"
+
+  - id: "E20-007"
+    title: "Hero Slider"
+    module: "frontend/storefront"
+    priority: "high"
+    estimated_hours: 3
+    status: "new"
+
+  - id: "E20-008"
+    title: "Product Carousel"
+    module: "frontend/storefront"
+    priority: "normal"
+    estimated_hours: 3
+    status: "new"
+
+  - id: "E20-009"
+    title: "Trust Badges"
+    module: "frontend/storefront"
+    priority: "low"
+    estimated_hours: 2
+    status: "new"

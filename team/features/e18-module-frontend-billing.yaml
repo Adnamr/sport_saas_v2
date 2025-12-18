@@ -1,0 +1,87 @@
+# ═══════════════════════════════════════════════════════════════════
+# FEATURE E18: Frontend Facturation
+# ═══════════════════════════════════════════════════════════════════
+
+feature:
+  id: "E18"
+  name: "Frontend - Facturation"
+  description: |
+    Gestion des factures et paiements.
+  priority: "high"
+  estimated_days: 5
+  status: "todo"
+  backend_dependency: "E7"
+
+tickets:
+
+  - id: "E18-001"
+    title: "BillingService"
+    module: "frontend/billing"
+    priority: "high"
+    estimated_hours: 4
+    backend: "E7"
+    status: "new"
+
+  - id: "E18-002"
+    title: "Page Liste Factures"
+    module: "frontend/billing"
+    priority: "high"
+    estimated_hours: 4
+    status: "new"
+
+  - id: "E18-003"
+    title: "Table Factures"
+    module: "frontend/billing"
+    priority: "high"
+    estimated_hours: 3
+    status: "new"
+
+  - id: "E18-004"
+    title: "Page Détail Facture"
+    module: "frontend/billing"
+    priority: "high"
+    estimated_hours: 4
+    status: "new"
+
+  - id: "E18-005"
+    title: "Invoice PDF View"
+    module: "frontend/billing"
+    priority: "high"
+    estimated_hours: 5
+    status: "new"
+
+  - id: "E18-006"
+    title: "Sidebar Actions"
+    module: "frontend/billing"
+    priority: "normal"
+    estimated_hours: 3
+    status: "new"
+
+  - id: "E18-007"
+    title: "Page Nouvelle Facture"
+    module: "frontend/billing"
+    priority: "normal"
+    estimated_hours: 4
+    status: "new"
+
+  - id: "E18-008"
+    title: "Éditeur Lignes"
+    module: "frontend/billing"
+    priority: "normal"
+    estimated_hours: 5
+    status: "new"
+
+  - id: "E18-009"
+    title: "Sidebar Totaux"
+    module: "frontend/billing"
+    priority: "normal"
+    estimated_hours: 3
+    status: "new"
+
+  - id: "E18-010"
+    title: "Modal Paiement"
+    module: "frontend/billing"
+    priority: "high"
+    estimated_hours: 3
+    backend: "E7-004"
+    status: "new"

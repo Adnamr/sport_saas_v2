@@ -1,0 +1,102 @@
+# ═══════════════════════════════════════════════════════════════════
+# FEATURE E22: Storefront - Panier & Checkout
+# ═══════════════════════════════════════════════════════════════════
+
+feature:
+  id: "E22"
+  name: "Storefront - Panier & Checkout"
+  description: |
+    Panier et tunnel de commande complet avec Stripe.
+  priority: "high"
+  estimated_days: 6
+  status: "todo"
+  backend_dependency: "E24"
+
+tickets:
+
+  - id: "E22-001"
+    title: "CartService"
+    module: "frontend/storefront"
+    priority: "high"
+    estimated_hours: 5
+    backend: "E24-005"
+    status: "new"
+
+  - id: "E22-002"
+    title: "Mini Cart Dropdown"
+    module: "frontend/storefront"
+    priority: "high"
+    estimated_hours: 4
+    status: "new"
+
+  - id: "E22-003"
+    title: "Page Panier"
+    module: "frontend/storefront"
+    priority: "high"
+    estimated_hours: 5
+    status: "new"
+
+  - id: "E22-004"
+    title: "Code Promo"
+    module: "frontend/storefront"
+    priority: "normal"
+    estimated_hours: 2
+    status: "new"
+
+  - id: "E22-005"
+    title: "Checkout Wizard (4 steps)"
+    module: "frontend/storefront"
+    priority: "high"
+    estimated_hours: 4
+    status: "new"
+
+  - id: "E22-006"
+    title: "Step 1 - Identification"
+    module: "frontend/storefront"
+    priority: "high"
+    estimated_hours: 3
+    status: "new"
+
+  - id: "E22-007"
+    title: "Step 2 - Adresse"
+    module: "frontend/storefront"
+    priority: "high"
+    estimated_hours: 5
+    status: "new"
+
+  - id: "E22-008"
+    title: "Step 3 - Livraison"
+    module: "frontend/storefront"
+    priority: "high"
+    estimated_hours: 4
+    backend: "E24-006"
+    status: "new"
+
+  - id: "E22-009"
+    title: "Step 4 - Paiement Stripe"
+    module: "frontend/storefront"
+    priority: "high"
+    estimated_hours: 6
+    backend: "E24-007"
+    status: "new"
+
+  - id: "E22-010"
+    title: "Sidebar Récap"
+    module: "frontend/storefront"
+    priority: "normal"
+    estimated_hours: 3
+    status: "new"
+
+  - id: "E22-011"
+    title: "Page Confirmation"
+    module: "frontend/storefront"
+    priority: "high"
+    estimated_hours: 3
+    status: "new"
+
+  - id: "E22-012"
+    title: "CheckoutService"
+    module: "frontend/storefront"
+    priority: "high"
+    estimated_hours: 4
+    status: "new"

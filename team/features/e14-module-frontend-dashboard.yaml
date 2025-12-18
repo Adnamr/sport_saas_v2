@@ -1,0 +1,225 @@
+# ═══════════════════════════════════════════════════════════════════
+# FEATURE E14: Frontend Dashboard
+# ═══════════════════════════════════════════════════════════════════
+
+feature:
+  id: "E14"
+  name: "Frontend - Dashboard"
+  description: |
+    Dashboard admin avec KPIs, graphiques Chart.js et activités.
+  priority: "high"
+  estimated_days: 4
+  status: "todo"
+  backend_dependency: "E10"
+
+tickets:
+
+  - id: "E14-001"
+    title: "DashboardService"
+    module: "frontend/dashboard"
+    priority: "high"
+    estimated_hours: 3
+    status: "new"
+    backend: "E10"
+    acceptance_criteria:
+      - "getStats(period)"
+      - "getRevenueChart(period)"
+      - "getOrdersByStatus()"
+      - "getRecentOrders()"
+      - "getLowStock()"
+      - "getActivity()"
+
+  - id: "E14-002"
+    title: "Dashboard Layout"
+    module: "frontend/dashboard"
+    priority: "high"
+    estimated_hours: 2
+    status: "new"
+    design: |
+      ```html
+      <div class="space-y-6">
+        <!-- Header -->
+        <div class="flex items-center justify-between">
+          <div>
+            <h1 class="text-2xl font-bold text-white">Dashboard</h1>
+            <p class="text-slate-400">Bienvenue, {{ user.firstName }} 👋</p>
+          </div>
+          <div class="flex gap-3">
+            <select class="px-4 py-2 bg-white/5 border border-white/10 rounded-xl text-white">
+              <option>7 derniers jours</option>
+              <option>30 derniers jours</option>
+            </select>
+            <button class="btn-primary">Exporter</button>
+          </div>
+        </div>
+        
+        <!-- KPI Cards Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <!-- KPI Cards -->
+        </div>
+        
+        <!-- Charts Row -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <!-- Revenue Chart (2 cols) -->
+          <!-- Orders Doughnut (1 col) -->
+        </div>
+        
+        <!-- Tables Row -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <!-- Recent Orders -->
+          <!-- Low Stock -->
+        </div>
+      </div>
+      ```
+    acceptance_criteria:
+      - "Layout responsive grid"
+      - "Header avec période selector"
+      - "Bouton export"
+
+  - id: "E14-003"
+    title: "KPI Cards"
+    module: "frontend/dashboard"
+    priority: "high"
+    estimated_hours: 4
+    status: "new"
+    backend: "E10-002"
+    design: |
+      ```html
+      <div class="bg-white/10 backdrop-blur-lg rounded-2xl border border-white/20 p-6 
+                  hover:border-blue-500/50 transition-colors group">
+        <div class="flex items-start justify-between">
+          <div>
+            <p class="text-sm text-slate-400">{{ card.label }}</p>
+            <p class="text-3xl font-bold text-white mt-2">{{ card.value | number }}</p>
+            
+            <!-- Trend -->
+            <div class="flex items-center gap-2 mt-2">
+              <span [ngClass]="{
+                'text-emerald-400 bg-emerald-500/20': card.trend > 0,
+                'text-red-400 bg-red-500/20': card.trend < 0
+              }" class="px-2 py-0.5 rounded-full text-xs font-medium">
+                {{ card.trend > 0 ? '+' : '' }}{{ card.trend }}%
+              </span>
+            </div>
+          </div>
+          
+          <!-- Icon -->
+          <div class="p-3 rounded-xl bg-blue-500/20 group-hover:scale-110 transition-transform">
+            <lucide-icon [name]="card.icon" class="w-6 h-6 text-blue-400"></lucide-icon>
+          </div>
+        </div>
+      </div>
+      ```
+    acceptance_criteria:
+      - "4 cards: CA, Commandes, Clients, Panier moyen"
+      - "Trend avec couleur (vert/rouge)"
+      - "Icons colorées"
+      - "Animation hover"
+
+  - id: "E14-004"
+    title: "Revenue Chart (Chart.js)"
+    module: "frontend/dashboard"
+    priority: "high"
+    estimated_hours: 4
+    status: "new"
+    backend: "E10-003"
+    acceptance_criteria:
+      - "Line chart avec gradient fill"
+      - "Toggle Semaine/Mois/Année"
+      - "Tooltips stylisés"
+      - "Responsive"
+
+  - id: "E14-005"
+    title: "Orders Status Doughnut"
+    module: "frontend/dashboard"
+    priority: "normal"
+    estimated_hours: 3
+    status: "new"
+    backend: "E10-004"
+    acceptance_criteria:
+      - "Doughnut chart"
+      - "Total au centre"
+      - "Légende avec couleurs"
+
+  - id: "E14-006"
+    title: "Recent Orders Table"
+    module: "frontend/dashboard"
+    priority: "normal"
+    estimated_hours: 3
+    status: "new"
+    backend: "E10-005"
+    design: |
+      ```html
+      <div class="bg-white/10 backdrop-blur-lg rounded-2xl border border-white/20 p-6">
+        <div class="flex justify-between mb-6">
+          <h3 class="text-lg font-semibold text-white">Commandes récentes</h3>
+          <a routerLink="/orders" class="text-blue-400">Voir tout →</a>
+        </div>
+        <table class="w-full">
+          <thead>
+            <tr class="text-left text-sm text-slate-400 border-b border-white/10">
+              <th class="pb-3">Commande</th>
+              <th class="pb-3">Client</th>
+              <th class="pb-3">Montant</th>
+              <th class="pb-3">Statut</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-white/5">
+            <tr *ngFor="let order of orders" class="hover:bg-white/5">
+              <td class="py-4 font-medium text-white">#{{ order.number }}</td>
+              <td class="py-4 text-slate-300">{{ order.customerName }}</td>
+              <td class="py-4 text-white">{{ order.total | currency:'EUR' }}</td>
+              <td class="py-4"><app-badge [status]="order.status"></app-badge></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      ```
+    acceptance_criteria:
+      - "Table 10 dernières commandes"
+      - "Badge statut coloré"
+      - "Lien vers liste complète"
+
+  - id: "E14-007"
+    title: "Low Stock Alert"
+    module: "frontend/dashboard"
+    priority: "normal"
+    estimated_hours: 3
+    status: "new"
+    backend: "E10-006"
+    acceptance_criteria:
+      - "Liste produits sous seuil"
+      - "Image + nom + quantité"
+      - "Bouton Commander"
+
+  - id: "E14-008"
+    title: "Activity Feed"
+    module: "frontend/dashboard"
+    priority: "normal"
+    estimated_hours: 4
+    status: "new"
+    backend: "E10-007"
+    acceptance_criteria:
+      - "Timeline verticale"
+      - "Icons par type d'activité"
+      - "Timestamp relatif (il y a 5 min)"
+
+  - id: "E14-009"
+    title: "Quick Actions"
+    module: "frontend/dashboard"
+    priority: "low"
+    estimated_hours: 1
+    status: "new"
+    acceptance_criteria:
+      - "Boutons: Nouveau produit, Nouvelle commande, Export"
+      - "Navigation rapide"
+
+frontend:
+  module: "dashboard"
+  pages:
+    - name: "DashboardPage"
+      route: "/dashboard"
+
+notes: |
+  Dashboard principal après login.
+  Utilise Chart.js pour les graphiques.

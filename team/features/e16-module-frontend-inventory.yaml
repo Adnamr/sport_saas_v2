@@ -1,0 +1,75 @@
+# ═══════════════════════════════════════════════════════════════════
+# FEATURE E16: Frontend Inventaire
+# ═══════════════════════════════════════════════════════════════════
+
+feature:
+  id: "E16"
+  name: "Frontend - Inventaire"
+  description: |
+    Gestion des stocks et entrepôts.
+  priority: "high"
+  estimated_days: 4
+  status: "todo"
+  backend_dependency: "E5"
+
+tickets:
+
+  - id: "E16-001"
+    title: "InventoryService"
+    module: "frontend/inventory"
+    priority: "high"
+    estimated_hours: 3
+    backend: "E5"
+    status: "new"
+
+  - id: "E16-002"
+    title: "Page Vue Stock"
+    module: "frontend/inventory"
+    priority: "high"
+    estimated_hours: 5
+    status: "new"
+
+  - id: "E16-003"
+    title: "Stock Badge Component"
+    module: "frontend/shared"
+    priority: "high"
+    estimated_hours: 2
+    status: "new"
+    design: |
+      Badge coloré selon niveau: vert (OK), orange (bas), rouge (rupture)
+
+  - id: "E16-004"
+    title: "Modal Mouvement Stock"
+    module: "frontend/inventory"
+    priority: "high"
+    estimated_hours: 4
+    backend: "E5-005"
+    status: "new"
+
+  - id: "E16-005"
+    title: "Page Historique Mouvements"
+    module: "frontend/inventory"
+    priority: "normal"
+    estimated_hours: 4
+    status: "new"
+
+  - id: "E16-006"
+    title: "Page Liste Entrepôts"
+    module: "frontend/inventory"
+    priority: "normal"
+    estimated_hours: 3
+    status: "new"
+
+  - id: "E16-007"
+    title: "Modal Entrepôt CRUD"
+    module: "frontend/inventory"
+    priority: "normal"
+    estimated_hours: 3
+    status: "new"
+
+  - id: "E16-008"
+    title: "Page Inventaire Physique"
+    module: "frontend/inventory"
+    priority: "low"
+    estimated_hours: 6
+    status: "new"

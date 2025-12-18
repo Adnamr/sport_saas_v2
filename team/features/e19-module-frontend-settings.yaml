@@ -1,0 +1,81 @@
+# ═══════════════════════════════════════════════════════════════════
+# FEATURE E19: Frontend Paramètres
+# ═══════════════════════════════════════════════════════════════════
+
+feature:
+  id: "E19"
+  name: "Frontend - Paramètres"
+  description: |
+    Pages de configuration: Entreprise, Users, Taxes, Livraison.
+  priority: "normal"
+  estimated_days: 4
+  status: "todo"
+  backend_dependency: "E25, E8"
+
+tickets:
+
+  - id: "E19-001"
+    title: "SettingsService"
+    module: "frontend/settings"
+    priority: "high"
+    estimated_hours: 3
+    backend: "E25"
+    status: "new"
+
+  - id: "E19-002"
+    title: "Settings Layout (sidebar)"
+    module: "frontend/settings"
+    priority: "high"
+    estimated_hours: 3
+    status: "new"
+    design: |
+      Sidebar gauche avec menu:
+      - Entreprise
+      - Utilisateurs
+      - Taxes TVA
+      - Livraison
+      - Templates Email
+      - Mon profil
+
+  - id: "E19-003"
+    title: "Page Entreprise"
+    module: "frontend/settings"
+    priority: "high"
+    estimated_hours: 4
+    status: "new"
+
+  - id: "E19-004"
+    title: "Page Utilisateurs"
+    module: "frontend/settings"
+    priority: "high"
+    estimated_hours: 4
+    backend: "E8"
+    status: "new"
+
+  - id: "E19-005"
+    title: "Page Taxes TVA"
+    module: "frontend/settings"
+    priority: "normal"
+    estimated_hours: 3
+    status: "new"
+
+  - id: "E19-006"
+    title: "Page Livraison"
+    module: "frontend/settings"
+    priority: "normal"
+    estimated_hours: 4
+    status: "new"
+
+  - id: "E19-007"
+    title: "Page Templates Email"
+    module: "frontend/settings"
+    priority: "low"
+    estimated_hours: 4
+    status: "new"
+
+  - id: "E19-008"
+    title: "Page Mon Profil"
+    module: "frontend/settings"
+    priority: "normal"
+    estimated_hours: 3
+    status: "new"

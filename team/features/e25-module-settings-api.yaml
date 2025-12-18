@@ -1,0 +1,78 @@
+# ═══════════════════════════════════════════════════════════════════
+# FEATURE E25: Backend - Settings API
+# ═══════════════════════════════════════════════════════════════════
+
+feature:
+  id: "E25"
+  name: "Backend - Settings API"
+  description: |
+    API pour les paramètres: entreprise, taxes, livraison.
+  priority: "normal"
+  estimated_days: 4
+  status: "todo"
+  backend_dependency: "E2"
+
+tickets:
+
+  - id: "E25-001"
+    title: "Modèle TenantSettings"
+    module: "backend/settings"
+    priority: "high"
+    estimated_hours: 3
+    status: "new"
+
+  - id: "E25-002"
+    title: "Modèle TaxRate"
+    module: "backend/settings"
+    priority: "high"
+    estimated_hours: 2
+    status: "new"
+
+  - id: "E25-003"
+    title: "Modèle ShippingMethod"
+    module: "backend/settings"
+    priority: "high"
+    estimated_hours: 3
+    status: "new"
+
+  - id: "E25-004"
+    title: "SettingsController"
+    module: "backend/settings"
+    priority: "high"
+    estimated_hours: 3
+    status: "new"
+
+  - id: "E25-005"
+    title: "SettingsService"
+    module: "backend/settings"
+    priority: "high"
+    estimated_hours: 5
+    status: "new"
+
+  - id: "E25-006"
+    title: "TaxRateService CRUD"
+    module: "backend/settings"
+    priority: "normal"
+    estimated_hours: 3
+    status: "new"
+
+  - id: "E25-007"
+    title: "ShippingMethodService CRUD"
+    module: "backend/settings"
+    priority: "normal"
+    estimated_hours: 4
+    status: "new"
+
+  - id: "E25-008"
+    title: "Modèle EmailTemplate"
+    module: "backend/settings"
+    priority: "low"
+    estimated_hours: 3
+    status: "new"
+
+  - id: "E25-009"
+    title: "EmailTemplateService"
+    module: "backend/settings"
+    priority: "low"
+    estimated_hours: 2
+    status: "new"

@@ -1,0 +1,50 @@
+# ═══════════════════════════════════════════════════════════════════
+# FEATURE E26: Backend - Compléments Orders/Billing
+# ═══════════════════════════════════════════════════════════════════
+
+feature:
+  id: "E26"
+  name: "Backend - Compléments Orders/Billing"
+  description: |
+    Endpoints complémentaires pour commandes et facturation.
+  priority: "high"
+  estimated_days: 2
+  status: "todo"
+  backend_dependency: "E6, E7"
+
+tickets:
+
+  - id: "E26-001"
+    title: "POST /api/orders/{id}/ship"
+    module: "backend/order"
+    priority: "high"
+    estimated_hours: 3
+    status: "new"
+
+  - id: "E26-002"
+    title: "POST /api/invoices (create)"
+    module: "backend/billing"
+    priority: "high"
+    estimated_hours: 4
+    status: "new"
+
+  - id: "E26-003"
+    title: "PUT /api/invoices/{id}"
+    module: "backend/billing"
+    priority: "high"
+    estimated_hours: 3
+    status: "new"
+
+  - id: "E26-004"
+    title: "POST /api/payments (record)"
+    module: "backend/billing"
+    priority: "high"
+    estimated_hours: 3
+    status: "new"
+
+  - id: "E26-005"
+    title: "Génération PDF Facture"
+    module: "backend/billing"
+    priority: "high"
+    estimated_hours: 5
+    status: "new"

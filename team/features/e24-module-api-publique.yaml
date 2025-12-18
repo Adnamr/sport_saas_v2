@@ -1,0 +1,92 @@
+# ═══════════════════════════════════════════════════════════════════
+# FEATURE E24: Backend - API Publique Storefront
+# ═══════════════════════════════════════════════════════════════════
+
+feature:
+  id: "E24"
+  name: "Backend - API Publique Storefront"
+  description: |
+    API REST publique pour le storefront (sans auth admin).
+  priority: "high"
+  estimated_days: 6
+  status: "todo"
+  backend_dependency: "E4, E5, E6, E7"
+
+tickets:
+
+  - id: "E24-001"
+    title: "GET /api/public/categories"
+    module: "backend/public-api"
+    priority: "high"
+    estimated_hours: 3
+    status: "new"
+
+  - id: "E24-002"
+    title: "GET /api/public/products (filtres)"
+    module: "backend/public-api"
+    priority: "high"
+    estimated_hours: 6
+    status: "new"
+
+  - id: "E24-003"
+    title: "GET /api/public/products/{slug}"
+    module: "backend/public-api"
+    priority: "high"
+    estimated_hours: 4
+    status: "new"
+
+  - id: "E24-004"
+    title: "GET /api/public/search/suggest"
+    module: "backend/public-api"
+    priority: "normal"
+    estimated_hours: 3
+    status: "new"
+
+  - id: "E24-005"
+    title: "CRUD /api/public/cart"
+    module: "backend/public-api"
+    priority: "high"
+    estimated_hours: 6
+    status: "new"
+
+  - id: "E24-006"
+    title: "POST /api/public/checkout"
+    module: "backend/public-api"
+    priority: "high"
+    estimated_hours: 6
+    status: "new"
+
+  - id: "E24-007"
+    title: "Intégration Stripe PaymentIntent"
+    module: "backend/public-api"
+    priority: "high"
+    estimated_hours: 6
+    status: "new"
+
+  - id: "E24-008"
+    title: "/api/public/auth (client)"
+    module: "backend/public-api"
+    priority: "high"
+    estimated_hours: 4
+    status: "new"
+
+  - id: "E24-009"
+    title: "/api/public/customers/me"
+    module: "backend/public-api"
+    priority: "high"
+    estimated_hours: 5
+    status: "new"
+
+  - id: "E24-010"
+    title: "/api/public/wishlist"
+    module: "backend/public-api"
+    priority: "low"
+    estimated_hours: 2
+    status: "new"
+
+  - id: "E24-011"
+    title: "/api/public/reviews"
+    module: "backend/public-api"
+    priority: "low"
+    estimated_hours: 4
+    status: "new"

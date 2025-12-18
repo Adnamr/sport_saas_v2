@@ -1,0 +1,110 @@
+# ═══════════════════════════════════════════════════════════════════
+# FEATURE E21: Storefront - Catalogue
+# ═══════════════════════════════════════════════════════════════════
+
+feature:
+  id: "E21"
+  name: "Storefront - Catalogue"
+  description: |
+    Pages catalogue public avec filtres et détail produit.
+  priority: "high"
+  estimated_days: 6
+  status: "todo"
+  backend_dependency: "E24"
+
+tickets:
+
+  - id: "E21-001"
+    title: "CatalogService Public"
+    module: "frontend/storefront"
+    priority: "high"
+    estimated_hours: 3
+    backend: "E24"
+    status: "new"
+
+  - id: "E21-002"
+    title: "Page Catalogue"
+    module: "frontend/storefront"
+    priority: "high"
+    estimated_hours: 4
+    status: "new"
+
+  - id: "E21-003"
+    title: "Filtres Sidebar"
+    module: "frontend/storefront"
+    priority: "high"
+    estimated_hours: 6
+    status: "new"
+
+  - id: "E21-004"
+    title: "Product Card"
+    module: "frontend/storefront"
+    priority: "high"
+    estimated_hours: 4
+    status: "new"
+
+  - id: "E21-005"
+    title: "Tri & Vue Toggle"
+    module: "frontend/storefront"
+    priority: "normal"
+    estimated_hours: 2
+    status: "new"
+
+  - id: "E21-006"
+    title: "Pagination"
+    module: "frontend/storefront"
+    priority: "normal"
+    estimated_hours: 2
+    status: "new"
+
+  - id: "E21-007"
+    title: "Filtres Mobile Drawer"
+    module: "frontend/storefront"
+    priority: "normal"
+    estimated_hours: 3
+    status: "new"
+
+  - id: "E21-008"
+    title: "Page Détail Produit"
+    module: "frontend/storefront"
+    priority: "high"
+    estimated_hours: 5
+    backend: "E24-003"
+    status: "new"
+
+  - id: "E21-009"
+    title: "Galerie Images"
+    module: "frontend/storefront"
+    priority: "high"
+    estimated_hours: 4
+    status: "new"
+
+  - id: "E21-010"
+    title: "Sélecteur Variantes"
+    module: "frontend/storefront"
+    priority: "high"
+    estimated_hours: 4
+    status: "new"
+
+  - id: "E21-011"
+    title: "Add to Cart"
+    module: "frontend/storefront"
+    priority: "high"
+    estimated_hours: 4
+    backend: "E24-005"
+    status: "new"
+
+  - id: "E21-012"
+    title: "Section Avis"
+    module: "frontend/storefront"
+    priority: "low"
+    estimated_hours: 4
+    backend: "E24-011"
+    status: "new"
+
+  - id: "E21-013"
+    title: "Produits Similaires"
+    module: "frontend/storefront"
+    priority: "low"
+    estimated_hours: 3
+    status: "new"

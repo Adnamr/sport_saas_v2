@@ -1,0 +1,105 @@
+# ═══════════════════════════════════════════════════════════════════
+# FEATURE E17: Frontend Commandes
+# ═══════════════════════════════════════════════════════════════════
+
+feature:
+  id: "E17"
+  name: "Frontend - Commandes"
+  description: |
+    Gestion des commandes admin avec workflow de statuts.
+  priority: "high"
+  estimated_days: 6
+  status: "todo"
+  backend_dependency: "E6"
+
+tickets:
+
+  - id: "E17-001"
+    title: "OrderService"
+    module: "frontend/orders"
+    priority: "high"
+    estimated_hours: 4
+    backend: "E6"
+    status: "new"
+
+  - id: "E17-002"
+    title: "Page Liste Commandes (tabs)"
+    module: "frontend/orders"
+    priority: "high"
+    estimated_hours: 4
+    status: "new"
+    design: |
+      Tabs par statut: Toutes, En attente, Confirmées, Expédiées, etc.
+
+  - id: "E17-003"
+    title: "Table Commandes"
+    module: "frontend/orders"
+    priority: "high"
+    estimated_hours: 3
+    status: "new"
+
+  - id: "E17-004"
+    title: "Page Détail Commande"
+    module: "frontend/orders"
+    priority: "high"
+    estimated_hours: 4
+    status: "new"
+
+  - id: "E17-005"
+    title: "Timeline Statut"
+    module: "frontend/orders"
+    priority: "high"
+    estimated_hours: 4
+    status: "new"
+    design: |
+      Timeline horizontale avec étapes: Créée → Confirmée → Préparée → Expédiée → Livrée
+
+  - id: "E17-006"
+    title: "Articles & Totaux"
+    module: "frontend/orders"
+    priority: "high"
+    estimated_hours: 3
+    status: "new"
+
+  - id: "E17-007"
+    title: "Sidebar Cards (client, livraison)"
+    module: "frontend/orders"
+    priority: "normal"
+    estimated_hours: 3
+    status: "new"
+
+  - id: "E17-008"
+    title: "Modal Expédition"
+    module: "frontend/orders"
+    priority: "high"
+    estimated_hours: 3
+    backend: "E6-008"
+    status: "new"
+
+  - id: "E17-009"
+    title: "Page Nouvelle Commande"
+    module: "frontend/orders"
+    priority: "normal"
+    estimated_hours: 4
+    status: "new"
+
+  - id: "E17-010"
+    title: "Sélection Client"
+    module: "frontend/orders"
+    priority: "normal"
+    estimated_hours: 4
+    status: "new"
+
+  - id: "E17-011"
+    title: "Éditeur Articles"
+    module: "frontend/orders"
+    priority: "normal"
+    estimated_hours: 5
+    status: "new"
+
+  - id: "E17-012"
+    title: "Sidebar Totaux"
+    module: "frontend/orders"
+    priority: "normal"
+    estimated_hours: 3
+    status: "new"

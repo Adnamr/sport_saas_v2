@@ -1,0 +1,199 @@
+# ═══════════════════════════════════════════════════════════════════
+# FEATURE E13: Frontend Module Auth
+# ═══════════════════════════════════════════════════════════════════
+
+feature:
+  id: "E13"
+  name: "Frontend - Module Auth"
+  description: |
+    Pages d'authentification: Login, Register, Forgot/Reset Password.
+    Design glassmorphism avec Tailwind CSS.
+  priority: "high"
+  estimated_days: 3
+  status: "todo"
+  backend_dependency: "E3"
+
+design_system:
+  colors:
+    primary: "blue-500 → blue-600"
+    background: "slate-900 via-blue-900"
+    surface: "white/10 backdrop-blur"
+    text: "white, slate-300, slate-400"
+  components:
+    card: "bg-white/10 backdrop-blur-xl rounded-3xl border border-white/20 shadow-2xl p-8"
+    input: "w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-slate-500 focus:ring-2 focus:ring-blue-500"
+    button_primary: "w-full py-4 bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white font-semibold rounded-xl shadow-lg shadow-blue-500/30"
+
+tickets:
+
+  - id: "E13-001"
+    title: "AuthService"
+    module: "frontend/core"
+    priority: "high"
+    estimated_hours: 4
+    status: "new"
+    backend: "E3"
+    acceptance_criteria:
+      - "login(email, password) → JWT tokens"
+      - "register(data) → création compte"
+      - "forgotPassword(email)"
+      - "resetPassword(token, password)"
+      - "currentUser$ BehaviorSubject"
+      - "isAuthenticated()"
+      - "logout() avec clear localStorage"
+
+  - id: "E13-002"
+    title: "Page Login"
+    module: "frontend/auth"
+    priority: "high"
+    estimated_hours: 4
+    status: "new"
+    backend: "E3-005"
+    design: |
+      ```html
+      <div class="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900 
+                  flex items-center justify-center p-4">
+        <div class="bg-white/10 backdrop-blur-xl rounded-3xl border border-white/20 
+                    shadow-2xl p-8 w-full max-w-md">
+          <!-- Logo + Title -->
+          <div class="text-center mb-8">
+            <div class="inline-flex items-center justify-center w-16 h-16 
+                        bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl mb-4">
+              <lucide-icon name="shield-check" class="w-8 h-8 text-white"></lucide-icon>
+            </div>
+            <h1 class="text-2xl font-bold text-white">Connexion</h1>
+          </div>
+          
+          <!-- Form -->
+          <form class="space-y-5">
+            <!-- Email with icon -->
+            <div>
+              <label class="block text-sm font-medium text-slate-300 mb-2">Email</label>
+              <div class="relative">
+                <lucide-icon name="mail" class="absolute left-4 top-1/2 -translate-y-1/2 
+                                                w-5 h-5 text-slate-400"></lucide-icon>
+                <input type="email" class="w-full pl-12 pr-4 py-3 bg-white/5 border 
+                                           border-white/10 rounded-xl text-white">
+              </div>
+            </div>
+            
+            <!-- Password with toggle -->
+            <div>
+              <label class="block text-sm font-medium text-slate-300 mb-2">Mot de passe</label>
+              <div class="relative">
+                <lucide-icon name="lock" class="absolute left-4 top-1/2 -translate-y-1/2 
+                                                w-5 h-5 text-slate-400"></lucide-icon>
+                <input [type]="showPassword ? 'text' : 'password'" 
+                       class="w-full pl-12 pr-12 py-3 bg-white/5 border border-white/10 rounded-xl">
+                <button type="button" (click)="showPassword = !showPassword"
+                        class="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400">
+                  <lucide-icon [name]="showPassword ? 'eye-off' : 'eye'"></lucide-icon>
+                </button>
+              </div>
+            </div>
+            
+            <!-- Remember + Forgot -->
+            <div class="flex items-center justify-between">
+              <label class="flex items-center gap-2">
+                <input type="checkbox" class="w-4 h-4 rounded bg-white/5 text-blue-500">
+                <span class="text-sm text-slate-400">Se souvenir</span>
+              </label>
+              <a routerLink="/auth/forgot-password" class="text-sm text-blue-400">
+                Mot de passe oublié ?
+              </a>
+            </div>
+            
+            <!-- Submit -->
+            <button type="submit" 
+                    class="w-full py-4 bg-gradient-to-r from-blue-500 to-blue-600 
+                           text-white font-semibold rounded-xl shadow-lg">
+              Se connecter
+            </button>
+          </form>
+          
+          <!-- Register link -->
+          <p class="text-center text-slate-400 mt-6">
+            Pas de compte ? <a routerLink="/auth/register" class="text-blue-400">Créer un compte</a>
+          </p>
+        </div>
+      </div>
+      ```
+    acceptance_criteria:
+      - "Design glassmorphism"
+      - "Validation email/password"
+      - "Toggle password visibility"
+      - "Remember me checkbox"
+      - "Error messages stylisés"
+      - "Loading state sur bouton"
+      - "Redirect vers dashboard après login"
+
+  - id: "E13-003"
+    title: "Page Register"
+    module: "frontend/auth"
+    priority: "high"
+    estimated_hours: 5
+    status: "new"
+    backend: "E3-006"
+    design: |
+      Même style que Login avec:
+      - Champs: firstName, lastName, email, password, confirmPassword
+      - Password strength meter (4 barres: red/amber/green)
+      - Checkbox acceptation CGU
+    acceptance_criteria:
+      - "Formulaire complet avec validations"
+      - "Password strength indicator"
+      - "Confirmation password match"
+      - "Terms checkbox obligatoire"
+      - "Redirect vers login après inscription"
+
+  - id: "E13-004"
+    title: "Page Forgot Password"
+    module: "frontend/auth"
+    priority: "normal"
+    estimated_hours: 2
+    status: "new"
+    backend: "E3-009"
+    acceptance_criteria:
+      - "Formulaire email uniquement"
+      - "Message de succès neutre (sécurité)"
+      - "Lien retour vers login"
+
+  - id: "E13-005"
+    title: "Page Reset Password"
+    module: "frontend/auth"
+    priority: "normal"
+    estimated_hours: 3
+    status: "new"
+    backend: "E3-010"
+    acceptance_criteria:
+      - "Token dans URL"
+      - "Nouveau password + confirmation"
+      - "Gestion token invalide/expiré"
+      - "Redirect vers login après reset"
+
+  - id: "E13-006"
+    title: "Auth Guards & Routing"
+    module: "frontend/core"
+    priority: "high"
+    estimated_hours: 2
+    status: "new"
+    acceptance_criteria:
+      - "authGuard: redirect si non connecté"
+      - "guestGuard: redirect si déjà connecté"
+      - "Routes lazy-loaded"
+
+frontend:
+  module: "auth"
+  pages:
+    - name: "LoginPage"
+      route: "/auth/login"
+    - name: "RegisterPage"
+      route: "/auth/register"
+    - name: "ForgotPasswordPage"
+      route: "/auth/forgot-password"
+    - name: "ResetPasswordPage"
+      route: "/auth/reset-password/:token"
+
+notes: |
+  Feature frontend dépendant de E3 (Backend Auth).
+  Design glassmorphism cohérent sur toutes les pages.

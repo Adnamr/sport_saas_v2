@@ -1,0 +1,102 @@
+# ═══════════════════════════════════════════════════════════════════
+# FEATURE E23: Storefront - Espace Client
+# ═══════════════════════════════════════════════════════════════════
+
+feature:
+  id: "E23"
+  name: "Storefront - Espace Client"
+  description: |
+    Espace client avec profil, commandes, adresses.
+  priority: "high"
+  estimated_days: 5
+  status: "todo"
+  backend_dependency: "E24"
+
+tickets:
+
+  - id: "E23-001"
+    title: "CustomerAuthService"
+    module: "frontend/storefront"
+    priority: "high"
+    estimated_hours: 3
+    backend: "E24-008"
+    status: "new"
+
+  - id: "E23-002"
+    title: "Page Connexion Client"
+    module: "frontend/storefront"
+    priority: "high"
+    estimated_hours: 3
+    status: "new"
+
+  - id: "E23-003"
+    title: "Page Inscription Client"
+    module: "frontend/storefront"
+    priority: "high"
+    estimated_hours: 3
+    status: "new"
+
+  - id: "E23-004"
+    title: "Pages Password Reset"
+    module: "frontend/storefront"
+    priority: "normal"
+    estimated_hours: 2
+    status: "new"
+
+  - id: "E23-005"
+    title: "Layout Espace Client"
+    module: "frontend/storefront"
+    priority: "high"
+    estimated_hours: 3
+    status: "new"
+
+  - id: "E23-006"
+    title: "Page Profil"
+    module: "frontend/storefront"
+    priority: "high"
+    estimated_hours: 3
+    backend: "E24-009"
+    status: "new"
+
+  - id: "E23-007"
+    title: "Page Mes Commandes"
+    module: "frontend/storefront"
+    priority: "high"
+    estimated_hours: 4
+    status: "new"
+
+  - id: "E23-008"
+    title: "Page Détail Commande"
+    module: "frontend/storefront"
+    priority: "high"
+    estimated_hours: 4
+    status: "new"
+
+  - id: "E23-009"
+    title: "Page Adresses"
+    module: "frontend/storefront"
+    priority: "normal"
+    estimated_hours: 3
+    status: "new"
+
+  - id: "E23-010"
+    title: "Page Favoris"
+    module: "frontend/storefront"
+    priority: "low"
+    estimated_hours: 3
+    backend: "E24-010"
+    status: "new"
+
+  - id: "E23-011"
+    title: "Page Sécurité"
+    module: "frontend/storefront"
+    priority: "low"
+    estimated_hours: 2
+    status: "new"
+
+  - id: "E23-012"
+    title: "CustomerService"
+    module: "frontend/storefront"
+    priority: "high"
+    estimated_hours: 3
+    status: "new"

@@ -1,0 +1,98 @@
+# ═══════════════════════════════════════════════════════════════════
+# FEATURE E15: Frontend Catalogue
+# ═══════════════════════════════════════════════════════════════════
+
+feature:
+  id: "E15"
+  name: "Frontend - Catalogue"
+  description: |
+    Gestion des catégories et produits côté admin.
+  priority: "high"
+  estimated_days: 6
+  status: "todo"
+  backend_dependency: "E4"
+
+tickets:
+
+  - id: "E15-001"
+    title: "CatalogService"
+    module: "frontend/catalog"
+    priority: "high"
+    estimated_hours: 4
+    backend: "E4"
+    status: "new"
+
+  - id: "E15-002"
+    title: "Page Liste Catégories (tree)"
+    module: "frontend/catalog"
+    priority: "high"
+    estimated_hours: 4
+    status: "new"
+
+  - id: "E15-003"
+    title: "Modal Catégorie CRUD"
+    module: "frontend/catalog"
+    priority: "high"
+    estimated_hours: 3
+    status: "new"
+
+  - id: "E15-004"
+    title: "Page Liste Produits"
+    module: "frontend/catalog"
+    priority: "high"
+    estimated_hours: 5
+    status: "new"
+    design: |
+      Table avec filtres, recherche, pagination.
+      Actions: Voir, Modifier, Supprimer.
+      Toggle statut Draft/Active.
+
+  - id: "E15-005"
+    title: "Page Formulaire Produit (tabs)"
+    module: "frontend/catalog"
+    priority: "high"
+    estimated_hours: 3
+    status: "new"
+
+  - id: "E15-006"
+    title: "Tab Informations"
+    module: "frontend/catalog"
+    priority: "high"
+    estimated_hours: 4
+    status: "new"
+
+  - id: "E15-007"
+    title: "Tab Prix"
+    module: "frontend/catalog"
+    priority: "high"
+    estimated_hours: 3
+    status: "new"
+
+  - id: "E15-008"
+    title: "Tab Stock"
+    module: "frontend/catalog"
+    priority: "high"
+    estimated_hours: 3
+    backend: "E5"
+    status: "new"
+
+  - id: "E15-009"
+    title: "Tab Médias (upload)"
+    module: "frontend/catalog"
+    priority: "high"
+    estimated_hours: 4
+    status: "new"
+
+  - id: "E15-010"
+    title: "Tab Attributs"
+    module: "frontend/catalog"
+    priority: "normal"
+    estimated_hours: 3
+    status: "new"
+
+  - id: "E15-011"
+    title: "Tab SEO"
+    module: "frontend/catalog"
+    priority: "low"
+    estimated_hours: 2
+    status: "new"

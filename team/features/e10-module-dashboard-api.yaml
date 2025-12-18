@@ -1,0 +1,100 @@
+# ═══════════════════════════════════════════════════════════════════
+# FEATURE E10: Dashboard API
+# ═══════════════════════════════════════════════════════════════════
+
+feature:
+  id: "E10"
+  name: "Backend - Dashboard API"
+  description: |
+    API REST pour le dashboard admin avec statistiques, graphiques et activités.
+  priority: "high"
+  estimated_days: 3
+  status: "todo"
+
+tickets:
+
+  - id: "E10-001"
+    title: "DashboardController"
+    module: "dashboard"
+    priority: "high"
+    estimated_hours: 3
+    status: "new"
+    acceptance_criteria:
+      - "Controller REST avec endpoints dashboard"
+      - "Sécurisé par JWT"
+      - "Filtrage par tenant automatique"
+
+  - id: "E10-002"
+    title: "GET /api/dashboard/stats"
+    module: "dashboard"
+    priority: "high"
+    estimated_hours: 5
+    status: "new"
+    acceptance_criteria:
+      - "KPIs: CA, commandes, clients, panier moyen"
+      - "Comparaison période précédente (trend %)"
+      - "Filtrable par période (7j, 30j, mois)"
+
+  - id: "E10-003"
+    title: "GET /api/dashboard/revenue-chart"
+    module: "dashboard"
+    priority: "high"
+    estimated_hours: 4
+    status: "new"
+    acceptance_criteria:
+      - "Données pour graphique revenue"
+      - "Groupé par jour/semaine/mois"
+      - "Format compatible Chart.js"
+
+  - id: "E10-004"
+    title: "GET /api/dashboard/orders-by-status"
+    module: "dashboard"
+    priority: "normal"
+    estimated_hours: 2
+    status: "new"
+    acceptance_criteria:
+      - "Comptage commandes par statut"
+      - "Pour graphique doughnut"
+
+  - id: "E10-005"
+    title: "GET /api/dashboard/recent-orders"
+    module: "dashboard"
+    priority: "normal"
+    estimated_hours: 2
+    status: "new"
+    acceptance_criteria:
+      - "10 dernières commandes"
+      - "Avec client, montant, statut"
+
+  - id: "E10-006"
+    title: "GET /api/dashboard/low-stock"
+    module: "dashboard"
+    priority: "normal"
+    estimated_hours: 3
+    status: "new"
+    acceptance_criteria:
+      - "Produits sous le seuil d'alerte"
+      - "Avec quantité et seuil"
+
+  - id: "E10-007"
+    title: "GET /api/dashboard/activity"
+    module: "dashboard"
+    priority: "normal"
+    estimated_hours: 4
+    status: "new"
+    acceptance_criteria:
+      - "Fil d'activité récente"
+      - "Types: commande, paiement, stock, produit"
+      - "Avec timestamp et user"
+
+  - id: "E10-008"
+    title: "Migration table activities"
+    module: "dashboard"
+    priority: "normal"
+    estimated_hours: 1
+    status: "new"
+    acceptance_criteria:
+      - "Table activities avec type, data JSON, user, timestamp"
+
+notes: |
+  Backend API pour alimenter le dashboard frontend.

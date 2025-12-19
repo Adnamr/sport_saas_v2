@@ -3,8 +3,11 @@ package com.sportsaas.auth.domain;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -65,4 +68,14 @@ public interface UserRepository extends JpaRepository<User, UUID> {
     default long countEnabledByRole(UserRole role) {
         return countByRoleAndEnabledTrue(role);
     }
+
+    /**
+     * Compte les utilisateurs par role crees dans une periode.
+     */
+    @Query("SELECT COUNT(u) FROM User u WHERE u.role = :role AND u.createdAt BETWEEN :start AND :end")
+    long countByRoleAndCreatedAtBetween(
+        @Param("role") UserRole role,
+        @Param("start") LocalDateTime start,
+        @Param("end") LocalDateTime end
+    );
 }

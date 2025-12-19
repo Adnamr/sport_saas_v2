@@ -49,7 +49,7 @@ public interface UserService {
     /**
      * Desactive un utilisateur.
      */
-    User disable(UUID id);
+    User disable(UUID id, UUID currentUserId);
 
     /**
      * Verifie l'email d'un utilisateur.
@@ -75,4 +75,44 @@ public interface UserService {
      * Authentifie un utilisateur et met a jour lastLoginAt.
      */
     User authenticate(String email, String password, UUID tenantId);
+
+    /**
+     * Supprime un utilisateur.
+     */
+    void delete(UUID id, UUID currentUserId);
+
+    /**
+     * Recupere les utilisateurs par role.
+     */
+    Page<User> findByRole(UserRole role, Pageable pageable);
+
+    /**
+     * Met a jour le role d'un utilisateur.
+     */
+    User updateRole(UUID id, UserRole role, UUID currentUserId, UserRole currentUserRole);
+
+    /**
+     * Invite un utilisateur par email.
+     */
+    User inviteUser(String email, String firstName, String lastName, UserRole role, UserRole currentUserRole);
+
+    /**
+     * Renvoie l'invitation a un utilisateur.
+     */
+    User resendInvitation(UUID id);
+
+    /**
+     * Complete l'inscription d'un utilisateur invite.
+     */
+    User completeInvitation(String token, String password);
+
+    /**
+     * Compte le nombre total d'utilisateurs.
+     */
+    long count();
+
+    /**
+     * Compte les utilisateurs par role.
+     */
+    long countByRole(UserRole role);
 }

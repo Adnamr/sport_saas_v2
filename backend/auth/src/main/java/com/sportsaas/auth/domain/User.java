@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 /**
  * Entite User - Utilisateur de la plateforme.
@@ -59,6 +60,18 @@ public class User extends TenantAwareEntity {
     @Column
     private LocalDateTime lastLoginAt;
 
+    @Column
+    private String invitationToken;
+
+    @Column
+    private LocalDateTime invitationTokenExpiresAt;
+
+    @Column
+    private UUID invitedBy;
+
+    @Column
+    private LocalDateTime invitedAt;
+
     /**
      * Retourne le nom complet.
      */
@@ -82,5 +95,21 @@ public class User extends TenantAwareEntity {
         return passwordResetToken != null
             && passwordResetTokenExpiresAt != null
             && passwordResetTokenExpiresAt.isAfter(LocalDateTime.now());
+    }
+
+    /**
+     * Verifie si le token d'invitation est valide.
+     */
+    public boolean isInvitationTokenValid() {
+        return invitationToken != null
+            && invitationTokenExpiresAt != null
+            && invitationTokenExpiresAt.isAfter(LocalDateTime.now());
+    }
+
+    /**
+     * Verifie si l'utilisateur a ete invite.
+     */
+    public boolean isInvited() {
+        return invitedAt != null;
     }
 }

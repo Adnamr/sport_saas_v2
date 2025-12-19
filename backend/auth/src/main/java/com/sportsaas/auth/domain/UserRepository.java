@@ -1,5 +1,7 @@
 package com.sportsaas.auth.domain;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -33,7 +35,34 @@ public interface UserRepository extends JpaRepository<User, UUID> {
     Optional<User> findByPasswordResetToken(String token);
 
     /**
+     * Trouve un utilisateur par token d'invitation.
+     */
+    Optional<User> findByInvitationToken(String token);
+
+    /**
      * Verifie si un email existe pour un tenant.
      */
     boolean existsByEmailAndTenantId(String email, UUID tenantId);
+
+    /**
+     * Trouve les utilisateurs par role.
+     */
+    Page<User> findByRole(UserRole role, Pageable pageable);
+
+    /**
+     * Compte les utilisateurs par role.
+     */
+    long countByRole(UserRole role);
+
+    /**
+     * Compte les utilisateurs actifs par role.
+     */
+    long countByRoleAndEnabledTrue(UserRole role);
+
+    /**
+     * Alias pour countByRoleAndEnabledTrue.
+     */
+    default long countEnabledByRole(UserRole role) {
+        return countByRoleAndEnabledTrue(role);
+    }
 }

@@ -54,6 +54,10 @@
             <groupId>com.sportsaas</groupId>
             <artifactId>notification</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.sportsaas</groupId>
+            <artifactId>admin</artifactId>
+        </dependency>
 
         <!-- Spring Boot -->
         <dependency>

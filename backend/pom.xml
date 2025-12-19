@@ -37,9 +37,9 @@
         <module>billing</module>
         <!-- E8: Notification -->
         <module>notification</module>
+        <!-- E9: Admin -->
+        <module>admin</module>
         <module>app</module>
-        <!-- Modules à activer progressivement -->
-        <!-- <module>admin</module> -->
     </modules>
 
     <properties>

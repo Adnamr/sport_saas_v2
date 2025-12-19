@@ -47,6 +47,7 @@ public class ReservationController {
 
     @GetMapping("/{id}")
     @Operation(summary = "Recuperer une reservation")
+    @PreAuthorize("isAuthenticated()")
     public ResponseEntity<ReservationResponse> getById(@PathVariable UUID id) {
         Reservation reservation = reservationService.findById(id)
                 .orElseThrow(() -> new NotFoundException("Reservation", id));
@@ -65,6 +66,7 @@ public class ReservationController {
 
     @GetMapping("/customer/{customerId}")
     @Operation(summary = "Lister les reservations d'un client")
+    @PreAuthorize("isAuthenticated()")
     public ResponseEntity<List<ReservationResponse>> getByCustomer(@PathVariable UUID customerId) {
         List<Reservation> reservations = reservationService.findByCustomerId(customerId);
         return ResponseEntity.ok(inventoryMapper.toReservationResponseList(reservations));
@@ -72,6 +74,7 @@ public class ReservationController {
 
     @GetMapping("/customer/{customerId}/active")
     @Operation(summary = "Lister les reservations actives d'un client")
+    @PreAuthorize("isAuthenticated()")
     public ResponseEntity<List<ReservationResponse>> getActiveByCustomer(@PathVariable UUID customerId) {
         List<Reservation> reservations = reservationService.findActiveByCustomerId(customerId);
         return ResponseEntity.ok(inventoryMapper.toReservationResponseList(reservations));
@@ -97,6 +100,7 @@ public class ReservationController {
 
     @PostMapping("/{id}/cancel")
     @Operation(summary = "Annuler une reservation")
+    @PreAuthorize("isAuthenticated()")
     public ResponseEntity<ReservationResponse> cancel(@PathVariable UUID id) {
         Reservation reservation = reservationService.cancel(id);
         return ResponseEntity.ok(inventoryMapper.toReservationResponse(reservation));
@@ -104,6 +108,7 @@ public class ReservationController {
 
     @PostMapping("/{id}/extend")
     @Operation(summary = "Prolonger une reservation")
+    @PreAuthorize("isAuthenticated()")
     public ResponseEntity<ReservationResponse> extend(
             @PathVariable UUID id,
             @Valid @RequestBody ExtendReservationRequest request) {

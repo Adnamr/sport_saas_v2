@@ -19,6 +19,8 @@ public interface StockMovementRepository extends JpaRepository<StockMovement, UU
 
     Page<StockMovement> findByProductIdOrderByCreatedAtDesc(UUID productId, Pageable pageable);
 
+    List<StockMovement> findByProductIdOrderByCreatedAtDesc(UUID productId);
+
     List<StockMovement> findByProductIdAndTypeOrderByCreatedAtDesc(UUID productId, MovementType type);
 
     Page<StockMovement> findByTypeOrderByCreatedAtDesc(MovementType type, Pageable pageable);

@@ -153,7 +153,7 @@ public class StockServiceImpl implements StockService {
 
     @Override
     public List<StockMovement> getMovementHistory(UUID productId) {
-        return stockMovementRepository.findByProductIdAndTypeOrderByCreatedAtDesc(productId, null);
+        return stockMovementRepository.findByProductIdOrderByCreatedAtDesc(productId);
     }
 
     private StockItem createStockItem(UUID productId) {

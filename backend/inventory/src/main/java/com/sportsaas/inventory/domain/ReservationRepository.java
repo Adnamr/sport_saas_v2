@@ -33,6 +33,6 @@ public interface ReservationRepository extends JpaRepository<Reservation, UUID> 
     @Query("SELECT r FROM Reservation r WHERE r.status = 'ACTIVE' AND r.expiresAt < :now")
     List<Reservation> findExpiredReservations(@Param("now") LocalDateTime now);
 
-    @Query("SELECT SUM(r.quantity) FROM Reservation r WHERE r.productId = :productId AND r.status = 'ACTIVE'")
+    @Query("SELECT SUM(r.quantity) FROM Reservation r WHERE r.product.id = :productId AND r.status = 'ACTIVE'")
     Integer sumActiveReservationsByProductId(@Param("productId") UUID productId);
 }

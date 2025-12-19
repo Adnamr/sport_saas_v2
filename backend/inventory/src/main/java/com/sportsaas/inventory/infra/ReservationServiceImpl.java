@@ -63,13 +63,13 @@ public class ReservationServiceImpl implements ReservationService {
         Reservation saved = reservationRepository.save(reservation);
 
         // Reserve stock
-        int quantityBefore = stockItem.getPhysicalQuantity();
+        int availableBefore = stockItem.getAvailableQuantity();
         stockItem.reserve(quantity);
         stockItemRepository.save(stockItem);
 
-        // Record movement
+        // Record movement (track available quantity changes for reservations)
         recordMovement(product, MovementType.RESERVATION, quantity,
-                quantityBefore, stockItem.getPhysicalQuantity(),
+                availableBefore, stockItem.getAvailableQuantity(),
                 reference, saved.getId(), "Reservation created");
 
         log.info("Reservation created: {} units of product {} for customer {}",
@@ -201,12 +201,13 @@ public class ReservationServiceImpl implements ReservationService {
         StockItem stockItem = stockItemRepository.findByProductId(reservation.getProduct().getId())
                 .orElseThrow(() -> new NotFoundException("Stock for product", reservation.getProduct().getId()));
 
-        int quantityBefore = stockItem.getPhysicalQuantity();
+        int availableBefore = stockItem.getAvailableQuantity();
         stockItem.release(reservation.getQuantity());
         stockItemRepository.save(stockItem);
 
+        // Record movement (track available quantity changes for releases)
         recordMovement(reservation.getProduct(), MovementType.RELEASE, reservation.getQuantity(),
-                quantityBefore, stockItem.getPhysicalQuantity(),
+                availableBefore, stockItem.getAvailableQuantity(),
                 reservation.getReference(), reservation.getId(), reason);
     }
 

@@ -29,9 +29,10 @@
         <module>auth</module>
         <!-- E4: Catalog -->
         <module>catalog</module>
+        <!-- E5: Inventory -->
+        <module>inventory</module>
         <module>app</module>
         <!-- Modules à activer progressivement -->
-        <!-- <module>inventory</module> -->
         <!-- <module>order</module> -->
         <!-- <module>billing</module> -->
         <!-- <module>notification</module> -->

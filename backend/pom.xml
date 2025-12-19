@@ -35,9 +35,10 @@
         <module>order</module>
         <!-- E7: Billing -->
         <module>billing</module>
+        <!-- E8: Notification -->
+        <module>notification</module>
         <module>app</module>
         <!-- Modules à activer progressivement -->
-        <!-- <module>notification</module> -->
         <!-- <module>admin</module> -->
     </modules>
 

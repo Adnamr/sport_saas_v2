@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Confirmation de paiement</title>
+    <style>
+        body { font-family: 'Segoe UI', sans-serif; line-height: 1.6; color: #333; margin: 0; padding: 0; background-color: #f4f4f4; }
+        .container { max-width: 600px; margin: 0 auto; padding: 20px; }
+        .header { background-color: #16a34a; color: white; padding: 20px; text-align: center; border-radius: 8px 8px 0 0; }
+        .header h1 { margin: 0; font-size: 24px; }
+        .content { background-color: white; padding: 30px; border-radius: 0 0 8px 8px; }
+        .footer { text-align: center; padding: 20px; color: #666; font-size: 12px; }
+        .info-box { background-color: #f8fafc; border: 1px solid #e2e8f0; border-radius: 6px; padding: 15px; margin: 15px 0; }
+        table { width: 100%; border-collapse: collapse; }
+        td { padding: 10px; text-align: left; border-bottom: 1px solid #e2e8f0; }
+        .amount { font-weight: bold; color: #16a34a; font-size: 18px; }
+        .success-icon { font-size: 48px; color: #16a34a; text-align: center; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Paiement recu</h1>
+        </div>
+        <div class="content">
+            <div class="success-icon">&#10004;</div>
+            <h2 style="text-align: center; color: #16a34a;">Paiement confirme !</h2>
+
+            <p>Bonjour <span th:text="${recipientName}">Nom</span>,</p>
+
+            <p>Nous avons bien recu votre paiement. Merci !</p>
+
+            <div class="info-box">
+                <h3>Details du paiement</h3>
+                <table>
+                    <tr>
+                        <td>Reference</td>
+                        <td><strong th:text="${paymentReference}">PAY-XXX</strong></td>
+                    </tr>
+                    <tr th:if="${paymentDate}">
+                        <td>Date</td>
+                        <td th:text="${paymentDate}">01/01/2025</td>
+                    </tr>
+                    <tr th:if="${method}">
+                        <td>Methode</td>
+                        <td th:text="${method}">Carte bancaire</td>
+                    </tr>
+                    <tr th:if="${amount}">
+                        <td><strong>Montant</strong></td>
+                        <td class="amount" th:text="${amount}">0.00 EUR</td>
+                    </tr>
+                    <tr th:if="${invoiceNumber}">
+                        <td>Facture</td>
+                        <td th:text="${invoiceNumber}">INV-XXX</td>
+                    </tr>
+                </table>
+            </div>
+
+            <p>Ce recu vous servira de justificatif de paiement.</p>
+
+            <p>Merci pour votre confiance !</p>
+        </div>
+        <div class="footer">
+            <p>&copy; <span th:text="${currentYear}">2025</span> Sport SaaS. Tous droits reserves.</p>
+        </div>
+    </div>
+</body>
+</html>

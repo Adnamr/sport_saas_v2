@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{email/base :: *}">
+<head>
+    <title>Bienvenue</title>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Sport SaaS</h1>
+        </div>
+        <div class="content">
+            <h2>Bienvenue <span th:text="${recipientName}">Nom</span> !</h2>
+
+            <p>Nous sommes ravis de vous accueillir sur <strong th:text="${tenantName}">Sport SaaS</strong>.</p>
+
+            <p>Votre compte a ete cree avec succes. Vous pouvez maintenant :</p>
+
+            <ul>
+                <li>Consulter notre catalogue de materiel sportif</li>
+                <li>Effectuer des reservations</li>
+                <li>Suivre vos commandes et locations</li>
+                <li>Gerer vos factures</li>
+            </ul>
+
+            <div class="info-box">
+                <p><strong>Besoin d'aide ?</strong></p>
+                <p>Notre equipe est disponible pour repondre a toutes vos questions.</p>
+            </div>
+
+            <p>A bientot !</p>
+            <p>L'equipe <span th:text="${tenantName}">Sport SaaS</span></p>
+        </div>
+        <div class="footer">
+            <p>&copy; <span th:text="${currentYear}">2025</span> Sport SaaS. Tous droits reserves.</p>
+        </div>
+    </div>
+</body>
+</html>

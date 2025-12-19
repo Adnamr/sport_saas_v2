@@ -85,7 +85,7 @@ public class EmailServiceImpl implements EmailService {
     @Transactional
     public EmailLog sendOrderConfirmation(String recipientEmail, String recipientName,
                                            UUID orderId, String orderNumber, Map<String, Object> orderDetails) {
-        Map<String, Object> variables = new HashMap<>(orderDetails);
+        Map<String, Object> variables = orderDetails != null ? new HashMap<>(orderDetails) : new HashMap<>();
         variables.put("recipientName", recipientName);
         variables.put("orderNumber", orderNumber);
 
@@ -105,7 +105,7 @@ public class EmailServiceImpl implements EmailService {
     @Transactional
     public EmailLog sendRentalConfirmation(String recipientEmail, String recipientName,
                                             UUID rentalId, String rentalNumber, Map<String, Object> rentalDetails) {
-        Map<String, Object> variables = new HashMap<>(rentalDetails);
+        Map<String, Object> variables = rentalDetails != null ? new HashMap<>(rentalDetails) : new HashMap<>();
         variables.put("recipientName", recipientName);
         variables.put("rentalNumber", rentalNumber);
 
@@ -125,7 +125,7 @@ public class EmailServiceImpl implements EmailService {
     @Transactional
     public EmailLog sendRentalReturnReminder(String recipientEmail, String recipientName,
                                               UUID rentalId, String rentalNumber, Map<String, Object> rentalDetails) {
-        Map<String, Object> variables = new HashMap<>(rentalDetails);
+        Map<String, Object> variables = rentalDetails != null ? new HashMap<>(rentalDetails) : new HashMap<>();
         variables.put("recipientName", recipientName);
         variables.put("rentalNumber", rentalNumber);
 
@@ -145,7 +145,7 @@ public class EmailServiceImpl implements EmailService {
     @Transactional
     public EmailLog sendInvoiceEmail(String recipientEmail, String recipientName,
                                       UUID invoiceId, String invoiceNumber, Map<String, Object> invoiceDetails) {
-        Map<String, Object> variables = new HashMap<>(invoiceDetails);
+        Map<String, Object> variables = invoiceDetails != null ? new HashMap<>(invoiceDetails) : new HashMap<>();
         variables.put("recipientName", recipientName);
         variables.put("invoiceNumber", invoiceNumber);
 
@@ -165,7 +165,7 @@ public class EmailServiceImpl implements EmailService {
     @Transactional
     public EmailLog sendPaymentConfirmation(String recipientEmail, String recipientName,
                                              UUID paymentId, String paymentReference, Map<String, Object> paymentDetails) {
-        Map<String, Object> variables = new HashMap<>(paymentDetails);
+        Map<String, Object> variables = paymentDetails != null ? new HashMap<>(paymentDetails) : new HashMap<>();
         variables.put("recipientName", recipientName);
         variables.put("paymentReference", paymentReference);
 
@@ -185,7 +185,7 @@ public class EmailServiceImpl implements EmailService {
     @Transactional
     public EmailLog sendPaymentReminder(String recipientEmail, String recipientName,
                                          UUID invoiceId, String invoiceNumber, Map<String, Object> invoiceDetails) {
-        Map<String, Object> variables = new HashMap<>(invoiceDetails);
+        Map<String, Object> variables = invoiceDetails != null ? new HashMap<>(invoiceDetails) : new HashMap<>();
         variables.put("recipientName", recipientName);
         variables.put("invoiceNumber", invoiceNumber);
 
@@ -331,8 +331,8 @@ public class EmailServiceImpl implements EmailService {
 
         for (EmailLog emailLog : failed) {
             try {
-                retry(emailLog.getId());
-                if (emailLog.getStatus() == EmailStatus.SENT) {
+                EmailLog retriedEmail = retry(emailLog.getId());
+                if (retriedEmail.getStatus() == EmailStatus.SENT) {
                     retried++;
                 }
             } catch (Exception e) {
@@ -349,7 +349,7 @@ public class EmailServiceImpl implements EmailService {
         LocalDateTime last24h = LocalDateTime.now().minusHours(24);
         long sent = emailLogRepository.countSentSince(last24h);
         long failed = emailLogRepository.countFailedSince(last24h);
-        long pending = emailLogRepository.findPendingEmails().size();
+        long pending = emailLogRepository.countPendingEmails();
 
         return new EmailStats(sent, failed, pending);
     }
@@ -414,7 +414,7 @@ public class EmailServiceImpl implements EmailService {
 
         helper.setFrom(fromEmail, fromName);
         if (toName != null && !toName.isBlank()) {
-            helper.setTo(toName + " <" + to + ">");
+            helper.setTo(new jakarta.mail.internet.InternetAddress(to, toName, "UTF-8"));
         } else {
             helper.setTo(to);
         }

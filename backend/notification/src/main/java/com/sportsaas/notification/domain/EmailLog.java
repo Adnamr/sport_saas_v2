@@ -84,7 +84,6 @@ public class EmailLog extends TenantAwareEntity {
     public void markFailed(String errorMessage) {
         this.status = EmailStatus.FAILED;
         this.errorMessage = errorMessage;
-        this.attemptCount++;
     }
 
     /**

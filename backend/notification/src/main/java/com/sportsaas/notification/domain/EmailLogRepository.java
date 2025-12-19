@@ -36,4 +36,7 @@ public interface EmailLogRepository extends JpaRepository<EmailLog, UUID> {
 
     @Query("SELECT COUNT(e) FROM EmailLog e WHERE e.status = 'FAILED' AND e.createdAt >= :since")
     long countFailedSince(@Param("since") LocalDateTime since);
+
+    @Query("SELECT COUNT(e) FROM EmailLog e WHERE e.status = 'PENDING'")
+    long countPendingEmails();
 }

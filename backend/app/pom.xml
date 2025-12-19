@@ -38,6 +38,10 @@
             <groupId>com.sportsaas</groupId>
             <artifactId>catalog</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.sportsaas</groupId>
+            <artifactId>inventory</artifactId>
+        </dependency>
 
         <!-- Spring Boot -->
         <dependency>

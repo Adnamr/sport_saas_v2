@@ -255,8 +255,8 @@ public class RentalServiceImpl implements RentalService {
 
         StockItem stockItem = stockOpt.get();
 
-        // Get currently reserved quantity for overlapping rentals
-        Integer reservedQty = rentalRepository.sumActiveQuantityByProductId(productId);
+        // Get reserved quantity for overlapping rentals (checks date range overlap)
+        Integer reservedQty = rentalRepository.sumOverlappingQuantityByProductId(productId, startDate, endDate);
         int reserved = reservedQty != null ? reservedQty : 0;
 
         int available = stockItem.getPhysicalQuantity() - reserved;

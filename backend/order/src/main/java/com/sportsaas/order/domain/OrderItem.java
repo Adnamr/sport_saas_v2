@@ -61,6 +61,10 @@ public class OrderItem extends TenantAwareEntity {
      * Recalcule le total de la ligne.
      */
     public void recalculateLineTotal() {
+        if (this.unitPrice == null) {
+            this.lineTotal = BigDecimal.ZERO;
+            return;
+        }
         BigDecimal gross = this.unitPrice.multiply(BigDecimal.valueOf(this.quantity));
         this.lineTotal = gross.subtract(this.discountAmount != null ? this.discountAmount : BigDecimal.ZERO);
     }

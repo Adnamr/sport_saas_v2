@@ -14,11 +14,13 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
@@ -174,12 +176,10 @@ public class RentalController {
     @PreAuthorize("isAuthenticated()")
     public ResponseEntity<Boolean> checkAvailability(
             @RequestParam UUID productId,
-            @RequestParam String startDate,
-            @RequestParam String endDate,
+            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime startDate,
+            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime endDate,
             @RequestParam(defaultValue = "1") int quantity) {
-        java.time.LocalDateTime start = java.time.LocalDateTime.parse(startDate);
-        java.time.LocalDateTime end = java.time.LocalDateTime.parse(endDate);
-        boolean available = rentalService.isProductAvailable(productId, start, end, quantity);
+        boolean available = rentalService.isProductAvailable(productId, startDate, endDate, quantity);
         return ResponseEntity.ok(available);
     }
 }

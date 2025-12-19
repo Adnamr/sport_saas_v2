@@ -44,6 +44,7 @@ public interface OrderMapper {
 
     @Mapping(target = "orderId", source = "order.id")
     @Mapping(target = "productId", source = "product.id")
+    @Mapping(target = "productName", source = "productName")
     @Mapping(target = "overdue", expression = "java(rental.isOverdue())")
     RentalResponse toRentalResponse(Rental rental);
 

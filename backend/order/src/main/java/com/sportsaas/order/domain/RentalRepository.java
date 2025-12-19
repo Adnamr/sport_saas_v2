@@ -42,6 +42,14 @@ public interface RentalRepository extends JpaRepository<Rental, UUID> {
     @Query("SELECT SUM(r.quantity) FROM Rental r WHERE r.product.id = :productId AND r.status IN ('ACTIVE', 'CONFIRMED')")
     Integer sumActiveQuantityByProductId(@Param("productId") UUID productId);
 
+    @Query("SELECT COALESCE(SUM(r.quantity), 0) FROM Rental r WHERE r.product.id = :productId " +
+           "AND r.status IN ('ACTIVE', 'CONFIRMED', 'PENDING') " +
+           "AND r.startDate < :endDate AND r.endDate > :startDate")
+    Integer sumOverlappingQuantityByProductId(
+            @Param("productId") UUID productId,
+            @Param("startDate") LocalDateTime startDate,
+            @Param("endDate") LocalDateTime endDate);
+
     @Query("SELECT r FROM Rental r WHERE r.startDate BETWEEN :start AND :end ORDER BY r.startDate ASC")
     List<Rental> findByDateRange(@Param("start") LocalDateTime start, @Param("end") LocalDateTime end);
 }

@@ -50,6 +50,10 @@
             <groupId>com.sportsaas</groupId>
             <artifactId>billing</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.sportsaas</groupId>
+            <artifactId>notification</artifactId>
+        </dependency>
 
         <!-- Spring Boot -->
         <dependency>

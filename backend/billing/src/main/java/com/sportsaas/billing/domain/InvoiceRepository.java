@@ -52,4 +52,28 @@ public interface InvoiceRepository extends JpaRepository<Invoice, UUID> {
 
     @Query("SELECT COALESCE(SUM(i.balanceDue), 0) FROM Invoice i WHERE i.customerId = :customerId AND i.status NOT IN ('PAID', 'CANCELLED', 'REFUNDED')")
     BigDecimal sumBalanceDueByCustomerId(@Param("customerId") UUID customerId);
+
+    /**
+     * Somme totale des factures payees (pour dashboard).
+     */
+    @Query("SELECT COALESCE(SUM(i.total), 0) FROM Invoice i WHERE i.status = 'PAID'")
+    BigDecimal sumTotalPaid();
+
+    /**
+     * Somme des factures payees dans une periode.
+     */
+    @Query("SELECT COALESCE(SUM(i.total), 0) FROM Invoice i WHERE i.status = 'PAID' AND i.paidAt BETWEEN :start AND :end")
+    BigDecimal sumTotalPaidBetween(@Param("start") java.time.LocalDateTime start, @Param("end") java.time.LocalDateTime end);
+
+    /**
+     * Somme des factures payees pour une date (par issueDate).
+     */
+    @Query("SELECT COALESCE(SUM(i.total), 0) FROM Invoice i WHERE i.status = 'PAID' AND i.issueDate = :date")
+    BigDecimal sumTotalPaidByDate(@Param("date") LocalDate date);
+
+    /**
+     * Somme des factures payees pour un mois (par issueDate).
+     */
+    @Query("SELECT COALESCE(SUM(i.total), 0) FROM Invoice i WHERE i.status = 'PAID' AND i.issueDate BETWEEN :start AND :end")
+    BigDecimal sumTotalPaidByDateRange(@Param("start") LocalDate start, @Param("end") LocalDate end);
 }

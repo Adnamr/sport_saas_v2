@@ -41,4 +41,16 @@ public interface OrderRepository extends JpaRepository<Order, UUID> {
 
     @Query("SELECT COALESCE(SUM(o.total), 0) FROM Order o WHERE o.customerId = :customerId AND o.status = 'DELIVERED'")
     java.math.BigDecimal sumTotalByCustomerId(@Param("customerId") UUID customerId);
+
+    /**
+     * Compte les commandes par statut (pour dashboard).
+     */
+    @Query("SELECT o.status, COUNT(o) FROM Order o GROUP BY o.status")
+    List<Object[]> countByStatus();
+
+    /**
+     * Compte les commandes dans une periode.
+     */
+    @Query("SELECT COUNT(o) FROM Order o WHERE o.createdAt BETWEEN :start AND :end")
+    long countByCreatedAtBetween(@Param("start") LocalDateTime start, @Param("end") LocalDateTime end);
 }

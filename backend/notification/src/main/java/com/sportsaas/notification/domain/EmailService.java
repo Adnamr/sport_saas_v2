@@ -24,6 +24,12 @@ public interface EmailService {
     EmailLog sendPasswordResetEmail(String recipientEmail, String recipientName, String resetLink);
 
     /**
+     * Envoie un email d'invitation.
+     */
+    EmailLog sendInvitationEmail(String recipientEmail, String recipientName,
+                                  String inviterName, String tenantName, String invitationLink);
+
+    /**
      * Envoie une confirmation de commande.
      */
     EmailLog sendOrderConfirmation(String recipientEmail, String recipientName,

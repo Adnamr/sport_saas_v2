@@ -26,4 +26,7 @@ public class UserResponse {
     private boolean emailVerified;
     private LocalDateTime lastLoginAt;
     private LocalDateTime createdAt;
+    private boolean invited;
+    private LocalDateTime invitedAt;
+    private boolean invitationPending;
 }

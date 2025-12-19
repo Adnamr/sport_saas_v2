@@ -83,6 +83,28 @@ public class EmailServiceImpl implements EmailService {
 
     @Override
     @Transactional
+    public EmailLog sendInvitationEmail(String recipientEmail, String recipientName,
+                                         String inviterName, String tenantName, String invitationLink) {
+        Map<String, Object> variables = new HashMap<>();
+        variables.put("recipientName", recipientName);
+        variables.put("inviterName", inviterName);
+        variables.put("tenantName", tenantName);
+        variables.put("invitationLink", invitationLink);
+
+        return sendTemplatedEmail(
+                recipientEmail,
+                recipientName,
+                "Invitation a rejoindre " + tenantName,
+                "invitation",
+                variables,
+                EmailType.INVITATION,
+                null,
+                null
+        );
+    }
+
+    @Override
+    @Transactional
     public EmailLog sendOrderConfirmation(String recipientEmail, String recipientName,
                                            UUID orderId, String orderNumber, Map<String, Object> orderDetails) {
         Map<String, Object> variables = orderDetails != null ? new HashMap<>(orderDetails) : new HashMap<>();

@@ -28,6 +28,9 @@ public enum EmailType {
     /** Rappel de paiement */
     PAYMENT_REMINDER,
 
+    /** Invitation utilisateur */
+    INVITATION,
+
     /** Email generique */
     GENERIC
 }

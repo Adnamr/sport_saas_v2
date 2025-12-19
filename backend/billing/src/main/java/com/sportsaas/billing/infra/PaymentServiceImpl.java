@@ -188,6 +188,21 @@ public class PaymentServiceImpl implements PaymentService {
         payment.setNotes((payment.getNotes() != null ? payment.getNotes() + "\n" : "") +
                 "Remboursement: " + amount + " - " + reason);
 
+        // Update invoice if linked
+        if (payment.getInvoice() != null) {
+            Invoice invoice = payment.getInvoice();
+            invoice.setPaidAmount(invoice.getPaidAmount().subtract(amount));
+            invoice.setBalanceDue(invoice.getTotal().subtract(invoice.getPaidAmount()));
+
+            // Update invoice status based on new balance
+            if (invoice.getPaidAmount().compareTo(BigDecimal.ZERO) <= 0) {
+                invoice.setStatus(InvoiceStatus.REFUNDED);
+            } else if (invoice.getBalanceDue().compareTo(BigDecimal.ZERO) > 0) {
+                invoice.setStatus(InvoiceStatus.PARTIALLY_PAID);
+            }
+            invoiceRepository.save(invoice);
+        }
+
         Payment saved = paymentRepository.save(payment);
         log.info("Payment refunded: {} - {} (reason: {})", payment.getPaymentReference(), amount, reason);
         return saved;

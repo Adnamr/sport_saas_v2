@@ -209,6 +209,7 @@ public class Invoice extends TenantAwareEntity {
     public boolean canCancel() {
         return status == InvoiceStatus.DRAFT ||
                status == InvoiceStatus.FINALIZED ||
-               status == InvoiceStatus.SENT;
+               status == InvoiceStatus.SENT ||
+               status == InvoiceStatus.PARTIALLY_PAID;
     }
 }

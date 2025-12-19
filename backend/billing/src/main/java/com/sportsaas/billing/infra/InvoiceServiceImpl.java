@@ -85,8 +85,16 @@ public class InvoiceServiceImpl implements InvoiceService {
         }
 
         invoice.setDiscountAmount(order.getDiscountAmount());
-        invoice.setTaxAmount(order.getTaxAmount());
         invoice.recalculateTotals();
+
+        // Preserve order's tax amount (override calculated value)
+        if (order.getTaxAmount() != null && order.getTaxAmount().compareTo(BigDecimal.ZERO) > 0) {
+            invoice.setTaxAmount(order.getTaxAmount());
+            invoice.setTotal(invoice.getSubtotal()
+                    .subtract(invoice.getDiscountAmount() != null ? invoice.getDiscountAmount() : BigDecimal.ZERO)
+                    .add(order.getTaxAmount()));
+            invoice.setBalanceDue(invoice.getTotal().subtract(invoice.getPaidAmount()));
+        }
 
         Invoice saved = invoiceRepository.save(invoice);
         log.info("Invoice created from order {}: {}", order.getOrderNumber(), saved.getInvoiceNumber());
@@ -118,7 +126,11 @@ public class InvoiceServiceImpl implements InvoiceService {
         item.setDescription("Location: " + rental.getProductName() +
                 " (" + rental.getRentalDays() + " jours)");
         item.setQuantity(rental.getQuantity());
-        item.setUnitPrice(rental.getSubtotal().divide(BigDecimal.valueOf(rental.getQuantity()), 2, java.math.RoundingMode.HALF_UP));
+        // Calculate unit price safely (avoid division by zero)
+        BigDecimal unitPrice = rental.getQuantity() > 0
+                ? rental.getSubtotal().divide(BigDecimal.valueOf(rental.getQuantity()), 2, java.math.RoundingMode.HALF_UP)
+                : rental.getSubtotal();
+        item.setUnitPrice(unitPrice);
         item.recalculateLineTotal();
         invoice.addItem(item);
 

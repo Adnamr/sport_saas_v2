@@ -8,23 +8,7 @@ import { HeaderComponent } from './header/header.component';
   selector: 'app-admin-layout',
   standalone: true,
   imports: [CommonModule, RouterOutlet, SidebarComponent, HeaderComponent],
-  template: `
-    <div class="min-h-screen bg-secondary-50">
-      <!-- Sidebar -->
-      <app-sidebar [collapsed]="sidebarCollapsed()" (toggle)="toggleSidebar()" />
-
-      <!-- Main content -->
-      <div [class]="mainContentClasses">
-        <!-- Header -->
-        <app-header (toggleSidebar)="toggleSidebar()" />
-
-        <!-- Page content -->
-        <main class="p-6">
-          <router-outlet />
-        </main>
-      </div>
-    </div>
-  `,
+  templateUrl: './admin-layout.component.html',
 })
 export class AdminLayoutComponent {
   sidebarCollapsed = signal(false);

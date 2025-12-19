@@ -1,6 +1,6 @@
 import { Injectable, inject, signal, computed } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable, tap, catchError, of, BehaviorSubject } from 'rxjs';
+import { Observable, tap, catchError, of } from 'rxjs';
 import { ApiService } from './api.service';
 import { StorageService } from './storage.service';
 import { User, UserRole, LoginRequest, LoginResponse, RegisterRequest } from '../models';
@@ -14,7 +14,6 @@ export class AuthService {
   private readonly router = inject(Router);
 
   private readonly currentUser = signal<User | null>(null);
-  private readonly isAuthenticated$ = new BehaviorSubject<boolean>(false);
 
   readonly user = this.currentUser.asReadonly();
   readonly isLoggedIn = computed(() => this.currentUser() !== null);
@@ -29,7 +28,6 @@ export class AuthService {
     const token = this.storage.getAccessToken();
     if (user && token) {
       this.currentUser.set(user);
-      this.isAuthenticated$.next(true);
     }
   }
 
@@ -40,7 +38,6 @@ export class AuthService {
         this.storage.setRefreshToken(response.refreshToken);
         this.storage.setUser(response.user);
         this.currentUser.set(response.user);
-        this.isAuthenticated$.next(true);
       })
     );
   }
@@ -52,8 +49,7 @@ export class AuthService {
   logout(): void {
     this.storage.clear();
     this.currentUser.set(null);
-    this.isAuthenticated$.next(false);
-    this.router.navigate(['/auth/login']);
+    this.router.navigate(['/login']);
   }
 
   refreshToken(): Observable<LoginResponse | null> {
@@ -106,9 +102,5 @@ export class AuthService {
 
   getAccessToken(): string | null {
     return this.storage.getAccessToken();
-  }
-
-  isAuthenticatedObservable(): Observable<boolean> {
-    return this.isAuthenticated$.asObservable();
   }
 }

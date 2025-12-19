@@ -38,7 +38,13 @@ export class StorageService {
   // User
   getUser<T>(): T | null {
     const user = localStorage.getItem(this.USER_KEY);
-    return user ? JSON.parse(user) : null;
+    if (!user) return null;
+    try {
+      return JSON.parse(user);
+    } catch {
+      this.removeUser();
+      return null;
+    }
   }
 
   setUser<T>(user: T): void {

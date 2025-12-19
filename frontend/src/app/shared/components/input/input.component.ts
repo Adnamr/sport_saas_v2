@@ -51,7 +51,7 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR, FormsModule } from '@angular/f
   `,
 })
 export class InputComponent implements ControlValueAccessor {
-  @Input() id = `input-${Math.random().toString(36).substr(2, 9)}`;
+  @Input() id = `input-${Math.random().toString(36).substring(2, 11)}`;
   @Input() type: 'text' | 'email' | 'password' | 'number' | 'tel' | 'url' = 'text';
   @Input() label = '';
   @Input() placeholder = '';

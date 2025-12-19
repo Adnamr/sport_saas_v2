@@ -33,9 +33,10 @@
         <module>inventory</module>
         <!-- E6: Order -->
         <module>order</module>
+        <!-- E7: Billing -->
+        <module>billing</module>
         <module>app</module>
         <!-- Modules à activer progressivement -->
-        <!-- <module>billing</module> -->
         <!-- <module>notification</module> -->
         <!-- <module>admin</module> -->
     </modules>

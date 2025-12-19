@@ -46,6 +46,10 @@
             <groupId>com.sportsaas</groupId>
             <artifactId>order</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.sportsaas</groupId>
+            <artifactId>billing</artifactId>
+        </dependency>
 
         <!-- Spring Boot -->
         <dependency>

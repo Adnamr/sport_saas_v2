@@ -1,0 +1,30 @@
+# Docker profile configuration
+spring:
+  datasource:
+    url: jdbc:postgresql://postgres:5432/${DB_NAME:sportsaas}
+    username: ${DB_USER:sportsaas}
+    password: ${DB_PASSWORD:sportsaas}
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+
+  mail:
+    host: ${MAIL_HOST:mailhog}
+    port: ${MAIL_PORT:1025}
+    properties:
+      mail:
+        smtp:
+          auth: false
+          starttls:
+            enable: false
+
+  data:
+    redis:
+      host: redis
+      port: 6379
+
+management:
+  endpoint:
+    health:
+      show-details: always

@@ -67,7 +67,7 @@ services:
       SPRING_DATASOURCE_PASSWORD: ${POSTGRES_PASSWORD:-sportsaas}
       SPRING_DATA_REDIS_HOST: redis
       SPRING_DATA_REDIS_PORT: 6379
-      JWT_SECRET: ${JWT_SECRET:-your-super-secret-jwt-key-change-in-production}
+      JWT_SECRET: ${JWT_SECRET:-zmBRLgKxdqyTgEaTEyoVqioYId3RUUQVLLh5mTBtF5XhK3zU9qePY4Zs9xP1iQqr}
       JWT_EXPIRATION: ${JWT_EXPIRATION:-86400000}
       MAIL_HOST: ${MAIL_HOST:-mailhog}
       MAIL_PORT: ${MAIL_PORT:-1025}

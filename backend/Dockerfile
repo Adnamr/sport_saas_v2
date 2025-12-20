@@ -11,6 +11,7 @@ WORKDIR /app
 RUN apk add --no-cache maven
 
 # Copy pom files first for better caching
+# NOTE: Update this list when adding new modules
 COPY pom.xml .
 COPY common/pom.xml common/
 COPY config/pom.xml config/

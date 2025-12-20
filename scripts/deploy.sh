@@ -71,6 +71,12 @@ check_prerequisites() {
         exit 1
     fi
 
+    # Check curl (used for health checks)
+    if ! command -v curl &> /dev/null; then
+        log_error "curl is not installed (required for health checks)"
+        exit 1
+    fi
+
     # Check .env file
     if [ ! -f "$PROJECT_ROOT/.env" ]; then
         log_warning ".env file not found. Copying from .env.example..."

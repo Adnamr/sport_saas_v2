@@ -1,0 +1,152 @@
+<div class="min-h-screen flex items-center justify-center bg-secondary-50 py-12 px-4 sm:px-6 lg:px-8">
+  <div class="max-w-md w-full space-y-8">
+    <div>
+      <h2 class="mt-6 text-center text-3xl font-extrabold text-secondary-900">
+        Sport SaaS
+      </h2>
+      <p class="mt-2 text-center text-sm text-secondary-600">
+        Creez votre compte
+      </p>
+    </div>
+
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="mt-8 space-y-6">
+      @if (errorMessage) {
+        <div class="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg">
+          {{ errorMessage }}
+        </div>
+      }
+
+      @if (successMessage) {
+        <div class="bg-green-50 border border-green-200 text-green-700 px-4 py-3 rounded-lg">
+          {{ successMessage }}
+          <a routerLink="/login" class="ml-2 font-medium text-green-800 hover:text-green-900 underline">
+            Se connecter
+          </a>
+        </div>
+      }
+
+      <div class="space-y-4">
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <label for="firstName" class="block text-sm font-medium text-secondary-700">
+              Prenom
+            </label>
+            <input
+              id="firstName"
+              type="text"
+              formControlName="firstName"
+              class="mt-1 block w-full px-3 py-2 border border-secondary-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+              [class.border-red-500]="f['firstName'].invalid && f['firstName'].touched"
+            />
+            @if (f['firstName'].invalid && f['firstName'].touched) {
+              <p class="mt-1 text-sm text-red-600">Prenom requis (min. 2 caracteres)</p>
+            }
+          </div>
+
+          <div>
+            <label for="lastName" class="block text-sm font-medium text-secondary-700">
+              Nom
+            </label>
+            <input
+              id="lastName"
+              type="text"
+              formControlName="lastName"
+              class="mt-1 block w-full px-3 py-2 border border-secondary-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+              [class.border-red-500]="f['lastName'].invalid && f['lastName'].touched"
+            />
+            @if (f['lastName'].invalid && f['lastName'].touched) {
+              <p class="mt-1 text-sm text-red-600">Nom requis (min. 2 caracteres)</p>
+            }
+          </div>
+        </div>
+
+        <div>
+          <label for="email" class="block text-sm font-medium text-secondary-700">
+            Email
+          </label>
+          <input
+            id="email"
+            type="email"
+            formControlName="email"
+            class="mt-1 block w-full px-3 py-2 border border-secondary-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+            placeholder="votre@email.com"
+            [class.border-red-500]="f['email'].invalid && f['email'].touched"
+          />
+          @if (f['email'].invalid && f['email'].touched) {
+            <p class="mt-1 text-sm text-red-600">Email invalide</p>
+          }
+        </div>
+
+        <div>
+          <label for="password" class="block text-sm font-medium text-secondary-700">
+            Mot de passe
+          </label>
+          <input
+            id="password"
+            type="password"
+            formControlName="password"
+            class="mt-1 block w-full px-3 py-2 border border-secondary-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+            placeholder="Min. 8 caracteres"
+            [class.border-red-500]="f['password'].invalid && f['password'].touched"
+          />
+          @if (f['password'].invalid && f['password'].touched) {
+            <p class="mt-1 text-sm text-red-600">Min. 8 caracteres requis</p>
+          }
+        </div>
+
+        <div>
+          <label for="confirmPassword" class="block text-sm font-medium text-secondary-700">
+            Confirmer le mot de passe
+          </label>
+          <input
+            id="confirmPassword"
+            type="password"
+            formControlName="confirmPassword"
+            class="mt-1 block w-full px-3 py-2 border border-secondary-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+            placeholder="Confirmez votre mot de passe"
+            [class.border-red-500]="f['confirmPassword'].errors?.['passwordMismatch'] && f['confirmPassword'].touched"
+          />
+          @if (f['confirmPassword'].errors?.['passwordMismatch'] && f['confirmPassword'].touched) {
+            <p class="mt-1 text-sm text-red-600">Les mots de passe ne correspondent pas</p>
+          }
+        </div>
+
+        <div class="flex items-start">
+          <input
+            id="acceptTerms"
+            type="checkbox"
+            formControlName="acceptTerms"
+            class="h-4 w-4 text-primary-600 focus:ring-primary-500 border-secondary-300 rounded mt-0.5"
+          />
+          <label for="acceptTerms" class="ml-2 block text-sm text-secondary-700">
+            J'accepte les <a href="#" class="text-primary-600 hover:text-primary-500">conditions d'utilisation</a>
+            et la <a href="#" class="text-primary-600 hover:text-primary-500">politique de confidentialite</a>
+          </label>
+        </div>
+      </div>
+
+      <button
+        type="submit"
+        [disabled]="registerForm.invalid || isLoading"
+        class="w-full flex justify-center py-2 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 disabled:opacity-50 disabled:cursor-not-allowed"
+      >
+        @if (isLoading) {
+          <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" fill="none" viewBox="0 0 24 24">
+            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+          </svg>
+          Creation en cours...
+        } @else {
+          Creer mon compte
+        }
+      </button>
+
+      <div class="text-center">
+        <span class="text-sm text-secondary-600">Deja un compte ?</span>
+        <a routerLink="/login" class="ml-1 text-sm font-medium text-primary-600 hover:text-primary-500">
+          Se connecter
+        </a>
+      </div>
+    </form>
+  </div>
+</div>

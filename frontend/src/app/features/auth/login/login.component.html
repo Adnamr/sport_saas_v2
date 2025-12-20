@@ -44,6 +44,12 @@
         </div>
       </div>
 
+      <div class="flex items-center justify-end">
+        <a routerLink="/forgot-password" class="text-sm font-medium text-primary-600 hover:text-primary-500">
+          Mot de passe oublie ?
+        </a>
+      </div>
+
       <button
         type="submit"
         [disabled]="loginForm.invalid || isLoading"
@@ -59,6 +65,13 @@
           Se connecter
         }
       </button>
+
+      <div class="text-center">
+        <span class="text-sm text-secondary-600">Pas encore de compte ?</span>
+        <a routerLink="/register" class="ml-1 text-sm font-medium text-primary-600 hover:text-primary-500">
+          Creer un compte
+        </a>
+      </div>
     </form>
   </div>
 </div>

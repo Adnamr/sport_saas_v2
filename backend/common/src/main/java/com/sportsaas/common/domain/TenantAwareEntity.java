@@ -20,7 +20,7 @@ import java.util.UUID;
 @Setter
 @FilterDef(
     name = "tenantFilter",
-    parameters = @ParamDef(name = "tenantId", type = String.class),
+    parameters = @ParamDef(name = "tenantId", type = UUID.class),
     defaultCondition = "tenant_id = :tenantId"
 )
 @Filter(name = "tenantFilter")

@@ -31,7 +31,7 @@ public class TenantHibernateFilter {
 
             if (!session.isDefaultReadOnly()) {
                 org.hibernate.Filter filter = session.enableFilter(TENANT_FILTER_NAME);
-                filter.setParameter(TENANT_PARAMETER, TenantContext.getCurrentTenant().toString());
+                filter.setParameter(TENANT_PARAMETER, TenantContext.getCurrentTenant());
                 log.trace("Tenant filter enabled for tenant: {}", TenantContext.getCurrentTenant());
             }
         }

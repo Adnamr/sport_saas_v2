@@ -1,0 +1,86 @@
+# ═══════════════════════════════════════════════════════════════════
+# Sport SaaS - Docker Compose (Production)
+# ═══════════════════════════════════════════════════════════════════
+# Usage: docker-compose -f docker-compose.yml -f docker-compose.prod.yml up -d
+
+services:
+  # ─────────────────────────────────────────────────────────────────
+  # PostgreSQL - Production overrides
+  # ─────────────────────────────────────────────────────────────────
+  postgres:
+    restart: always
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 2G
+        reservations:
+          cpus: '0.5'
+          memory: 512M
+
+  # ─────────────────────────────────────────────────────────────────
+  # Redis - Production overrides
+  # ─────────────────────────────────────────────────────────────────
+  redis:
+    restart: always
+    command: redis-server --appendonly yes --maxmemory 256mb --maxmemory-policy allkeys-lru
+    deploy:
+      resources:
+        limits:
+          cpus: '1'
+          memory: 512M
+        reservations:
+          cpus: '0.25'
+          memory: 128M
+
+  # ─────────────────────────────────────────────────────────────────
+  # Backend - Production overrides
+  # ─────────────────────────────────────────────────────────────────
+  backend:
+    restart: always
+    environment:
+      SPRING_PROFILES_ACTIVE: prod
+      JAVA_OPTS: "-XX:+UseContainerSupport -XX:MaxRAMPercentage=75.0 -XX:InitialRAMPercentage=50.0 -Xlog:gc*:file=/app/logs/gc.log"
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 1G
+        reservations:
+          cpus: '0.5'
+          memory: 512M
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "5"
+
+  # ─────────────────────────────────────────────────────────────────
+  # Frontend - Production overrides
+  # ─────────────────────────────────────────────────────────────────
+  frontend:
+    restart: always
+    deploy:
+      resources:
+        limits:
+          cpus: '1'
+          memory: 256M
+        reservations:
+          cpus: '0.25'
+          memory: 64M
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  # ─────────────────────────────────────────────────────────────────
+  # Remove MailHog in production (not needed)
+  # ─────────────────────────────────────────────────────────────────
+  mailhog:
+    deploy:
+      replicas: 0

@@ -1,5 +1,6 @@
-import { Component, OnInit, inject, signal } from '@angular/core';
+import { Component, OnInit, inject, signal, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { forkJoin, catchError, of } from 'rxjs';
 import { DashboardService } from './services/dashboard.service';
 import { KpiCardComponent } from './components/kpi-card/kpi-card.component';
 import { RevenueChartComponent } from './components/revenue-chart/revenue-chart.component';
@@ -45,6 +46,22 @@ export class DashboardComponent implements OnInit {
   isLoading = signal(true);
   error = signal<string | null>(null);
 
+  // Computed values for safe subtitle display
+  pendingOrdersText = computed(() => {
+    const pending = this.stats()?.pendingOrders;
+    return pending !== undefined ? `${pending} en attente` : '';
+  });
+
+  newCustomersText = computed(() => {
+    const newCustomers = this.stats()?.newCustomersThisMonth;
+    return newCustomers !== undefined ? `+${newCustomers} ce mois` : '';
+  });
+
+  lowStockText = computed(() => {
+    const lowStock = this.stats()?.lowStockProducts;
+    return lowStock !== undefined ? `${lowStock} en stock bas` : '';
+  });
+
   ngOnInit(): void {
     this.loadDashboardData();
   }
@@ -53,46 +70,32 @@ export class DashboardComponent implements OnInit {
     this.isLoading.set(true);
     this.error.set(null);
 
-    // Load stats
-    this.dashboardService.getStats().subscribe({
-      next: (data) => this.stats.set(data),
-      error: (err) => console.error('Error loading stats:', err),
-    });
-
-    // Load revenue chart
-    this.dashboardService.getRevenueChart().subscribe({
-      next: (data) => this.revenueChart.set(data),
-      error: (err) => console.error('Error loading revenue chart:', err),
-    });
-
-    // Load orders by status
-    this.dashboardService.getOrdersByStatus().subscribe({
-      next: (data) => this.ordersByStatus.set(data),
-      error: (err) => console.error('Error loading orders by status:', err),
-    });
-
-    // Load recent orders
-    this.dashboardService.getRecentOrders(5).subscribe({
-      next: (data) => this.recentOrders.set(data),
-      error: (err) => console.error('Error loading recent orders:', err),
-    });
-
-    // Load low stock items
-    this.dashboardService.getLowStockItems(5).subscribe({
-      next: (data) => this.lowStockItems.set(data),
-      error: (err) => console.error('Error loading low stock items:', err),
-    });
-
-    // Load activities
-    this.dashboardService.getRecentActivities(0, 5).subscribe({
+    forkJoin({
+      stats: this.dashboardService.getStats().pipe(catchError(() => of(null))),
+      revenueChart: this.dashboardService.getRevenueChart().pipe(catchError(() => of(null))),
+      ordersByStatus: this.dashboardService.getOrdersByStatus().pipe(catchError(() => of(null))),
+      recentOrders: this.dashboardService.getRecentOrders(5).pipe(catchError(() => of([]))),
+      lowStockItems: this.dashboardService.getLowStockItems(5).pipe(catchError(() => of([]))),
+      activities: this.dashboardService.getRecentActivities(0, 5).pipe(catchError(() => of({ content: [] }))),
+    }).subscribe({
       next: (data) => {
-        this.activities.set(data.content);
+        this.stats.set(data.stats);
+        this.revenueChart.set(data.revenueChart);
+        this.ordersByStatus.set(data.ordersByStatus);
+        this.recentOrders.set(data.recentOrders);
+        this.lowStockItems.set(data.lowStockItems);
+        this.activities.set(data.activities.content || []);
         this.isLoading.set(false);
       },
       error: (err) => {
-        console.error('Error loading activities:', err);
+        console.error('Error loading dashboard:', err);
+        this.error.set('Erreur lors du chargement du dashboard');
         this.isLoading.set(false);
       },
     });
+  }
+
+  retry(): void {
+    this.loadDashboardData();
   }
 }

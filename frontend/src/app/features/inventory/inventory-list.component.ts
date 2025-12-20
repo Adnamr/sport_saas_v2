@@ -1,16 +1,17 @@
-import { Component, OnInit, OnDestroy, inject, signal, computed } from '@angular/core';
+import { Component, OnInit, inject, signal, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { InventoryService } from './services/inventory.service';
 import { StockItem, StockMovement } from './models/inventory.model';
+import { StockBadgeComponent } from './components/stock-badge.component';
 
 @Component({
   selector: 'app-inventory-list',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, StockBadgeComponent],
   templateUrl: './inventory-list.component.html',
 })
-export class InventoryListComponent implements OnInit, OnDestroy {
+export class InventoryListComponent implements OnInit {
   readonly inventoryService = inject(InventoryService);
 
   stock = signal<StockItem[]>([]);
@@ -45,8 +46,6 @@ export class InventoryListComponent implements OnInit, OnDestroy {
   modalReference = '';
   modalReason = '';
 
-  private searchTimeout: ReturnType<typeof setTimeout> | null = null;
-
   filteredStock = computed(() => {
     let items = this.stock();
 
@@ -64,12 +63,6 @@ export class InventoryListComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.loadStock();
-  }
-
-  ngOnDestroy(): void {
-    if (this.searchTimeout) {
-      clearTimeout(this.searchTimeout);
-    }
   }
 
   loadStock(): void {
@@ -127,12 +120,7 @@ export class InventoryListComponent implements OnInit, OnDestroy {
   }
 
   onSearchChange(): void {
-    if (this.searchTimeout) {
-      clearTimeout(this.searchTimeout);
-    }
-    this.searchTimeout = setTimeout(() => {
-      // Search is done client-side via computed signal
-    }, 300);
+    // Search is done client-side via computed signal - no action needed
   }
 
   goToPage(page: number): void {

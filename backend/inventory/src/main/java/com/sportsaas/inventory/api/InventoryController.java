@@ -64,6 +64,7 @@ public class InventoryController {
     @PostMapping("/add")
     @Operation(summary = "Ajouter du stock")
     @PreAuthorize("hasAnyRole('TENANT_ADMIN', 'EMPLOYEE')")
+    @Transactional
     public ResponseEntity<StockItemResponse> addStock(@Valid @RequestBody AddStockRequest request) {
         StockItem stockItem = stockService.addStock(
                 request.getProductId(),
@@ -77,6 +78,7 @@ public class InventoryController {
     @PostMapping("/remove")
     @Operation(summary = "Retirer du stock")
     @PreAuthorize("hasAnyRole('TENANT_ADMIN', 'EMPLOYEE')")
+    @Transactional
     public ResponseEntity<StockItemResponse> removeStock(@Valid @RequestBody RemoveStockRequest request) {
         StockItem stockItem = stockService.removeStock(
                 request.getProductId(),
@@ -90,6 +92,7 @@ public class InventoryController {
     @PostMapping("/adjust")
     @Operation(summary = "Ajuster le stock (inventaire)")
     @PreAuthorize("hasRole('TENANT_ADMIN')")
+    @Transactional
     public ResponseEntity<StockItemResponse> adjustStock(@Valid @RequestBody AdjustStockRequest request) {
         StockItem stockItem = stockService.adjustStock(
                 request.getProductId(),
@@ -102,6 +105,7 @@ public class InventoryController {
     @PutMapping("/products/{productId}/settings")
     @Operation(summary = "Mettre a jour les parametres de stock")
     @PreAuthorize("hasAnyRole('TENANT_ADMIN', 'EMPLOYEE')")
+    @Transactional
     public ResponseEntity<StockItemResponse> updateSettings(
             @PathVariable UUID productId,
             @Valid @RequestBody UpdateStockSettingsRequest request) {

@@ -1,4 +1,4 @@
-import { Component, OnInit, inject, signal, computed } from '@angular/core';
+import { Component, OnInit, OnDestroy, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
@@ -62,6 +62,22 @@ import { Product, ProductStatus, Category } from '../models/catalog.model';
           </select>
         </div>
       </div>
+
+      <!-- Save Error -->
+      @if (saveError()) {
+        <div class="bg-red-50 border border-red-200 rounded-xl p-4 mb-6">
+          <div class="flex items-center gap-3">
+            <span class="text-xl">⚠️</span>
+            <p class="text-red-800 font-medium flex-1">{{ saveError() }}</p>
+            <button
+              (click)="saveError.set(null)"
+              class="text-red-600 hover:text-red-800"
+            >
+              &times;
+            </button>
+          </div>
+        </div>
+      }
 
       <!-- Error State -->
       @if (error()) {
@@ -269,13 +285,14 @@ import { Product, ProductStatus, Category } from '../models/catalog.model';
     </div>
   `,
 })
-export class ProductsListComponent implements OnInit {
+export class ProductsListComponent implements OnInit, OnDestroy {
   private readonly catalogService = inject(CatalogService);
 
   products = signal<Product[]>([]);
   categories = signal<Category[]>([]);
   isLoading = signal(true);
   error = signal<string | null>(null);
+  saveError = signal<string | null>(null);
 
   currentPage = signal(0);
   totalPages = signal(0);
@@ -294,6 +311,12 @@ export class ProductsListComponent implements OnInit {
   ngOnInit(): void {
     this.loadCategories();
     this.loadProducts();
+  }
+
+  ngOnDestroy(): void {
+    if (this.searchTimeout) {
+      clearTimeout(this.searchTimeout);
+    }
   }
 
   loadCategories(): void {
@@ -400,16 +423,22 @@ export class ProductsListComponent implements OnInit {
   }
 
   publishProduct(product: Product): void {
+    this.saveError.set(null);
     this.catalogService.publishProduct(product.id).subscribe({
       next: () => this.loadProducts(),
-      error: (err) => console.error('Error publishing product:', err),
+      error: () => {
+        this.saveError.set('Erreur lors de la publication du produit');
+      },
     });
   }
 
   unpublishProduct(product: Product): void {
+    this.saveError.set(null);
     this.catalogService.unpublishProduct(product.id).subscribe({
       next: () => this.loadProducts(),
-      error: (err) => console.error('Error unpublishing product:', err),
+      error: () => {
+        this.saveError.set('Erreur lors de la depublication du produit');
+      },
     });
   }
 
@@ -432,7 +461,10 @@ export class ProductsListComponent implements OnInit {
         this.closeDeleteModal();
         this.loadProducts();
       },
-      error: (err) => console.error('Error deleting product:', err),
+      error: () => {
+        this.closeDeleteModal();
+        this.saveError.set('Erreur lors de la suppression du produit');
+      },
     });
   }
 }

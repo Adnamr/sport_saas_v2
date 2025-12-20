@@ -53,6 +53,22 @@ interface Tab {
         </div>
       </div>
 
+      <!-- Save Error -->
+      @if (saveError()) {
+        <div class="bg-red-50 border border-red-200 rounded-xl p-4 mb-6">
+          <div class="flex items-center gap-3">
+            <span class="text-xl">⚠️</span>
+            <p class="text-red-800 font-medium flex-1">{{ saveError() }}</p>
+            <button
+              (click)="saveError.set(null)"
+              class="text-red-600 hover:text-red-800"
+            >
+              &times;
+            </button>
+          </div>
+        </div>
+      }
+
       <!-- Loading State -->
       @if (isLoading()) {
         <div class="bg-white rounded-xl shadow-sm border border-secondary-200 p-6">
@@ -387,6 +403,7 @@ export class ProductFormComponent implements OnInit {
   isEditMode = signal(false);
   isLoading = signal(false);
   isSaving = signal(false);
+  saveError = signal<string | null>(null);
   product = signal<Product | null>(null);
   categories = signal<Category[]>([]);
 
@@ -479,6 +496,7 @@ export class ProductFormComponent implements OnInit {
     if (this.form.invalid) return;
 
     this.isSaving.set(true);
+    this.saveError.set(null);
     const formData = this.cleanFormData(this.form.value);
 
     const action = this.isEditMode()
@@ -494,9 +512,9 @@ export class ProductFormComponent implements OnInit {
           this.product.set(product);
         }
       },
-      error: (err) => {
-        console.error('Error saving product:', err);
+      error: () => {
         this.isSaving.set(false);
+        this.saveError.set('Erreur lors de l\'enregistrement du produit');
       },
     });
   }

@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Category } from '../models/catalog.model';
@@ -142,9 +142,8 @@ export class CategoryModalComponent implements OnInit {
   }>();
   @Output() close = new EventEmitter<void>();
 
+  private readonly fb = inject(FormBuilder);
   form!: FormGroup;
-
-  constructor(private fb: FormBuilder) {}
 
   ngOnInit(): void {
     this.form = this.fb.group({

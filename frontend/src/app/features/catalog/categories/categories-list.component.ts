@@ -22,6 +22,22 @@ import { CategoryModalComponent } from './category-modal.component';
         </button>
       </div>
 
+      <!-- Save Error -->
+      @if (saveError()) {
+        <div class="bg-red-50 border border-red-200 rounded-xl p-4 mb-6">
+          <div class="flex items-center gap-3">
+            <span class="text-xl">⚠️</span>
+            <p class="text-red-800 font-medium flex-1">{{ saveError() }}</p>
+            <button
+              (click)="saveError.set(null)"
+              class="text-red-600 hover:text-red-800"
+            >
+              &times;
+            </button>
+          </div>
+        </div>
+      }
+
       <!-- Error State -->
       @if (error()) {
         <div class="bg-red-50 border border-red-200 rounded-xl p-6 mb-6">
@@ -129,6 +145,7 @@ export class CategoriesListComponent implements OnInit {
   categories = signal<Category[]>([]);
   isLoading = signal(true);
   error = signal<string | null>(null);
+  saveError = signal<string | null>(null);
 
   showModal = signal(false);
   editingCategory = signal<Category | null>(null);
@@ -178,6 +195,7 @@ export class CategoriesListComponent implements OnInit {
 
   saveCategory(data: { name: string; description?: string; parentId?: string }): void {
     const category = this.editingCategory();
+    this.saveError.set(null);
 
     if (category) {
       // Update
@@ -186,8 +204,9 @@ export class CategoriesListComponent implements OnInit {
           this.closeModal();
           this.loadCategories();
         },
-        error: (err) => {
-          console.error('Error updating category:', err);
+        error: () => {
+          this.closeModal();
+          this.saveError.set('Erreur lors de la mise a jour de la categorie');
         },
       });
     } else {
@@ -197,8 +216,9 @@ export class CategoriesListComponent implements OnInit {
           this.closeModal();
           this.loadCategories();
         },
-        error: (err) => {
-          console.error('Error creating category:', err);
+        error: () => {
+          this.closeModal();
+          this.saveError.set('Erreur lors de la creation de la categorie');
         },
       });
     }
@@ -218,13 +238,15 @@ export class CategoriesListComponent implements OnInit {
     const category = this.deletingCategory();
     if (!category) return;
 
+    this.saveError.set(null);
     this.catalogService.deleteCategory(category.id).subscribe({
       next: () => {
         this.closeDeleteModal();
         this.loadCategories();
       },
-      error: (err) => {
-        console.error('Error deleting category:', err);
+      error: () => {
+        this.closeDeleteModal();
+        this.saveError.set('Erreur lors de la suppression de la categorie');
       },
     });
   }
@@ -234,12 +256,13 @@ export class CategoriesListComponent implements OnInit {
       ? this.catalogService.deactivateCategory(category.id)
       : this.catalogService.activateCategory(category.id);
 
+    this.saveError.set(null);
     action.subscribe({
       next: () => {
         this.loadCategories();
       },
-      error: (err) => {
-        console.error('Error toggling category status:', err);
+      error: () => {
+        this.saveError.set('Erreur lors du changement de statut de la categorie');
       },
     });
   }

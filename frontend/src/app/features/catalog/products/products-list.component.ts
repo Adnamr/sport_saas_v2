@@ -322,22 +322,12 @@ export class ProductsListComponent implements OnInit, OnDestroy {
   loadCategories(): void {
     this.catalogService.getRootCategories().subscribe({
       next: (categories) => {
-        this.categories.set(this.flattenCategories(categories));
+        this.categories.set(this.catalogService.flattenCategories(categories));
       },
       error: (err) => {
         console.error('Error loading categories:', err);
       },
     });
-  }
-
-  private flattenCategories(categories: Category[], result: Category[] = []): Category[] {
-    for (const cat of categories) {
-      result.push(cat);
-      if (cat.children) {
-        this.flattenCategories(cat.children, result);
-      }
-    }
-    return result;
   }
 
   loadProducts(): void {

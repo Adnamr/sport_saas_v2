@@ -104,4 +104,23 @@ export class CatalogService {
   archiveProduct(id: string): Observable<Product> {
     return this.api.post<Product>(`/products/${id}/archive`, {});
   }
+
+  // ==================== Utilities ====================
+
+  /**
+   * Flatten a tree of categories into a flat array with depth info.
+   */
+  flattenCategories(
+    categories: Category[],
+    result: Category[] = [],
+    depth = 0
+  ): Category[] {
+    for (const cat of categories) {
+      result.push({ ...cat, depth });
+      if (cat.children) {
+        this.flattenCategories(cat.children, result, depth + 1);
+      }
+    }
+    return result;
+  }
 }

@@ -2,6 +2,8 @@ import { Component, OnInit, inject, signal, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { InventoryService } from './services/inventory.service';
+import { CatalogService } from '../catalog/services/catalog.service';
+import { Product } from '../catalog/models/catalog.model';
 import { StockItem, StockMovement } from './models/inventory.model';
 import { StockBadgeComponent } from './components/stock-badge.component';
 
@@ -13,8 +15,10 @@ import { StockBadgeComponent } from './components/stock-badge.component';
 })
 export class InventoryListComponent implements OnInit {
   readonly inventoryService = inject(InventoryService);
+  private readonly catalogService = inject(CatalogService);
 
   stock = signal<StockItem[]>([]);
+  products = signal<Product[]>([]);
   movements = signal<StockMovement[]>([]);
   isLoading = signal(true);
   isLoadingMovements = signal(false);
@@ -63,6 +67,18 @@ export class InventoryListComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadStock();
+    this.loadProducts();
+  }
+
+  loadProducts(): void {
+    this.catalogService.getProducts({ size: 1000 }).subscribe({
+      next: (response) => {
+        this.products.set(response.content);
+      },
+      error: (err) => {
+        console.error('Error loading products:', err);
+      },
+    });
   }
 
   loadStock(): void {

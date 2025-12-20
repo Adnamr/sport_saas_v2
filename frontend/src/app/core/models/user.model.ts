@@ -1,12 +1,13 @@
 export interface User {
   id: string;
+  tenantId: string;
+  tenantSlug?: string;
   email: string;
   firstName: string;
   lastName: string;
   role: UserRole;
   enabled: boolean;
   emailVerified: boolean;
-  tenantId: string;
   createdAt: string;
   lastLoginAt?: string;
 }

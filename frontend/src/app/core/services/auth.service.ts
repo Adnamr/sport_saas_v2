@@ -28,6 +28,10 @@ export class AuthService {
     const token = this.storage.getAccessToken();
     if (user && token) {
       this.currentUser.set(user);
+      // Ensure tenant is stored if user has tenantId
+      if (user.tenantId && !this.storage.getTenantSlug()) {
+        this.storage.setTenantSlug(user.tenantId);
+      }
     }
   }
 
@@ -38,6 +42,10 @@ export class AuthService {
         this.storage.setRefreshToken(response.refreshToken);
         this.storage.setUser(response.user);
         this.currentUser.set(response.user);
+        // Store tenant identifier for tenant guard
+        if (response.user.tenantId) {
+          this.storage.setTenantSlug(response.user.tenantId);
+        }
       })
     );
   }
@@ -49,6 +57,10 @@ export class AuthService {
         this.storage.setRefreshToken(response.refreshToken);
         this.storage.setUser(response.user);
         this.currentUser.set(response.user);
+        // Store tenant identifier for tenant guard
+        if (response.user.tenantId) {
+          this.storage.setTenantSlug(response.user.tenantId);
+        }
       })
     );
   }

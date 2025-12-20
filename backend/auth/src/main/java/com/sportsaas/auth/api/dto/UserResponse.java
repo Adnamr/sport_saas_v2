@@ -18,6 +18,8 @@ import java.util.UUID;
 @AllArgsConstructor
 public class UserResponse {
     private UUID id;
+    private UUID tenantId;
+    private String tenantSlug;
     private String email;
     private String firstName;
     private String lastName;

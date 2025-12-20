@@ -42,8 +42,15 @@ export class AuthService {
     );
   }
 
-  register(data: RegisterRequest): Observable<User> {
-    return this.api.post<User>('/auth/register', data);
+  register(data: RegisterRequest): Observable<LoginResponse> {
+    return this.api.post<LoginResponse>('/auth/register', data).pipe(
+      tap((response) => {
+        this.storage.setAccessToken(response.accessToken);
+        this.storage.setRefreshToken(response.refreshToken);
+        this.storage.setUser(response.user);
+        this.currentUser.set(response.user);
+      })
+    );
   }
 
   logout(): void {
@@ -80,7 +87,7 @@ export class AuthService {
   }
 
   verifyEmail(token: string): Observable<{ message: string }> {
-    return this.api.post<{ message: string }>('/auth/verify-email', { token });
+    return this.api.get<{ message: string }>('/auth/verify-email', { token });
   }
 
   completeInvitation(token: string, password: string): Observable<{ message: string }> {

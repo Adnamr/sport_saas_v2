@@ -54,9 +54,7 @@ public class TenantFilter extends OncePerRequestFilter {
                path.startsWith("/actuator") ||
                path.startsWith("/api-docs") ||
                path.startsWith("/swagger-ui") ||
-               path.startsWith("/api/auth/forgot-password") ||
-               path.startsWith("/api/auth/reset-password") ||
-               path.startsWith("/api/auth/verify-email") ||
+               path.startsWith("/api/auth/") ||
                path.startsWith("/tenants");
     }
 }

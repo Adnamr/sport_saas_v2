@@ -9,7 +9,9 @@ import com.sportsaas.common.exception.ConflictException;
 import com.sportsaas.common.exception.ForbiddenException;
 import com.sportsaas.common.exception.NotFoundException;
 import com.sportsaas.common.exception.UnauthorizedException;
+import com.sportsaas.tenant.domain.Tenant;
 import com.sportsaas.tenant.domain.TenantContext;
+import com.sportsaas.tenant.domain.TenantService;
 import org.springframework.context.ApplicationEventPublisher;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -38,6 +40,7 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final ApplicationEventPublisher eventPublisher;
+    private final TenantService tenantService;
 
     @Override
     public Page<User> findAll(Pageable pageable) {
@@ -77,6 +80,41 @@ public class UserServiceImpl implements UserService {
         User saved = userRepository.save(user);
         log.info("User created: {} ({})", saved.getEmail(), saved.getId());
         return saved;
+    }
+
+    @Override
+    @Transactional
+    public User registerPublic(User user) {
+        // Verifier que l'email n'existe pas deja (globalement)
+        if (userRepository.findByEmail(user.getEmail()).isPresent()) {
+            throw new ConflictException("Un utilisateur avec cet email existe deja");
+        }
+
+        // Creer un nouveau tenant pour l'utilisateur
+        String slug = generateSlug(user.getFirstName(), user.getLastName());
+        Tenant tenant = new Tenant();
+        tenant.setName(user.getFirstName() + " " + user.getLastName());
+        tenant.setSlug(slug);
+        Tenant savedTenant = tenantService.create(tenant);
+
+        // Creer l'utilisateur comme TENANT_ADMIN
+        user.setTenantId(savedTenant.getId());
+        user.setRole(UserRole.TENANT_ADMIN);
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setEnabled(true); // Actif immediatement pour simplifier
+        user.setEmailVerified(true); // Simplifie - a ameliorer avec verification email
+
+        User saved = userRepository.save(user);
+        log.info("Public registration: user {} ({}) with tenant {}", saved.getEmail(), saved.getId(), savedTenant.getSlug());
+        return saved;
+    }
+
+    private String generateSlug(String firstName, String lastName) {
+        String base = (firstName + "-" + lastName)
+                .toLowerCase()
+                .replaceAll("[^a-z0-9]+", "-")
+                .replaceAll("^-|-$", "");
+        return base + "-" + UUID.randomUUID().toString().substring(0, 8);
     }
 
     @Override
@@ -197,6 +235,24 @@ public class UserServiceImpl implements UserService {
     @Transactional
     public User authenticate(String email, String password, UUID tenantId) {
         User user = userRepository.findByEmailAndTenantId(email, tenantId)
+                .orElseThrow(() -> new UnauthorizedException("Email ou mot de passe incorrect"));
+
+        if (!passwordEncoder.matches(password, user.getPassword())) {
+            throw new UnauthorizedException("Email ou mot de passe incorrect");
+        }
+
+        if (!user.isEnabled()) {
+            throw new UnauthorizedException("Compte desactive");
+        }
+
+        user.setLastLoginAt(LocalDateTime.now());
+        return userRepository.save(user);
+    }
+
+    @Override
+    @Transactional
+    public User authenticateByEmail(String email, String password) {
+        User user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new UnauthorizedException("Email ou mot de passe incorrect"));
 
         if (!passwordEncoder.matches(password, user.getPassword())) {

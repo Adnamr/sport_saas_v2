@@ -27,7 +27,11 @@
             formControlName="email"
             class="mt-1 block w-full px-3 py-2 border border-secondary-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
             placeholder="votre@email.com"
+            [class.border-red-500]="f['email'].invalid && f['email'].touched"
           />
+          @if (f['email'].invalid && f['email'].touched) {
+            <p class="mt-1 text-sm text-red-600">Email invalide</p>
+          }
         </div>
 
         <div>
@@ -40,8 +44,18 @@
             formControlName="password"
             class="mt-1 block w-full px-3 py-2 border border-secondary-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
             placeholder="••••••••"
+            [class.border-red-500]="f['password'].invalid && f['password'].touched"
           />
+          @if (f['password'].invalid && f['password'].touched) {
+            <p class="mt-1 text-sm text-red-600">Mot de passe requis (min. 6 caracteres)</p>
+          }
         </div>
+      </div>
+
+      <div class="flex items-center justify-end">
+        <a routerLink="/forgot-password" class="text-sm font-medium text-primary-600 hover:text-primary-500">
+          Mot de passe oublie ?
+        </a>
       </div>
 
       <button
@@ -59,6 +73,13 @@
           Se connecter
         }
       </button>
+
+      <div class="text-center">
+        <span class="text-sm text-secondary-600">Pas encore de compte ?</span>
+        <a routerLink="/register" class="ml-1 text-sm font-medium text-primary-600 hover:text-primary-500">
+          Creer un compte
+        </a>
+      </div>
     </form>
   </div>
 </div>

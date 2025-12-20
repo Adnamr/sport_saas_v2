@@ -37,6 +37,11 @@ public interface UserService {
     User create(User user);
 
     /**
+     * Inscription publique self-service (cree un tenant + user TENANT_ADMIN).
+     */
+    User registerPublic(User user);
+
+    /**
      * Met a jour un utilisateur.
      */
     User update(UUID id, User user);
@@ -75,6 +80,11 @@ public interface UserService {
      * Authentifie un utilisateur et met a jour lastLoginAt.
      */
     User authenticate(String email, String password, UUID tenantId);
+
+    /**
+     * Authentifie un utilisateur par email uniquement (sans tenant specifie).
+     */
+    User authenticateByEmail(String email, String password);
 
     /**
      * Supprime un utilisateur.

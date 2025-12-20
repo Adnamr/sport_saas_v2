@@ -12,7 +12,7 @@ export const tenantGuard: CanActivateFn = () => {
     return true;
   }
 
-  // Redirect to tenant selection or login
-  router.navigate(['/auth/login']);
+  // Redirect to login
+  router.navigate(['/login']);
   return false;
 };

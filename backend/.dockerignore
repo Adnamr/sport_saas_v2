@@ -1,0 +1,34 @@
+# Build outputs
+**/target/
+**/*.class
+
+# IDE
+.idea/
+*.iml
+.vscode/
+*.swp
+*.swo
+
+# Logs
+*.log
+logs/
+
+# Git
+.git/
+.gitignore
+
+# Docker
+Dockerfile
+.dockerignore
+docker-compose*.yml
+
+# Documentation
+*.md
+docs/
+
+# Tests
+**/src/test/
+
+# OS files
+.DS_Store
+Thumbs.db

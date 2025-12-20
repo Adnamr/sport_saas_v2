@@ -8,7 +8,7 @@ import {
   AbstractControl,
   ValidationErrors,
 } from '@angular/forms';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../../core/services/auth.service';
 
 @Component({
@@ -21,11 +21,11 @@ export class RegisterComponent {
   registerForm: FormGroup;
   isLoading = false;
   errorMessage = '';
-  successMessage = '';
 
   constructor(
     private readonly fb: FormBuilder,
-    private readonly authService: AuthService
+    private readonly authService: AuthService,
+    private readonly router: Router
   ) {
     this.registerForm = this.fb.group(
       {
@@ -60,22 +60,16 @@ export class RegisterComponent {
 
     this.isLoading = true;
     this.errorMessage = '';
-    this.successMessage = '';
 
     const { confirmPassword, acceptTerms, ...registerData } = this.registerForm.value;
 
     this.authService.register(registerData).subscribe({
       next: () => {
-        this.successMessage =
-          'Compte cree avec succes ! Verifiez votre email pour activer votre compte.';
-        this.registerForm.reset();
+        this.router.navigate(['/dashboard']);
       },
       error: (err) => {
         this.isLoading = false;
         this.errorMessage = err.error?.message || "Erreur lors de l'inscription";
-      },
-      complete: () => {
-        this.isLoading = false;
       },
     });
   }

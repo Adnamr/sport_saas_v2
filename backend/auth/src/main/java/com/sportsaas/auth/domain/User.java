@@ -26,7 +26,7 @@ public class User extends TenantAwareEntity {
     @Column(nullable = false)
     private String email;
 
-    @Column(nullable = false)
+    @Column(name = "password_hash", nullable = false)
     private String password;
 
     @Column(nullable = false)

@@ -6,6 +6,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
 
 /**
  * Entité Tenant - Représente un locataire de la plateforme.
@@ -31,8 +33,9 @@ public class Tenant extends BaseEntity {
     @Column(nullable = false)
     private TenantStatus status = TenantStatus.ACTIVE;
 
+    @JdbcTypeCode(SqlTypes.JSON)
     @Column(columnDefinition = "jsonb")
-    private String settings;
+    private String settings = "{}";
 
     /**
      * Vérifie si le tenant est actif.

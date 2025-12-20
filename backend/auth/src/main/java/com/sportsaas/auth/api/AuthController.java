@@ -2,12 +2,10 @@ package com.sportsaas.auth.api;
 
 import com.sportsaas.auth.api.dto.*;
 import com.sportsaas.auth.domain.User;
-import com.sportsaas.auth.domain.UserRole;
 import com.sportsaas.auth.domain.UserService;
 import com.sportsaas.auth.infra.JwtService;
 import com.sportsaas.common.exception.NotFoundException;
 import com.sportsaas.common.exception.UnauthorizedException;
-import com.sportsaas.tenant.domain.TenantContext;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
@@ -40,9 +38,7 @@ public class AuthController {
     @PostMapping("/login")
     @Operation(summary = "Connexion utilisateur")
     public ResponseEntity<AuthResponse> login(@Valid @RequestBody LoginRequest request) {
-        UUID tenantId = TenantContext.requireCurrentTenant();
-
-        User user = userService.authenticate(request.getEmail(), request.getPassword(), tenantId);
+        User user = userService.authenticateByEmail(request.getEmail(), request.getPassword());
 
         String accessToken = jwtService.generateToken(user);
         String refreshToken = jwtService.generateRefreshToken(user);
@@ -56,16 +52,15 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-    @Operation(summary = "Inscription utilisateur")
+    @Operation(summary = "Inscription utilisateur (self-service)")
     public ResponseEntity<AuthResponse> register(@Valid @RequestBody RegisterRequest request) {
         User user = new User();
         user.setEmail(request.getEmail());
         user.setPassword(request.getPassword());
         user.setFirstName(request.getFirstName());
         user.setLastName(request.getLastName());
-        user.setRole(UserRole.CUSTOMER);
 
-        User created = userService.create(user);
+        User created = userService.registerPublic(user);
 
         String accessToken = jwtService.generateToken(created);
         String refreshToken = jwtService.generateRefreshToken(created);

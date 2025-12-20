@@ -1,0 +1,27 @@
+# Docker Development Profile
+# Uses ddl-auto: update to auto-create missing tables
+
+spring:
+  datasource:
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://postgres:5432/sportsaas}
+    username: ${SPRING_DATASOURCE_USERNAME:sportsaas}
+    password: ${SPRING_DATASOURCE_PASSWORD:sportsaas}
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+
+  data:
+    redis:
+      host: ${SPRING_DATA_REDIS_HOST:redis}
+      port: ${SPRING_DATA_REDIS_PORT:6379}
+
+  mail:
+    host: ${MAIL_HOST:mailhog}
+    port: ${MAIL_PORT:1025}
+
+logging:
+  level:
+    root: INFO
+    com.sportsaas: DEBUG
+    org.hibernate.SQL: INFO

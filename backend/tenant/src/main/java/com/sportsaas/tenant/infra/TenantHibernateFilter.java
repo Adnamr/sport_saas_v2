@@ -28,12 +28,9 @@ public class TenantHibernateFilter {
     public void enableTenantFilter() {
         if (TenantContext.hasTenant()) {
             Session session = entityManager.unwrap(Session.class);
-
-            if (!session.isDefaultReadOnly()) {
-                org.hibernate.Filter filter = session.enableFilter(TENANT_FILTER_NAME);
-                filter.setParameter(TENANT_PARAMETER, TenantContext.getCurrentTenant());
-                log.trace("Tenant filter enabled for tenant: {}", TenantContext.getCurrentTenant());
-            }
+            org.hibernate.Filter filter = session.enableFilter(TENANT_FILTER_NAME);
+            filter.setParameter(TENANT_PARAMETER, TenantContext.getCurrentTenant());
+            log.trace("Tenant filter enabled for tenant: {}", TenantContext.getCurrentTenant());
         }
     }
 }

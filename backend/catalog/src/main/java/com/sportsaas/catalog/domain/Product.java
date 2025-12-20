@@ -8,8 +8,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Entite Product - Produit du catalogue.
@@ -58,10 +58,10 @@ public class Product extends TenantAwareEntity {
 
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
     @OrderBy("sortOrder ASC")
-    private List<ProductImage> images = new ArrayList<>();
+    private Set<ProductImage> images = new HashSet<>();
 
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<ProductAttribute> attributes = new ArrayList<>();
+    private Set<ProductAttribute> attributes = new HashSet<>();
 
     @Column
     private String brand;
@@ -85,7 +85,7 @@ public class Product extends TenantAwareEntity {
         return images.stream()
                 .filter(ProductImage::isMain)
                 .findFirst()
-                .orElse(images.isEmpty() ? null : images.get(0));
+                .orElse(images.isEmpty() ? null : images.iterator().next());
     }
 
     /**

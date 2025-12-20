@@ -1,5 +1,8 @@
 package com.sportsaas.inventory.domain;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -8,6 +11,11 @@ import java.util.UUID;
  * Service de gestion du stock.
  */
 public interface StockService {
+
+    /**
+     * Recupere tous les stocks avec pagination.
+     */
+    Page<StockItem> findAll(Pageable pageable);
 
     /**
      * Recupere le stock d'un produit.

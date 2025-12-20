@@ -1,0 +1,512 @@
+<div>
+  <div class="flex items-center justify-between mb-6">
+    <h1 class="text-2xl font-bold text-secondary-900">Inventaire</h1>
+    <div class="flex gap-2">
+      <button
+        (click)="showAddStockModal.set(true)"
+        class="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors flex items-center gap-2"
+      >
+        <span>+</span>
+        <span>Entree stock</span>
+      </button>
+      <button
+        (click)="showRemoveStockModal.set(true)"
+        class="px-4 py-2 bg-orange-600 text-white rounded-lg hover:bg-orange-700 transition-colors flex items-center gap-2"
+      >
+        <span>-</span>
+        <span>Sortie stock</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Filters -->
+  <div class="bg-white rounded-xl shadow-sm border border-secondary-200 p-4 mb-6">
+    <div class="flex flex-wrap gap-4">
+      <!-- Search -->
+      <div class="flex-1 min-w-64">
+        <input
+          type="text"
+          [(ngModel)]="searchQuery"
+          (input)="onSearchChange()"
+          class="w-full px-4 py-2 border border-secondary-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
+          placeholder="Rechercher par produit ou SKU..."
+        />
+      </div>
+
+      <!-- Stock Status Filter -->
+      <select
+        [(ngModel)]="selectedFilter"
+        (change)="loadStock()"
+        class="px-4 py-2 border border-secondary-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
+      >
+        <option value="all">Tous les stocks</option>
+        <option value="low">Stock bas</option>
+        <option value="out">Rupture de stock</option>
+      </select>
+    </div>
+  </div>
+
+  <!-- Action Error -->
+  @if (actionError()) {
+    <div class="bg-red-50 border border-red-200 rounded-xl p-4 mb-6">
+      <div class="flex items-center gap-3">
+        <span class="text-xl">&#x26A0;&#xFE0F;</span>
+        <p class="text-red-800 font-medium flex-1">{{ actionError() }}</p>
+        <button
+          (click)="actionError.set(null)"
+          class="text-red-600 hover:text-red-800"
+        >
+          &times;
+        </button>
+      </div>
+    </div>
+  }
+
+  <!-- Success Message -->
+  @if (successMessage()) {
+    <div class="bg-green-50 border border-green-200 rounded-xl p-4 mb-6">
+      <div class="flex items-center gap-3">
+        <span class="text-xl">&#x2705;</span>
+        <p class="text-green-800 font-medium flex-1">{{ successMessage() }}</p>
+        <button
+          (click)="successMessage.set(null)"
+          class="text-green-600 hover:text-green-800"
+        >
+          &times;
+        </button>
+      </div>
+    </div>
+  }
+
+  <!-- Error State -->
+  @if (error()) {
+    <div class="bg-red-50 border border-red-200 rounded-xl p-6 mb-6">
+      <div class="flex items-center gap-3">
+        <span class="text-2xl">&#x26A0;&#xFE0F;</span>
+        <div class="flex-1">
+          <p class="text-red-800 font-medium">{{ error() }}</p>
+        </div>
+        <button
+          (click)="loadStock()"
+          class="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors"
+        >
+          Reessayer
+        </button>
+      </div>
+    </div>
+  }
+
+  <!-- Loading State -->
+  @if (isLoading()) {
+    <div class="bg-white rounded-xl shadow-sm border border-secondary-200">
+      <div class="divide-y divide-secondary-200">
+        @for (i of [1, 2, 3, 4, 5]; track i) {
+          <div class="p-4 animate-pulse flex items-center gap-4">
+            <div class="w-16 h-16 bg-secondary-200 rounded-lg"></div>
+            <div class="flex-1">
+              <div class="h-4 bg-secondary-200 rounded w-48 mb-2"></div>
+              <div class="h-3 bg-secondary-200 rounded w-32"></div>
+            </div>
+            <div class="h-6 bg-secondary-200 rounded w-20"></div>
+          </div>
+        }
+      </div>
+    </div>
+  } @else {
+    <!-- Stock Table -->
+    <div class="bg-white rounded-xl shadow-sm border border-secondary-200 overflow-hidden">
+      @if (filteredStock().length === 0) {
+        <div class="p-12 text-center">
+          <div class="text-4xl mb-4">&#x1F4E6;</div>
+          <h3 class="text-lg font-medium text-secondary-900 mb-2">Aucun stock</h3>
+          <p class="text-secondary-600">Aucun article en stock pour le moment</p>
+        </div>
+      } @else {
+        <table class="w-full">
+          <thead class="bg-secondary-50">
+            <tr>
+              <th class="px-4 py-3 text-left text-sm font-medium text-secondary-700">Produit</th>
+              <th class="px-4 py-3 text-left text-sm font-medium text-secondary-700">SKU</th>
+              <th class="px-4 py-3 text-center text-sm font-medium text-secondary-700">Disponible</th>
+              <th class="px-4 py-3 text-center text-sm font-medium text-secondary-700">Reserve</th>
+              <th class="px-4 py-3 text-center text-sm font-medium text-secondary-700">Physique</th>
+              <th class="px-4 py-3 text-left text-sm font-medium text-secondary-700">Emplacement</th>
+              <th class="px-4 py-3 text-left text-sm font-medium text-secondary-700">Statut</th>
+              <th class="px-4 py-3 text-right text-sm font-medium text-secondary-700">Actions</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-secondary-200">
+            @for (item of filteredStock(); track item.id) {
+              <tr class="hover:bg-secondary-50 transition-colors">
+                <td class="px-4 py-4">
+                  <p class="font-medium text-secondary-900">{{ item.productName }}</p>
+                </td>
+                <td class="px-4 py-4">
+                  <span class="text-sm font-mono text-secondary-600">{{ item.productSku }}</span>
+                </td>
+                <td class="px-4 py-4 text-center">
+                  <span class="font-semibold" [ngClass]="item.availableQuantity > 0 ? 'text-green-600' : 'text-red-600'">
+                    {{ item.availableQuantity }}
+                  </span>
+                </td>
+                <td class="px-4 py-4 text-center">
+                  <span class="text-secondary-600">{{ item.reservedQuantity }}</span>
+                </td>
+                <td class="px-4 py-4 text-center">
+                  <span class="text-secondary-900">{{ item.physicalQuantity }}</span>
+                </td>
+                <td class="px-4 py-4">
+                  <span class="text-sm text-secondary-600">{{ item.location || '-' }}</span>
+                </td>
+                <td class="px-4 py-4">
+                  <app-stock-badge [lowStock]="item.lowStock" [outOfStock]="item.outOfStock" />
+                </td>
+                <td class="px-4 py-4 text-right">
+                  <div class="flex items-center justify-end gap-1">
+                    <button
+                      (click)="openAddStock(item)"
+                      class="p-2 text-secondary-500 hover:text-green-600 hover:bg-green-50 rounded-lg transition-colors"
+                      title="Ajouter du stock"
+                    >
+                      <span class="text-sm">&#x2795;</span>
+                    </button>
+                    <button
+                      (click)="openRemoveStock(item)"
+                      class="p-2 text-secondary-500 hover:text-orange-600 hover:bg-orange-50 rounded-lg transition-colors"
+                      title="Retirer du stock"
+                    >
+                      <span class="text-sm">&#x2796;</span>
+                    </button>
+                    <button
+                      (click)="viewMovements(item)"
+                      class="p-2 text-secondary-500 hover:text-primary-600 hover:bg-primary-50 rounded-lg transition-colors"
+                      title="Historique"
+                    >
+                      <span class="text-sm">&#x1F4C3;</span>
+                    </button>
+                    <button
+                      (click)="openAdjustStock(item)"
+                      class="p-2 text-secondary-500 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
+                      title="Ajuster"
+                    >
+                      <span class="text-sm">&#x2699;&#xFE0F;</span>
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+
+        <!-- Pagination -->
+        @if (totalPages() > 1) {
+          <div class="flex items-center justify-between px-4 py-3 border-t border-secondary-200">
+            <p class="text-sm text-secondary-600">
+              Page {{ currentPage() + 1 }} sur {{ totalPages() }} ({{ totalElements() }} articles)
+            </p>
+            <div class="flex gap-2">
+              <button
+                (click)="goToPage(currentPage() - 1)"
+                [disabled]="currentPage() === 0"
+                class="px-3 py-1 border border-secondary-300 rounded-lg text-sm hover:bg-secondary-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+              >
+                Precedent
+              </button>
+              <button
+                (click)="goToPage(currentPage() + 1)"
+                [disabled]="currentPage() >= totalPages() - 1"
+                class="px-3 py-1 border border-secondary-300 rounded-lg text-sm hover:bg-secondary-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+              >
+                Suivant
+              </button>
+            </div>
+          </div>
+        }
+      }
+    </div>
+  }
+
+  <!-- Add Stock Modal -->
+  @if (showAddStockModal()) {
+    <div class="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+      <div class="bg-white rounded-xl shadow-xl p-6 w-full max-w-md mx-4">
+        <h3 class="text-lg font-semibold text-secondary-900 mb-4">Entree de stock</h3>
+        <form (ngSubmit)="addStock()">
+          @if (!selectedItem()) {
+            <div class="mb-4">
+              <label class="block text-sm font-medium text-secondary-700 mb-1">Produit</label>
+              <select
+                [(ngModel)]="modalProductId"
+                name="productId"
+                required
+                class="w-full px-4 py-2 border border-secondary-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+              >
+                <option value="">Selectionnez un produit</option>
+                @for (product of products(); track product.id) {
+                  <option [value]="product.id">{{ product.name }} ({{ product.sku }})</option>
+                }
+              </select>
+            </div>
+          } @else {
+            <div class="mb-4 p-3 bg-secondary-50 rounded-lg">
+              <p class="font-medium text-secondary-900">{{ selectedItem()?.productName }}</p>
+              <p class="text-sm text-secondary-600">{{ selectedItem()?.productSku }}</p>
+            </div>
+          }
+          <div class="mb-4">
+            <label class="block text-sm font-medium text-secondary-700 mb-1">Quantite</label>
+            <input
+              type="number"
+              [(ngModel)]="modalQuantity"
+              name="quantity"
+              min="1"
+              required
+              class="w-full px-4 py-2 border border-secondary-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+            />
+          </div>
+          <div class="mb-4">
+            <label class="block text-sm font-medium text-secondary-700 mb-1">Reference (optionnel)</label>
+            <input
+              type="text"
+              [(ngModel)]="modalReference"
+              name="reference"
+              class="w-full px-4 py-2 border border-secondary-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+              placeholder="BL-2024-001"
+            />
+          </div>
+          <div class="mb-6">
+            <label class="block text-sm font-medium text-secondary-700 mb-1">Raison (optionnel)</label>
+            <input
+              type="text"
+              [(ngModel)]="modalReason"
+              name="reason"
+              class="w-full px-4 py-2 border border-secondary-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+              placeholder="Reception commande fournisseur"
+            />
+          </div>
+          <div class="flex justify-end gap-3">
+            <button
+              type="button"
+              (click)="closeModals()"
+              class="px-4 py-2 border border-secondary-300 text-secondary-700 rounded-lg hover:bg-secondary-50 transition-colors"
+            >
+              Annuler
+            </button>
+            <button
+              type="submit"
+              [disabled]="isSubmitting()"
+              class="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors disabled:opacity-50"
+            >
+              {{ isSubmitting() ? 'En cours...' : 'Ajouter' }}
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  }
+
+  <!-- Remove Stock Modal -->
+  @if (showRemoveStockModal()) {
+    <div class="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+      <div class="bg-white rounded-xl shadow-xl p-6 w-full max-w-md mx-4">
+        <h3 class="text-lg font-semibold text-secondary-900 mb-4">Sortie de stock</h3>
+        <form (ngSubmit)="removeStock()">
+          @if (!selectedItem()) {
+            <div class="mb-4">
+              <label class="block text-sm font-medium text-secondary-700 mb-1">Produit</label>
+              <select
+                [(ngModel)]="modalProductId"
+                name="productId"
+                required
+                class="w-full px-4 py-2 border border-secondary-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+              >
+                <option value="">Selectionnez un produit</option>
+                @for (item of stock(); track item.id) {
+                  <option [value]="item.productId">{{ item.productName }} ({{ item.productSku }}) - Dispo: {{ item.availableQuantity }}</option>
+                }
+              </select>
+            </div>
+          } @else {
+            <div class="mb-4 p-3 bg-secondary-50 rounded-lg">
+              <p class="font-medium text-secondary-900">{{ selectedItem()?.productName }}</p>
+              <p class="text-sm text-secondary-600">{{ selectedItem()?.productSku }} - Disponible: {{ selectedItem()?.availableQuantity }}</p>
+            </div>
+          }
+          <div class="mb-4">
+            <label class="block text-sm font-medium text-secondary-700 mb-1">Quantite</label>
+            <input
+              type="number"
+              [(ngModel)]="modalQuantity"
+              name="quantity"
+              min="1"
+              [max]="selectedItem()?.availableQuantity || 9999"
+              required
+              class="w-full px-4 py-2 border border-secondary-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+            />
+          </div>
+          <div class="mb-4">
+            <label class="block text-sm font-medium text-secondary-700 mb-1">Reference (optionnel)</label>
+            <input
+              type="text"
+              [(ngModel)]="modalReference"
+              name="reference"
+              class="w-full px-4 py-2 border border-secondary-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+              placeholder="CMD-2024-001"
+            />
+          </div>
+          <div class="mb-6">
+            <label class="block text-sm font-medium text-secondary-700 mb-1">Raison (optionnel)</label>
+            <input
+              type="text"
+              [(ngModel)]="modalReason"
+              name="reason"
+              class="w-full px-4 py-2 border border-secondary-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+              placeholder="Vente client"
+            />
+          </div>
+          <div class="flex justify-end gap-3">
+            <button
+              type="button"
+              (click)="closeModals()"
+              class="px-4 py-2 border border-secondary-300 text-secondary-700 rounded-lg hover:bg-secondary-50 transition-colors"
+            >
+              Annuler
+            </button>
+            <button
+              type="submit"
+              [disabled]="isSubmitting()"
+              class="px-4 py-2 bg-orange-600 text-white rounded-lg hover:bg-orange-700 transition-colors disabled:opacity-50"
+            >
+              {{ isSubmitting() ? 'En cours...' : 'Retirer' }}
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  }
+
+  <!-- Adjust Stock Modal -->
+  @if (showAdjustStockModal()) {
+    <div class="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+      <div class="bg-white rounded-xl shadow-xl p-6 w-full max-w-md mx-4">
+        <h3 class="text-lg font-semibold text-secondary-900 mb-4">Ajustement de stock</h3>
+        <form (ngSubmit)="adjustStock()">
+          <div class="mb-4 p-3 bg-secondary-50 rounded-lg">
+            <p class="font-medium text-secondary-900">{{ selectedItem()?.productName }}</p>
+            <p class="text-sm text-secondary-600">Stock actuel: {{ selectedItem()?.physicalQuantity }}</p>
+          </div>
+          <div class="mb-4">
+            <label class="block text-sm font-medium text-secondary-700 mb-1">Nouvelle quantite</label>
+            <input
+              type="number"
+              [(ngModel)]="modalNewQuantity"
+              name="newQuantity"
+              min="0"
+              required
+              class="w-full px-4 py-2 border border-secondary-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+            />
+          </div>
+          <div class="mb-6">
+            <label class="block text-sm font-medium text-secondary-700 mb-1">Raison</label>
+            <input
+              type="text"
+              [(ngModel)]="modalReason"
+              name="reason"
+              required
+              class="w-full px-4 py-2 border border-secondary-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+              placeholder="Inventaire physique"
+            />
+          </div>
+          <div class="flex justify-end gap-3">
+            <button
+              type="button"
+              (click)="closeModals()"
+              class="px-4 py-2 border border-secondary-300 text-secondary-700 rounded-lg hover:bg-secondary-50 transition-colors"
+            >
+              Annuler
+            </button>
+            <button
+              type="submit"
+              [disabled]="isSubmitting()"
+              class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors disabled:opacity-50"
+            >
+              {{ isSubmitting() ? 'En cours...' : 'Ajuster' }}
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  }
+
+  <!-- Movements Modal -->
+  @if (showMovementsModal()) {
+    <div class="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+      <div class="bg-white rounded-xl shadow-xl p-6 w-full max-w-2xl mx-4 max-h-[80vh] overflow-hidden flex flex-col">
+        <div class="flex items-center justify-between mb-4">
+          <h3 class="text-lg font-semibold text-secondary-900">
+            Historique - {{ selectedItem()?.productName }}
+          </h3>
+          <button
+            (click)="closeModals()"
+            class="p-2 text-secondary-500 hover:text-secondary-700 hover:bg-secondary-100 rounded-lg transition-colors"
+          >
+            &times;
+          </button>
+        </div>
+        @if (isLoadingMovements()) {
+          <div class="flex-1 flex items-center justify-center">
+            <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-primary-600"></div>
+          </div>
+        } @else if (movements().length === 0) {
+          <div class="flex-1 flex items-center justify-center">
+            <p class="text-secondary-600">Aucun mouvement enregistre</p>
+          </div>
+        } @else {
+          <div class="flex-1 overflow-y-auto">
+            <table class="w-full">
+              <thead class="bg-secondary-50 sticky top-0">
+                <tr>
+                  <th class="px-3 py-2 text-left text-xs font-medium text-secondary-700">Date</th>
+                  <th class="px-3 py-2 text-left text-xs font-medium text-secondary-700">Type</th>
+                  <th class="px-3 py-2 text-center text-xs font-medium text-secondary-700">Qte</th>
+                  <th class="px-3 py-2 text-center text-xs font-medium text-secondary-700">Avant</th>
+                  <th class="px-3 py-2 text-center text-xs font-medium text-secondary-700">Apres</th>
+                  <th class="px-3 py-2 text-left text-xs font-medium text-secondary-700">Raison</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-secondary-200">
+                @for (movement of movements(); track movement.id) {
+                  <tr class="hover:bg-secondary-50">
+                    <td class="px-3 py-2 text-sm text-secondary-600">
+                      {{ formatDate(movement.createdAt) }}
+                    </td>
+                    <td class="px-3 py-2">
+                      <span
+                        class="px-2 py-1 text-xs font-medium rounded-full"
+                        [ngClass]="inventoryService.getMovementTypeClass(movement.type)"
+                      >
+                        {{ inventoryService.getMovementTypeLabel(movement.type) }}
+                      </span>
+                    </td>
+                    <td class="px-3 py-2 text-center text-sm font-medium">
+                      {{ movement.type === 'OUT' ? '-' : '+' }}{{ movement.quantity }}
+                    </td>
+                    <td class="px-3 py-2 text-center text-sm text-secondary-600">
+                      {{ movement.quantityBefore }}
+                    </td>
+                    <td class="px-3 py-2 text-center text-sm text-secondary-600">
+                      {{ movement.quantityAfter }}
+                    </td>
+                    <td class="px-3 py-2 text-sm text-secondary-600">
+                      {{ movement.reason || movement.reference || '-' }}
+                    </td>
+                  </tr>
+                }
+              </tbody>
+            </table>
+          </div>
+        }
+      </div>
+    </div>
+  }
+</div>

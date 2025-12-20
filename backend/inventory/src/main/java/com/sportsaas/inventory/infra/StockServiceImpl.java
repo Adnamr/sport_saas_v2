@@ -8,6 +8,8 @@ import com.sportsaas.inventory.domain.*;
 import com.sportsaas.tenant.domain.TenantContext;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -28,6 +30,11 @@ public class StockServiceImpl implements StockService {
     private final StockItemRepository stockItemRepository;
     private final StockMovementRepository stockMovementRepository;
     private final ProductRepository productRepository;
+
+    @Override
+    public Page<StockItem> findAll(Pageable pageable) {
+        return stockItemRepository.findAll(pageable);
+    }
 
     @Override
     public Optional<StockItem> findByProductId(UUID productId) {

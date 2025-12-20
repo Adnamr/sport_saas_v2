@@ -9,8 +9,11 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -20,10 +23,19 @@ import java.util.UUID;
 @RequestMapping("/api/inventory")
 @Tag(name = "Inventory", description = "Gestion du stock")
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
 public class InventoryController {
 
     private final StockService stockService;
     private final InventoryMapper inventoryMapper;
+
+    @GetMapping
+    @Operation(summary = "Lister tous les stocks")
+    @PreAuthorize("hasAnyRole('TENANT_ADMIN', 'EMPLOYEE')")
+    public ResponseEntity<Page<StockItemResponse>> list(Pageable pageable) {
+        Page<StockItem> page = stockService.findAll(pageable);
+        return ResponseEntity.ok(page.map(inventoryMapper::toStockItemResponse));
+    }
 
     @GetMapping("/products/{productId}")
     @Operation(summary = "Recuperer le stock d'un produit")
@@ -52,6 +64,7 @@ public class InventoryController {
     @PostMapping("/add")
     @Operation(summary = "Ajouter du stock")
     @PreAuthorize("hasAnyRole('TENANT_ADMIN', 'EMPLOYEE')")
+    @Transactional
     public ResponseEntity<StockItemResponse> addStock(@Valid @RequestBody AddStockRequest request) {
         StockItem stockItem = stockService.addStock(
                 request.getProductId(),
@@ -65,6 +78,7 @@ public class InventoryController {
     @PostMapping("/remove")
     @Operation(summary = "Retirer du stock")
     @PreAuthorize("hasAnyRole('TENANT_ADMIN', 'EMPLOYEE')")
+    @Transactional
     public ResponseEntity<StockItemResponse> removeStock(@Valid @RequestBody RemoveStockRequest request) {
         StockItem stockItem = stockService.removeStock(
                 request.getProductId(),
@@ -78,6 +92,7 @@ public class InventoryController {
     @PostMapping("/adjust")
     @Operation(summary = "Ajuster le stock (inventaire)")
     @PreAuthorize("hasRole('TENANT_ADMIN')")
+    @Transactional
     public ResponseEntity<StockItemResponse> adjustStock(@Valid @RequestBody AdjustStockRequest request) {
         StockItem stockItem = stockService.adjustStock(
                 request.getProductId(),
@@ -90,6 +105,7 @@ public class InventoryController {
     @PutMapping("/products/{productId}/settings")
     @Operation(summary = "Mettre a jour les parametres de stock")
     @PreAuthorize("hasAnyRole('TENANT_ADMIN', 'EMPLOYEE')")
+    @Transactional
     public ResponseEntity<StockItemResponse> updateSettings(
             @PathVariable UUID productId,
             @Valid @RequestBody UpdateStockSettingsRequest request) {

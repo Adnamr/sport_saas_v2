@@ -42,4 +42,8 @@ export class LoginComponent {
       },
     });
   }
+
+  get f() {
+    return this.loginForm.controls;
+  }
 }

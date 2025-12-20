@@ -8,7 +8,7 @@ import {
   AbstractControl,
   ValidationErrors,
 } from '@angular/forms';
-import { Router, RouterLink } from '@angular/router';
+import { RouterLink } from '@angular/router';
 import { AuthService } from '../../../core/services/auth.service';
 
 @Component({
@@ -25,8 +25,7 @@ export class RegisterComponent {
 
   constructor(
     private readonly fb: FormBuilder,
-    private readonly authService: AuthService,
-    private readonly router: Router
+    private readonly authService: AuthService
   ) {
     this.registerForm = this.fb.group(
       {
@@ -45,9 +44,13 @@ export class RegisterComponent {
     const password = control.get('password');
     const confirmPassword = control.get('confirmPassword');
 
-    if (password && confirmPassword && password.value !== confirmPassword.value) {
-      confirmPassword.setErrors({ passwordMismatch: true });
-      return { passwordMismatch: true };
+    if (password && confirmPassword) {
+      if (password.value !== confirmPassword.value) {
+        confirmPassword.setErrors({ passwordMismatch: true });
+        return { passwordMismatch: true };
+      } else if (confirmPassword.hasError('passwordMismatch')) {
+        confirmPassword.setErrors(null);
+      }
     }
     return null;
   }

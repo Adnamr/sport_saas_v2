@@ -27,7 +27,11 @@
             formControlName="email"
             class="mt-1 block w-full px-3 py-2 border border-secondary-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
             placeholder="votre@email.com"
+            [class.border-red-500]="f['email'].invalid && f['email'].touched"
           />
+          @if (f['email'].invalid && f['email'].touched) {
+            <p class="mt-1 text-sm text-red-600">Email invalide</p>
+          }
         </div>
 
         <div>
@@ -40,7 +44,11 @@
             formControlName="password"
             class="mt-1 block w-full px-3 py-2 border border-secondary-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
             placeholder="••••••••"
+            [class.border-red-500]="f['password'].invalid && f['password'].touched"
           />
+          @if (f['password'].invalid && f['password'].touched) {
+            <p class="mt-1 text-sm text-red-600">Mot de passe requis (min. 6 caracteres)</p>
+          }
         </div>
       </div>
 

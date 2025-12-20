@@ -50,9 +50,13 @@ export class ResetPasswordComponent implements OnInit {
     const password = control.get('password');
     const confirmPassword = control.get('confirmPassword');
 
-    if (password && confirmPassword && password.value !== confirmPassword.value) {
-      confirmPassword.setErrors({ passwordMismatch: true });
-      return { passwordMismatch: true };
+    if (password && confirmPassword) {
+      if (password.value !== confirmPassword.value) {
+        confirmPassword.setErrors({ passwordMismatch: true });
+        return { passwordMismatch: true };
+      } else if (confirmPassword.hasError('passwordMismatch')) {
+        confirmPassword.setErrors(null);
+      }
     }
     return null;
   }
